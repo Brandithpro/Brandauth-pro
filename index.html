@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>BrandAuth PRO | SaaS Oficial v22.0</title>
+<title>BrandAuth PRO | SaaS Oficial v22.1</title>
 <style>
     :root {
         --bg: #070913;
@@ -83,7 +83,7 @@
     <div class="logo-title">
         <span>⚡</span> BrandAuth <span>PRO</span>
     </div>
-    <span class="badge">SaaS v22.0 (Autônomo)</span>
+    <span class="badge">SaaS v22.1 (Autônomo)</span>
 </div>
 
 <div class="tabs">
@@ -97,39 +97,39 @@
 <div class="container">
 
     <!-- ABA 1: DIAGNÓSTICO -->
-    <div id="tab-diagnostico" class="tab-content active">
+    <div id="diagnostico" class="tab-content active" style="display: block;">
         <div class="card">
             <h2>Diagnóstico & Contexto do Profissional</h2>
             <p class="sub">Indique as observações reais. O sistema gerará o cronograma completo de 30 dias alternando entre Reels e Posts Fixos.</p>
 
             <div class="form-group">
                 <label>1. Profissão ou Especialidade</label>
-                <input id="inp-prof" type="text" placeholder="Ex: Sacolão / Hortifrúti">
+                <input id="inp-prof" type="text" placeholder="Ex: Loteamento">
             </div>
 
             <div class="form-group">
                 <label>2. Sua Cidade / Região</label>
-                <input id="inp-cid" type="text" placeholder="Ex: Montes Claros - MG">
+                <input id="inp-cid" type="text" placeholder="Ex: Monte Azul MG">
             </div>
 
             <div class="form-group">
                 <label>3. Serviço Principal (Carro-Chefe)</label>
-                <input id="inp-prod" type="text" placeholder="Ex: Hortaliças fresquinhas e entrega rápida">
+                <input id="inp-prod" type="text" placeholder="Ex: Venda de lotes">
             </div>
 
             <div class="form-group">
                 <label>4. Objeções comuns que o cliente tem</label>
-                <input id="inp-obj" type="text" placeholder="Ex: Preço ou preferir o supermercado grande">
+                <input id="inp-obj" type="text" placeholder="Ex: Localização e preços">
             </div>
 
             <div class="form-group">
                 <label>5. Maior Dor ou Prejuízo Real</label>
-                <textarea id="inp-dor" rows="2" placeholder="Ex: Comprar legume murcho no mercado e jogar dinheiro fora..."></textarea>
+                <textarea id="inp-dor" rows="2" placeholder="Ex: Loteamento parado e sem venda..."></textarea>
             </div>
 
             <div class="form-group">
                 <label>6. Onde o profissional grava?</label>
-                <input id="inp-cen" type="text" placeholder="Ex: No próprio estabelecimento">
+                <input id="inp-cen" type="text" placeholder="Ex: Loteamento">
             </div>
 
             <button id="btn-gerar-master" class="btn-primary">🧠 Gerar Plano Completo de 30 Dias</button>
@@ -137,7 +137,7 @@
     </div>
 
     <!-- ABA 2: DOSSIÊ E BIO -->
-    <div id="tab-dossie" class="tab-content">
+    <div id="dossie" class="tab-content" style="display: none;">
         <div class="card">
             <span class="tag tag-amber">Estudo Estratégico de Posicionamento</span>
             <h3>Análise de Mercado</h3>
@@ -152,7 +152,7 @@
     </div>
 
     <!-- ABA 3: CRONOGRAMA DE 30 DIAS -->
-    <div id="tab-calendario" class="tab-content">
+    <div id="calendario" class="tab-content" style="display: none;">
         <div class="card">
             <h2>Cronograma Estratégico (30 Dias)</h2>
             <p class="sub">Alternância inteligente entre Roteiros de Vídeo (Reels) e Posts Fixos/Carrosséis. Toque em qualquer dia:</p>
@@ -161,7 +161,7 @@
     </div>
 
     <!-- ABA 4: ESTÚDIO & TELEPROMPTER -->
-    <div id="tab-estudio" class="tab-content">
+    <div id="tab-estudio" class="tab-content" style="display: none;">
         <div class="card">
             <span id="st-tag" class="tag tag-amber">Detalhes do Dia</span>
             <h2 id="st-title">Nenhum conteúdo selecionado</h2>
@@ -181,7 +181,7 @@
     </div>
 
     <!-- ABA 5: SUPORTE / VENDAS -->
-    <div id="tab-upsell" class="tab-content">
+    <div id="upsell" class="tab-content" style="display: none;">
         <div class="card" style="border-color: var(--amber);">
             <span class="tag tag-amber">Suporte Avançado</span>
             <h2>🚀 Quer expandir seus resultados?</h2>
@@ -222,19 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function openTab(id, btn) {
-    document.querySelectorAll('.tab-content').forEach(e => e.classList.add('hidden') || e.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(e => e.classList.remove('active'));
-    const target = document.getElementById(id);
-    if(target) {
-        target.classList.remove('hidden');
-        target.classList.add('active');
-    }
-    if (btn) btn.classList.add('active');
-    window.scrollTo(0, 0);
-}
-
-// Correção robusta para alternância de abas
-function openTab(id, btn) {
     document.querySelectorAll('.tab-content').forEach(el => {
         el.style.display = 'none';
     });
@@ -272,13 +259,12 @@ async function executarMotorAutonomo() {
     overlay.style.display = 'flex';
     txt.textContent = `A analisar o posicionamento para ${prof}...`;
 
-    await new Promise(r => setTimeout(r, 1200));
+    await new Promise(r => setTimeout(r, 1000));
 
-    // Motor autônomo sênior de alta performance estruturado por nicho
     document.getElementById('out-pos').innerHTML = `
         <b>Estratégia de Posicionamento Exclusiva para ${prof} em ${cid}:</b><br><br>
         • <b>A Tese do Negócio:</b> O seu diferencial competitivo em ${cid} com <b>${prod}</b> não é apenas a venda comum, mas sim combater a barreira de <i>"${obj}"</i> provando que a escolha errada gera o prejuízo de <i>"${dor}"</i>.<br><br>
-        • <b>Linha Editorial:</b> Conteúdos focados em autoridade prática, demonstrando bastidores, frescura/qualidade e eliminando qualquer comparação rasa de preço.
+        • <b>Linha Editorial:</b> Conteúdos focados em autoridade prática, demonstrando bastidores, valor e eliminando qualquer comparação rasa de preço.
     `;
 
     const bios = [
@@ -293,7 +279,6 @@ async function executarMotorAutonomo() {
         </div>
     `).join('');
 
-    // Cronograma dinâmico de 30 dias gerado sintaticamente sem falhas de API externa
     days = [
         {
             dia: "Dia 01 • Reels (Vídeo)",
@@ -301,12 +286,12 @@ async function executarMotorAutonomo() {
             cls: "tag-rose",
             tipo: "Reels (Vídeo)",
             titulo: `O erro de escolher ${prod} pensando apenas em "${obj}"`,
-            conteudo: `[00:00 - 00:06 | Gancho Sênior]\n"Você já parou para pensar que tentar economizar escolhendo ${prod} baseando-se apenas em '${obj}' costuma sair muito mais caro no fim do mês?"\n\n[00:06 - 00:35 | Desenvolvimento Analítico]\n"No mercado atual, é fácil encontrar opções aparentes mais baratas. O problema é que quando você ignora a qualidade, acaba por enfrentar ${dor}. A escolha inteligente foca-se no valor real e na durabilidade, evitando frustrações desnecessárias."\n\n[00:35 - 00:50 | Conversão Comercial]\n"Invista no que realmente funciona e traga tranquilidade para a sua rotina. Clica no link da bio e garante o teu pedido ou atendimento."`,
+            conteudo: `[00:00 - 00:06 | Gancho Sênior]\n"Você já parou para pensar que tentar negociar ou recusar ${prod} baseando-se apenas em '${obj}' costuma custar muito mais caro no fim das contas?"\n\n[00:06 - 00:35 | Desenvolvimento Analítico]\n"No mercado atual, é fácil focar apenas na barreira superficial. O problema é que quando você ignora a segurança e a valorização, acaba por enfrentar ${dor}. A escolha inteligente foca-se no potencial de valorização e na solidez, evitando frustrações desnecessárias."\n\n[00:35 - 00:50 | Conversão Comercial]\n"Invista no que realmente traz retorno seguro e patrimônio sólido. Clica no link da bio e agenda o teu atendimento."`,
             acao: `Grave ${cen} com tom de autoridade sênior.`,
             stories: [
-                "STORY 1: Enquete: 'Você prefere priorizar preço ou qualidade em ${prod}?' [Preço / Qualidade]",
-                "STORY 2: Vídeo de bastidor mostrando o cuidado diário na operação.",
-                "STORY 3: Caixinha de perguntas: 'Qual a sua maior dúvida sobre o nosso serviço?'",
+                "STORY 1: Enquete: 'Você avalia mais o potencial ou a barreira em ${prod}?' [Potencial / Barreira]",
+                "STORY 2: Vídeo de bastidor mostrando a região ou o empreendimento.",
+                "STORY 3: Caixinha de perguntas: 'Qual a sua maior dúvida sobre o nosso projeto?'",
                 "STORY 4: Chamada direta para o WhatsApp com link na tela."
             ]
         },
@@ -315,13 +300,13 @@ async function executarMotorAutonomo() {
             tag: "🎨 Post Fixo / Carrossel",
             cls: "tag-amber",
             tipo: "Post Fixo / Carrossel",
-            titulo: `3 motivos pelos quais ${prod} de qualidade evita dores de cabeça`,
-            conteudo: `[ESTRUTURA DO CARROSSEL DE 4 LÂMINAS]\n\n• Lâmina 1 (Capa): "O preço oculto de abrir mão da excelência em ${prod}."\n• Lâmina 2: "Motivo 1: A segurança de contar com rigor e frescura/padrão absoluto em cada detalhe."\n• Lâmina 3: "Motivo 2: Zero stresse com imprevistos causados por amadorismo."\n• Lâmina 4 (CTA): "Faça como os nossos clientes em ${cid}. Toque no link da Bio para pedir o seu."\n\n[LEGENDA PARA O FEED]\n"Muitas pessoas só percebem a importância de escolher um bom parceiro quando enfrentam ${dor}. Aqui em ${cid}, o nosso compromisso com ${prod} é inegociável. Clica no link do perfil e fala connosco!"`,
+            titulo: `3 motivos pelos quais investir em ${prod} transforma o seu futuro`,
+            conteudo: `[ESTRUTURA DO CARROSSEL DE 4 LÂMINAS]\n\n• Lâmina 1 (Capa): "O verdadeiro impacto de garantir ${prod} com segurança."\n• Lâmina 2: "Motivo 1: A valorização garantida e o crescimento estruturado na região de ${cid}."\n• Lâmina 3: "Motivo 2: Zero stresse com burocracias e suporte completo do início ao fim."\n• Lâmina 4 (CTA): "Faça um investimento inteligente. Toque no link da Bio para saber mais."\n\n[LEGENDA PARA O FEED]\n"Muitas pessoas perdem excelentes oportunidades por hesitação. Aqui em ${cid}, o nosso compromisso com ${prod} é transformar o seu capital em solidez. Clica no link do perfil!"`,
             acao: "Publicar carrossel educativo no Feed.",
             stories: [
                 "STORY 1: Print da lâmina 1 do carrossel com sticker de 'Novo Post'.",
-                "STORY 2: Reflexão rápida sobre o valor de contar com profissionais dedicados.",
-                "STORY 3: Enquete interativa sobre a rotina dos clientes.",
+                "STORY 2: Reflexão rápida sobre planejamento e investimento seguro.",
+                "STORY 3: Enquete interativa sobre planos para o ano.",
                 "STORY 4: Direcionamento direto para o post fixo."
             ]
         },
@@ -330,12 +315,12 @@ async function executarMotorAutonomo() {
             tag: "🎥 Roteiro Reels",
             cls: "tag-rose",
             tipo: "Reels (Vídeo)",
-            titulo: `Até quando você vai conviver com ${dor}?`,
-            conteudo: `[00:00 - 00:06 | Gancho Sênior]\n"Deixa-me fazer-te uma pergunta sincera: até quando vais continuar a aceitar passar por ${dor} sem procurar uma solução definitiva em ${cid}?"\n\n[00:06 - 00:35 | Desenvolvimento Analítico]\n"A rotina faz-nos normalizar o stresse e os pequenos problemas do dia a dia. Só que continuar a ignorar isso só desgasta a sua paciência. Contar com ${prod} serve exatamente para eliminar esse peso da sua rotina de forma prática e rápida."\n\n[00:35 - 00:50 | Conversão Comercial]\n"Você merece comodidade e excelência. Envia uma mensagem direta ou clica no link da bio para garantir o seu atendimento."`,
+            titulo: `Até quando você vai deixar ${dor} travar os seus planos?`,
+            conteudo: `[00:00 - 00:06 | Gancho Sênior]\n"Deixa-me fazer-te uma pergunta sincera: até quando vais continuar a aceitar ver ${dor} sem procurar uma solução definitiva em ${cid}?"\n\n[00:06 - 00:35 | Desenvolvimento Analítico]\n"A hesitação faz-nos perder o timing das melhores oportunidades. Só que continuar a ignorar o potencial de ${prod} só atrasa a sua conquista. Contar com especialistas serve exatamente para eliminar esse peso da sua decisão."\n\n[00:35 - 00:50 | Conversão Comercial]\n"Você merece segurança e solidez. Envia uma mensagem direta ou clica no link da bio para garantir a sua oportunidade."`,
             acao: `Grave ${cen} com tom de autoridade sênior.`,
             stories: [
-                "STORY 1: Enquete: 'O quanto ${dor} afeta a sua semana?' [Muito / Pouco]",
-                "STORY 2: Bastidor leve e dinâmico do estabelecimento.",
+                "STORY 1: Enquete: 'O quanto ${dor} afeta os seus planos?' [Muito / Pouco]",
+                "STORY 2: Bastidor leve e dinâmico da região ou escritório.",
                 "STORY 3: Caixinha de feedback de clientes satisfeitos.",
                 "STORY 4: Chamada para conversão no WhatsApp."
             ]
@@ -345,12 +330,12 @@ async function executarMotorAutonomo() {
             tag: "🎨 Post Fixo / Carrossel",
             cls: "tag-amber",
             tipo: "Post Fixo / Carrossel",
-            titulo: `Bastidores: Como garantimos o melhor padrão em ${prod}`,
-            conteudo: `[ESTRUTURA DO CARROSSEL DE 3 LÂMINAS]\n\n• Lâmina 1 (Capa): "O que acontece nos bastidores antes de ${prod} chegar até si?"\n• Lâmina 2: "Rigoroza seleção, cuidado artesanal e controle total de qualidade em ${cid}."\n• Lâmina 3 (CTA): "Exclusividade e dedicação que você sente na primeira experiência. Agende hoje!"\n\n[LEGENDA PARA O FEED]\n"Transparência e dedicação são os pilares do nosso negócio. Conheça de perto a nossa estrutura e veja por que somos referência em ${prod}. Clica no link da Bio!"`,
-            acao: "Publicar carrossel de bastidores.",
+            titulo: `Bastidores: A infraestrutura por trás de ${prod}`,
+            conteudo: `[ESTRUTURA DO CARROSSEL DE 3 LÂMINAS]\n\n• Lâmina 1 (Capa): "O que torna ${prod} um marco de desenvolvimento em ${cid}?"\n• Lâmina 2: "Planeamento urbano, infraestrutura completa e padrão de excelência."\n• Lâmina 3 (CTA): "Garanta o seu espaço com condições exclusivas. Toque no link da Bio!"\n\n[LEGENDA PARA O FEED]\n"Desenvolvimento e solidez caminham lado a lado. Conheça de perto o nosso projeto em ${cid} e surpreenda-se com ${prod}. Clica no link da Bio!"`,
+            acao: "Publicar carrossel de infraestrutura.",
             stories: [
-                "STORY 1: Sticker de contagem regressiva para novidades.",
-                "STORY 2: Bastidores em formato de foto rápida.",
+                "STORY 1: Sticker de contagem regressiva para liberação de lotes/fases.",
+                "STORY 2: Fotos panorâmicas do local.",
                 "STORY 3: Chamada para o carrossel fixado no feed."
             ]
         },
@@ -359,12 +344,12 @@ async function executarMotorAutonomo() {
             tag: "🎥 Roteiro Reels",
             cls: "tag-rose",
             tipo: "Reels (Vídeo)",
-            titulo: `O segredo da nossa autoridade em ${cid} com ${prod}`,
-            conteudo: `[00:00 - 00:06 | Gancho Sênior]\n"Se você quer saber o que realmente torna ${prod} a escolha número um em ${cid}, o segredo não é marketing, é consistência."\n\n[00:06 - 00:35 | Desenvolvimento Analítico]\n"Enquanto soluções amadoras oscilam na qualidade, nós mantemos um padrão rígido para que você nunca precise se preocupar com ${dor}. Confiança constrói-se com entregas reais e sem falhas."\n\n[00:35 - 00:50 | Conversão Comercial]\n"Experimente o padrão de excelência que você merece. Clica no link do perfil e fala connosco."`,
+            titulo: `O segredo da valorização em ${cid} com ${prod}`,
+            conteudo: `[00:00 - 00:06 | Gancho Sênior]\n"Se você quer saber o que realmente torna ${prod} a melhor escolha em ${cid}, o segredo não é sorte, é localização e planeamento."\n\n[00:06 - 00:35 | Desenvolvimento Analítico]\n"Enquanto investimentos comuns perdem força, áreas planejadas multiplicam o valor do seu património para que você nunca sofra com ${dor}. Segurança constrói-se com visão de futuro."\n\n[00:35 - 00:50 | Conversão Comercial]\n"Garanta o seu lote com quem entende de valorização. Clica no link do perfil e fala connosco."`,
             acao: `Grave ${cen} com tom de autoridade sênior.`,
             stories: [
-                "STORY 1: Enquete de opinião sobre atendimento local.",
-                "STORY 2: Foto com o equipo/espaço de trabalho.",
+                "STORY 1: Enquete sobre investimentos seguros na região.",
+                "STORY 2: Foto com o mapa ou maquete do projeto.",
                 "STORY 3: Caixinha de interações livres.",
                 "STORY 4: Link direto para o WhatsApp."
             ]
@@ -375,7 +360,7 @@ async function executarMotorAutonomo() {
             cls: "tag-amber",
             tipo: "Post Fixo / Carrossel",
             titulo: `Perguntas Frequentes sobre ${prod}: Respondemos a tudo!`,
-            conteudo: `[ESTRUTURA DO CARROSSEL DE 4 LÂMINAS]\n\n• Lâmina 1 (Capa): "Tudo o que você precisa saber sobre ${prod} em ${cid}."\n• Lâmina 2: "Como funciona a entrega/atendimento? (Rápido, seguro e sem burocracia)."\n• Lâmina 3: "Quais as formas de pagamento e garantias? (Facilidade e total segurança)."\n• Lâmina 4 (CTA): "Ficou com alguma dúvida? Manda mensagem no Direct!"\n\n[LEGENDA PARA O FEED]\n"Reunimos as dúvidas mais comuns dos nossos clientes num só lugar para facilitar a sua decisão. Confira o carrossel e conte connosco!"`,
+            conteudo: `[ESTRUTURA DO CARROSSEL DE 4 LÂMINAS]\n\n• Lâmina 1 (Capa): "Tudo o que você precisa saber para investir em ${prod} em ${cid}."\n• Lâmina 2: "Como funcionam as facilidades de pagamento? (Planos adaptados ao seu bolso)."\n• Lâmina 3: "A documentação é 100% regularizada? (Segurança jurídica total)."\n• Lâmina 4 (CTA): "Ficou com alguma dúvida? Manda mensagem no Direct!"\n\n[LEGENDA PARA O FEED]\n"Reunimos as dúvidas mais comuns dos nossos investidores e futuros moradores num só lugar. Confira o carrossel e fale connosco!"`,
             acao: "Publicar carrossel de FAQ.",
             stories: [
                 "STORY 1: Print da lâmina de perguntas frequentes.",
@@ -387,12 +372,12 @@ async function executarMotorAutonomo() {
             tag: "🎥 Roteiro Reels",
             cls: "tag-rose",
             tipo: "Reels (Vídeo)",
-            titulo: `Por que o barato sai caro ao escolher ${prod}`,
-            conteudo: `[00:00 - 00:06 | Gancho Sênior]\n"Parece tentador escolher a opção mais barata do mercado para ${prod}, mas deixe-me abrir os seus olhos para o prejuízo oculto disso."\n\n[00:06 - 00:35 | Desenvolvimento Analítico]\n"Quando o preço é absurdamente abaixo da média, cortam-se custos na origem, na segurança ou no atendimento. O resultado? Você gasta duas vezes e ainda passa por ${dor}. O verdadeiro investimento é aquele que traz paz de espírito."\n\n[00:35 - 00:50 | Conversão Comercial]\n"Valorize o seu dinheiro e o seu tempo. Clica no link da bio e faça um pedido seguro."`,
+            titulo: `Por que hesitar em ${prod} pode fazer você perder a melhor oportunidade`,
+            conteudo: `[00:00 - 00:06 | Gancho Sênior]\n"Parece seguro esperar para ver o que acontece, mas deixar de aproveitar ${prod} no momento certo faz você perder os lotes mais bem localizados."\n\n[00:06 - 00:35 | Desenvolvimento Analítico]\n"As melhores oportunidades de valorização têm alta procura. Quando você hesita por causa de detalhes menores, outra pessoa assegura o futuro da família. Decisão rápida é sinónimo de património garantido."\n\n[00:35 - 00:50 | Conversão Comercial]\n"Não perca a chance de garantir o seu lugar. Clica no link da bio e assegure o seu lote."`,
             acao: `Grave ${cen} com tom de autoridade sênior.`,
             stories: [
-                "STORY 1: Enquete: 'Já teve prejuízo por comprar o mais barato?' [Sim / Não]",
-                "STORY 2: Reflexão rápida em vídeo selfie.",
+                "STORY 1: Enquete: 'Você costuma decidir rápido ou pondera muito?' [Decido rápido / Pondero]",
+                "STORY 2: Reflexão rápida em vídeo.",
                 "STORY 3: Caixinha de opiniões.",
                 "STORY 4: Chamada para conversão."
             ]
@@ -402,11 +387,11 @@ async function executarMotorAutonomo() {
             tag: "🎨 Post Fixo / Carrossel",
             cls: "tag-amber",
             tipo: "Post Fixo / Carrossel",
-            titulo: `Prova Social: O que dizem os nossos clientes em ${cid}`,
-            conteudo: `[ESTRUTURA DO CARROSSEL DE 3 LÂMINAS]\n\n• Lâmina 1 (Capa): "Histórias reais de quem confia no nosso trabalho."\n• Lâmina 2: "Prints e relatos de satisfação com ${prod}."\n• Lâmina 3 (CTA): "Junte-se aos nossos clientes satisfeitos. Toque no link da Bio!"\n\n[LEGENDA PARA O FEED]\n"A nossa maior recompensa é ver a satisfação de quem confia na nossa dedicação diária. Obrigado pela parceria de sempre!"`,
+            titulo: `Depoimentos: O orgulho de quem já garantiu o seu espaço em ${cid}`,
+            conteudo: `[ESTRUTURA DO CARROSSEL DE 3 LÂMINAS]\n\n• Lâmina 1 (Capa): "Histórias reais de quem confiou no nosso projeto."\n• Lâmina 2: "Prints e relatos de satisfação com ${prod}."\n• Lâmina 3 (CTA): "Seja o próximo a construir o seu futuro. Toque no link da Bio!"\n\n[LEGENDA PARA O FEED]\n"Ver os nossos clientes realizados é a nossa maior motivação. Conheça quem já deu o passo rumo à conquista do terreno próprio!"`,
             acao: "Publicar carrossel de depoimentos.",
             stories: [
-                "STORY 1: Print de elogio no WhatsApp.",
+                "STORY 1: Print de agradecimento de cliente.",
                 "STORY 2: Chamada para o post de prova social."
             ]
         },
@@ -415,12 +400,12 @@ async function executarMotorAutonomo() {
             tag: "🎥 Roteiro Reels",
             cls: "tag-rose",
             tipo: "Reels (Vídeo)",
-            titulo: `O compromisso que temos com você em ${cid}`,
-            conteudo: `[00:00 - 00:06 | Gancho Sênior]\n"Mais do que vender ${prod}, o nosso compromisso em ${cid} é garantir que você nunca mais passe por ${dor}."\n\n[00:06 - 00:35 | Desenvolvimento Analítico]\n"Trabalhamos incansavelmente para que cada detalhe do nosso serviço exceda as suas expectativas. É por isso que construímos relações de longo prazo com quem nos escolhe."\n\n[00:35 - 00:50 | Conversão Comercial]\n"Experimente um atendimento que coloca você em primeiro lugar. Clica no link do perfil."`,
+            titulo: `O compromisso que temos com o seu futuro em ${cid}`,
+            conteudo: `[00:00 - 00:06 | Gancho Sênior]\n"Mais do que comercializar ${prod}, o nosso compromisso em ${cid} é entregar um ambiente seguro para você construir a sua história."\n\n[00:06 - 00:35 | Desenvolvimento Analítico]\n"Trabalhamos com seriedade e transparência jurídica para que você realize o seu sonho sem nenhuma dor de cabeça ou risco de ${dor}."\n\n[00:35 - 00:50 | Conversão Comercial]\n"Invista com quem respeita o seu sonho. Clica no link do perfil."`,
             acao: `Grave ${cen} com tom de autoridade sênior.`,
             stories: [
-                "STORY 1: Mensagem de bom dia com foco na qualidade.",
-                "STORY 2: Bastidores do atendimento ao cliente."
+                "STORY 1: Mensagem com foco na segurança e solidez.",
+                "STORY 2: Bastidores da equipe de atendimento."
             ]
         },
         {
@@ -428,11 +413,11 @@ async function executarMotorAutonomo() {
             tag: "🎨 Post Fixo / Carrossel",
             cls: "tag-amber",
             tipo: "Post Fixo / Carrossel",
-            titulo: `Como ${prod} resolve o seu problema em minutos`,
-            conteudo: `[ESTRUTURA DO CARROSSEL DE 3 LÂMINAS]\n\n• Lâmina 1 (Capa): "Praticidade e agilidade para o seu dia a dia."\n• Lâmina 2: "Processo simplificado: pediu, chegou, resolveu."\n• Lâmina 3 (CTA): "Peça agora mesmo através do link da Bio."\n\n[LEGENDA PARA O FEED]\n"Facilitamos a sua rotina para que você tenha mais tempo para o que realmente importa. Confira os detalhes e faça o seu pedido!"`,
-            acao: "Publicar carrossel prático.",
+            titulo: `Facilidade e segurança para conquistar ${prod}`,
+            conteudo: `[ESTRUTURA DO CARROSSEL DE 3 LÂMINAS]\n\n• Lâmina 1 (Capa): "O terreno próprio está mais próximo do que imagina."\n• Lâmina 2: "Condições facilitadas e atendimento personalizado para ${cid}."\n• Lâmina 3 (CTA): "Fale com os nossos consultores pelo link da Bio."\n\n[LEGENDA PARA O FEED]\n"Temos opções pensadas para o seu momento financeiro. Dê o primeiro rumo ao seu património. Confira os detalhes!"`,
+            acao: "Publicar carrossel de facilidades.",
             stories: [
-                "STORY 1: Chamada rápida para a facilidade do serviço.",
+                "STORY 1: Chamada rápida para as condições de pagamento.",
                 "STORY 2: Link direto para o atendimento."
             ]
         },
@@ -441,12 +426,12 @@ async function executarMotorAutonomo() {
             tag: "🎥 Roteiro Reels",
             cls: "tag-rose",
             tipo: "Reels (Vídeo)",
-            titulo: `O perigo de ignorar os sinais e sofrer com ${dor}`,
-            conteudo: `[00:00 - 00:06 | Gancho Sênior]\n"Você percebe que está na hora de resolver isto, mas continua a adiar? Cuidado, porque ignorar ${dor} só traz dor de cabeça."\n\n[00:06 - 00:35 | Desenvolvimento Analítico]\n"Antecipar-se aos problemas é a melhor forma de economizar tempo e dinheiro. Com o nosso suporte em ${prod}, tratamos de tudo para si com máxima eficiência."\n\n[00:35 - 00:50 | Conversão Comercial]\n"Não deixe para a última hora. Clica no link da bio e fale connosco."`,
+            titulo: `O perigo de deixar o dinheiro parado e perder ${prod}`,
+            conteudo: `[00:00 - 00:06 | Gancho Sênior]\n"Manter o dinheiro parado na poupança enquanto ${cid} valoriza a passos largos é o mesmo que perder dinheiro todos os dias."\n\n[00:06 - 00:35 | Desenvolvimento Analítico]\n"Investir em terra firme e planeada é a blindagem perfeita contra inflação e perdas financeiras. Com ${prod}, o seu capital trabalha por si e multiplica-se."\n\n[00:35 - 00:50 | Conversão Comercial]\n"Faça o seu dinheiro render de verdade. Clica no link da bio e saiba como."`,
             acao: `Grave ${cen} com tom de autoridade sênior.`,
             stories: [
-                "STORY 1: Enquete de prevenção e organização.",
-                "STORY 2: Dica rápida de utilidade."
+                "STORY 1: Enquete sobre investimentos seguros.",
+                "STORY 2: Dica rápida de finanças e património."
             ]
         },
         {
@@ -454,11 +439,11 @@ async function executarMotorAutonomo() {
             tag: "🎨 Post Fixo / Carrossel",
             cls: "tag-amber",
             tipo: "Post Fixo / Carrossel",
-            titulo: `Agenda da Semana Aberta: Garanta o seu atendimento`,
-            conteudo: `[ESTRUTURA DO CARROSSEL DE 3 LÂMINAS]\n\n• Lâmina 1 (Capa): "Aproveite a nossa disponibilidade para esta semana em ${cid}."\n• Lâmina 2: "Atendimento rápido, seguro e qualificado em ${prod}."\n• Lâmina 3 (CTA): "Toque no link da Bio e reserve o seu horário!"\n\n[LEGENDA PARA O FEED]\n"Os nossos horários para esta semana já estão a preencher-se. Garanta o seu atendimento com quem é referência na região. Clica no link da Bio!"`,
-            acao: "Publicar carrossel de escassez/agenda.",
+            titulo: `Últimas unidades da fase: Garanta o seu lote`,
+            conteudo: `[ESTRUTURA DO CARROSSEL DE 3 LÂMINAS]\n\n• Lâmina 1 (Capa): "Aproveite a reta final de vendas desta fase em ${cid}."\n• Lâmina 2: "Localização privilegiada e infraestrutura pronta para construir."\n• Lâmina 3 (CTA): "Toque no link da Bio e reserve o seu lote hoje!"\n\n[LEGENDA PARA O FEED]\n"A procura está intensa e as últimas unidades estão a ser disputadas. Não perca a oportunidade de garantir o melhor espaço em ${cid}. Clica no link da Bio!"`,
+            acao: "Publicar carrossel de escassez.",
             stories: [
-                "STORY 1: Print da agenda com horários limitados.",
+                "STORY 1: Print de aviso de últimas unidades.",
                 "STORY 2: Chamada final para conversão no WhatsApp."
             ]
         }
