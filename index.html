@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>BrandAuth PRO | SaaS Oficial v22.1</title>
+<title>BrandAuth PRO | SaaS Oficial v22.2</title>
 <style>
     :root {
         --bg: #070913;
@@ -83,7 +83,7 @@
     <div class="logo-title">
         <span>⚡</span> BrandAuth <span>PRO</span>
     </div>
-    <span class="badge">SaaS v22.1 (Autônomo)</span>
+    <span class="badge">SaaS v22.2 (Autônomo)</span>
 </div>
 
 <div class="tabs">
@@ -132,7 +132,8 @@
                 <input id="inp-cen" type="text" placeholder="Ex: Loteamento">
             </div>
 
-            <button id="btn-gerar-master" class="btn-primary">🧠 Gerar Plano Completo de 30 Dias</button>
+            <!-- BOTÃO COM CHAMADA DIRETA INLINE -->
+            <button onclick="iniciarMotorSaaS()" class="btn-primary">🧠 Gerar Plano Completo de 30 Dias</button>
         </div>
     </div>
 
@@ -214,13 +215,6 @@ let curDay = 0;
 let curMode = 'script';
 let scrollTimer = null;
 
-document.addEventListener('DOMContentLoaded', () => {
-    const btnGerar = document.getElementById('btn-gerar-master');
-    if (btnGerar) {
-        btnGerar.addEventListener('click', executarMotorAutonomo);
-    }
-});
-
 function openTab(id, btn) {
     document.querySelectorAll('.tab-content').forEach(el => {
         el.style.display = 'none';
@@ -243,7 +237,7 @@ function openTabByIndex(idx) {
     if (btns[idx]) btns[idx].click();
 }
 
-async function executarMotorAutonomo() {
+async function iniciarMotorSaaS() {
     const prof = document.getElementById('inp-prof').value.trim() || "Profissional";
     const cid = document.getElementById('inp-cid').value.trim() || "Local";
     const prod = document.getElementById('inp-prod').value.trim() || "Serviço";
@@ -286,7 +280,7 @@ async function executarMotorAutonomo() {
             cls: "tag-rose",
             tipo: "Reels (Vídeo)",
             titulo: `O erro de escolher ${prod} pensando apenas em "${obj}"`,
-            conteudo: `[00:00 - 00:06 | Gancho Sênior]\n"Você já parou para pensar que tentar negociar ou recusar ${prod} baseando-se apenas em '${obj}' costuma custar muito mais caro no fim das contas?"\n\n[00:06 - 00:35 | Desenvolvimento Analítico]\n"No mercado atual, é fácil focar apenas na barreira superficial. O problema é que quando você ignora a segurança e a valorização, acaba por enfrentar ${dor}. A escolha inteligente foca-se no potencial de valorização e na solidez, evitando frustrações desnecessárias."\n\n[00:35 - 00:50 | Conversão Comercial]\n"Invista no que realmente traz retorno seguro e patrimônio sólido. Clica no link da bio e agenda o teu atendimento."`,
+            conteudo: `[00:00 - 00:06 | Gancho Sênior]\n"Você já parou para pensar que tentar negociar ou recusar ${prod} baseando-se apenas em '${obj}' costuma custar muito mais caro no fim das contas?"\n\n[00:06 - 00:35 | Desenvolvimento Analítico]\n"No mercado atual, é fácil focar apenas na barreira superficial. O problema é que quando você ignora a segurança e a valorização, acaba por enfrentar ${dor}. A escolha inteligente foca-se no potencial de valorização e na solidez, evitando frustrações desnecessárias."\n\n[00:35 - 00:50 | Conversão Comercial]\n"Invista no que realmente traz retorno seguro e património sólido. Clica no link da bio e agenda o teu atendimento."`,
             acao: `Grave ${cen} com tom de autoridade sênior.`,
             stories: [
                 "STORY 1: Enquete: 'Você avalia mais o potencial ou a barreira em ${prod}?' [Potencial / Barreira]",
@@ -470,7 +464,7 @@ async function executarMotorAutonomo() {
     `).join('');
 
     overlay.style.display = 'none';
-    openTabByIndex(1);
+    openTab('calendario', document.querySelectorAll('.tab-btn')[2]);
 }
 
 function openDayInStudio(i) {
@@ -487,7 +481,7 @@ function openDayInStudio(i) {
     }
 
     renderEstudio();
-    openTabByIndex(3);
+    openTab('tab-estudio', document.querySelectorAll('.tab-btn')[3]);
 }
 
 function setMode(m) {
