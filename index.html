@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>BrandAuth PRO | SaaS Oficial v20.5</title>
+<title>BrandAuth PRO | SaaS Oficial v21.0</title>
 <style>
     :root {
         --bg: #070913;
@@ -83,7 +83,7 @@
     <div class="logo-title">
         <span>⚡</span> BrandAuth <span>PRO</span>
     </div>
-    <span class="badge">SaaS v20.5 (30 Dias)</span>
+    <span class="badge">SaaS v21.0 (Auto-Retry)</span>
 </div>
 
 <div class="tabs">
@@ -104,7 +104,7 @@
 
             <div class="form-group">
                 <label>1. Profissão ou Especialidade</label>
-                <input id="inp-prof" type="text" placeholder="Ex: Loja de água mineral">
+                <input id="inp-prof" type="text" placeholder="Ex: Sorveteria">
             </div>
 
             <div class="form-group">
@@ -114,22 +114,22 @@
 
             <div class="form-group">
                 <label>3. Serviço Principal (Carro-Chefe)</label>
-                <input id="inp-prod" type="text" placeholder="Ex: Água 20l">
+                <input id="inp-prod" type="text" placeholder="Ex: Sorvete artesanal">
             </div>
 
             <div class="form-group">
                 <label>4. Objeções comuns que o cliente tem</label>
-                <input id="inp-obj" type="text" placeholder="Ex: Entrega">
+                <input id="inp-obj" type="text" placeholder="Ex: Achar caro">
             </div>
 
             <div class="form-group">
                 <label>5. Maior Dor ou Prejuízo Real</label>
-                <textarea id="inp-dor" rows="2" placeholder="Ex: Taxa de entrega..."></textarea>
+                <textarea id="inp-dor" rows="2" placeholder="Ex: Época de frio as vendas caem..."></textarea>
             </div>
 
             <div class="form-group">
                 <label>6. Onde o profissional grava?</label>
-                <input id="inp-cen" type="text" placeholder="Ex: Estabelecimento">
+                <input id="inp-cen" type="text" placeholder="Ex: Na própria sorveteria">
             </div>
 
             <button id="btn-gerar-master" class="btn-primary">🧠 Gerar Plano Completo de 30 Dias</button>
@@ -219,7 +219,7 @@ const MASTER_GEMINI_KEY = "AIzaSyCDTbKeQZpVcozE6y3Su4NxUQoUEZa6HZY";
 document.addEventListener('DOMContentLoaded', () => {
     const btnGerar = document.getElementById('btn-gerar-master');
     if (btnGerar) {
-        btnGerar.addEventListener('click', executarMotorSaaS);
+        btnGerar.addEventListener('click', executarMotorSaaSComRetry);
     }
 });
 
@@ -236,7 +236,7 @@ function openTabByIndex(idx) {
     if (btns[idx]) btns[idx].click();
 }
 
-async function executarMotorSaaS() {
+async function executarMotorSaaSComRetry() {
     const prof = document.getElementById('inp-prof').value.trim() || "Profissional";
     const cid = document.getElementById('inp-cid').value.trim() || "Local";
     const prod = document.getElementById('inp-prod').value.trim() || "Serviço";
@@ -250,7 +250,7 @@ async function executarMotorSaaS() {
     const overlay = document.getElementById('loading-overlay');
     const txt = document.getElementById('loading-text');
     overlay.style.display = 'flex';
-    txt.textContent = "A estruturar o plano de 30 dias (Vídeos + Posts)...";
+    txt.textContent = "A consultar a IA Gemini Sênior...";
 
     const promptText = `
         Atue como um Estrategista de Mídias Sociais Sênior. 
@@ -283,27 +283,45 @@ async function executarMotorSaaS() {
         }
     `;
 
-    try {
-        // Atualizado para o modelo estável global gemini-3.8-flash compatível com a API v1beta
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${MASTER_GEMINI_KEY}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{ parts: [{ text: promptText }] }]
-            })
-        });
+    // Sistema de Retentativa Automática (Retry) caso ocorra pico de tráfego na API
+    let tentativas = 3;
+    let sucesso = false;
+    let resIA = null;
 
-        const data = await response.json();
-        if (data.error) throw new Error(data.error.message);
+    while (tentativas > 0 && !sucesso) {
+        try {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${MASTER_GEMINI_KEY}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: promptText }] }]
+                })
+            });
 
-        let rawText = data.candidates[0].content.parts[0].text;
-        rawText = rawText.replace(/```json/gi, '').replace(/```/g, '').trim();
-        const firstOpen = rawText.indexOf('{');
-        const lastClose = rawText.lastIndexOf('}');
-        if (firstOpen !== -1 && lastClose !== -1) rawText = rawText.substring(firstOpen, lastClose + 1);
+            const data = await response.json();
+            if (data.error) throw new Error(data.error.message);
 
-        const resIA = JSON.parse(rawText);
+            let rawText = data.candidates[0].content.parts[0].text;
+            rawText = rawText.replace(/```json/gi, '').replace(/```/g, '').trim();
+            const firstOpen = rawText.indexOf('{');
+            const lastClose = rawText.lastIndexOf('}');
+            if (firstOpen !== -1 && lastClose !== -1) rawText = rawText.substring(firstOpen, lastClose + 1);
 
+            resIA = JSON.parse(rawText);
+            sucesso = true;
+        } catch (err) {
+            tentativas--;
+            if (tentativas === 0) {
+                overlay.style.display = 'none';
+                alert("Servidor sobrecarregado momentaneamente. Por favor, tente novamente em alguns segundos.");
+                return;
+            }
+            // Aguarda 1.5 segundos antes de tentar de novo automaticamente
+            await new Promise(resolve => setTimeout(resolve, 1500));
+        }
+    }
+
+    if (resIA) {
         document.getElementById('out-pos').innerHTML = resIA.tese;
         document.getElementById('out-bios').innerHTML = resIA.bios.map((b, idx) => `
             <div class="card-sub">
@@ -333,10 +351,6 @@ async function executarMotorSaaS() {
 
         overlay.style.display = 'none';
         openTabByIndex(1);
-
-    } catch (err) {
-        overlay.style.display = 'none';
-        alert("Erro ao gerar cronograma: " + err.message);
     }
 }
 
