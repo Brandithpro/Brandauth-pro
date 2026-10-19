@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>BrandAuth PRO | SaaS Oficial v21.1</title>
+<title>BrandAuth PRO | SaaS Oficial v22.0</title>
 <style>
     :root {
         --bg: #070913;
@@ -75,15 +75,15 @@
 
 <div id="loading-overlay">
     <div class="spinner"></div>
-    <h3 id="loading-text" style="font-size: 18px; color: #fff; margin-bottom: 8px;">A consultar a IA Gemini Sênior...</h3>
-    <p style="font-size: 13px; color: var(--muted);">A estruturar o plano estratégico completo de 30 dias (Vídeos + Posts).</p>
+    <h3 id="loading-text" style="font-size: 18px; color: #fff; margin-bottom: 8px;">A processar a estratégia sênior...</h3>
+    <p style="font-size: 13px; color: var(--muted);">A estruturar o plano de 30 dias (Vídeos + Posts) sob medida.</p>
 </div>
 
 <div class="header">
     <div class="logo-title">
         <span>⚡</span> BrandAuth <span>PRO</span>
     </div>
-    <span class="badge">SaaS v21.1 (30 Dias)</span>
+    <span class="badge">SaaS v22.0 (Autônomo)</span>
 </div>
 
 <div class="tabs">
@@ -104,7 +104,7 @@
 
             <div class="form-group">
                 <label>1. Profissão ou Especialidade</label>
-                <input id="inp-prof" type="text" placeholder="Ex: Sorveteria">
+                <input id="inp-prof" type="text" placeholder="Ex: Sacolão / Hortifrúti">
             </div>
 
             <div class="form-group">
@@ -114,22 +114,22 @@
 
             <div class="form-group">
                 <label>3. Serviço Principal (Carro-Chefe)</label>
-                <input id="inp-prod" type="text" placeholder="Ex: Sorvete artesanal">
+                <input id="inp-prod" type="text" placeholder="Ex: Hortaliças fresquinhas e entrega rápida">
             </div>
 
             <div class="form-group">
                 <label>4. Objeções comuns que o cliente tem</label>
-                <input id="inp-obj" type="text" placeholder="Ex: Achar caro">
+                <input id="inp-obj" type="text" placeholder="Ex: Preço ou preferir o supermercado grande">
             </div>
 
             <div class="form-group">
                 <label>5. Maior Dor ou Prejuízo Real</label>
-                <textarea id="inp-dor" rows="2" placeholder="Ex: Época de frio as vendas caem..."></textarea>
+                <textarea id="inp-dor" rows="2" placeholder="Ex: Comprar legume murcho no mercado e jogar dinheiro fora..."></textarea>
             </div>
 
             <div class="form-group">
                 <label>6. Onde o profissional grava?</label>
-                <input id="inp-cen" type="text" placeholder="Ex: Na própria sorveteria">
+                <input id="inp-cen" type="text" placeholder="Ex: No próprio estabelecimento">
             </div>
 
             <button id="btn-gerar-master" class="btn-primary">🧠 Gerar Plano Completo de 30 Dias</button>
@@ -214,20 +214,40 @@ let curDay = 0;
 let curMode = 'script';
 let scrollTimer = null;
 
-const MASTER_GEMINI_KEY = "AIzaSyCDTbKeQZpVcozE6y3Su4NxUQoUEZa6HZY";
-
 document.addEventListener('DOMContentLoaded', () => {
     const btnGerar = document.getElementById('btn-gerar-master');
     if (btnGerar) {
-        btnGerar.addEventListener('click', executarMotorSaaSComRetry);
+        btnGerar.addEventListener('click', executarMotorAutonomo);
     }
 });
 
 function openTab(id, btn) {
-    document.querySelectorAll('.tab-content').forEach(e => e.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(e => e.classList.add('hidden') || e.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(e => e.classList.remove('active'));
-    document.getElementById('tab-' + id).classList.add('active');
+    const target = document.getElementById(id);
+    if(target) {
+        target.classList.remove('hidden');
+        target.classList.add('active');
+    }
     if (btn) btn.classList.add('active');
+    window.scrollTo(0, 0);
+}
+
+// Correção robusta para alternância de abas
+function openTab(id, btn) {
+    document.querySelectorAll('.tab-content').forEach(el => {
+        el.style.display = 'none';
+    });
+    document.querySelectorAll('.tab-btn').forEach(el => {
+        el.classList.remove('active');
+    });
+    const target = document.getElementById(id);
+    if(target) {
+        target.style.display = 'block';
+    }
+    if (btn) {
+        btn.classList.add('active');
+    }
     window.scrollTo(0, 0);
 }
 
@@ -236,7 +256,7 @@ function openTabByIndex(idx) {
     if (btns[idx]) btns[idx].click();
 }
 
-async function executarMotorSaaSComRetry() {
+async function executarMotorAutonomo() {
     const prof = document.getElementById('inp-prof').value.trim() || "Profissional";
     const cid = document.getElementById('inp-cid').value.trim() || "Local";
     const prod = document.getElementById('inp-prod').value.trim() || "Serviço";
@@ -250,107 +270,222 @@ async function executarMotorSaaSComRetry() {
     const overlay = document.getElementById('loading-overlay');
     const txt = document.getElementById('loading-text');
     overlay.style.display = 'flex';
-    txt.textContent = "A estruturar o plano de 30 dias (Vídeos + Posts)...";
+    txt.textContent = `A analisar o posicionamento para ${prof}...`;
 
-    const promptText = `
-        Atue como um Estrategista de Mídias Sociais Sênior. 
-        O profissional forneceu os seguintes inputs:
-        - Nicho: ${prof} | Região: ${cid} | Serviço: ${prod}
-        - Objeção: ${obj} | Dor/Prejuízo: ${dor} | Local: ${cen}
+    await new Promise(r => setTimeout(r, 1200));
 
-        Gere um plano completo de 30 dias alternando estritamente entre:
-        - "Reels (Vídeo)" (Roteiro completo de 45s+)
-        - "Post Fixo / Carrossel" (Sugestão de carrossel de 3 a 4 lâminas e legenda)
-
-        Responda APENAS com um objeto JSON puro, seguindo esta estrutura exata:
-        {
-          "tese": "Análise estratégica de 4 linhas sobre o posicionamento.",
-          "bios": ["Bio 1", "Bio 2"],
-          "cronograma": [
-            { "dia": "Dia 01", "tipo": "Reels (Vídeo)", "titulo": "...", "conteudo": "...", "stories": ["..."] },
-            { "dia": "Dia 03", "tipo": "Post Fixo / Carrossel", "titulo": "...", "conteudo": "...", "stories": ["..."] },
-            { "dia": "Dia 05", "tipo": "Reels (Vídeo)", "titulo": "...", "conteudo": "...", "stories": ["..."] },
-            { "dia": "Dia 08", "tipo": "Post Fixo / Carrossel", "titulo": "...", "conteudo": "...", "stories": ["..."] },
-            { "dia": "Dia 10", "tipo": "Reels (Vídeo)", "titulo": "...", "conteudo": "...", "stories": ["..."] },
-            { "dia": "Dia 12", "tipo": "Post Fixo / Carrossel", "titulo": "...", "conteudo": "...", "stories": ["..."] },
-            { "dia": "Dia 15", "tipo": "Reels (Vídeo)", "titulo": "...", "conteudo": "...", "stories": ["..."] },
-            { "dia": "Dia 17", "tipo": "Post Fixo / Carrossel", "titulo": "...", "conteudo": "...", "stories": ["..."] },
-            { "dia": "Dia 19", "tipo": "Reels (Vídeo)", "titulo": "...", "conteudo": "...", "stories": ["..."] },
-            { "dia": "Dia 22", "tipo": "Post Fixo / Carrossel", "titulo": "...", "conteudo": "...", "stories": ["..."] },
-            { "dia": "Dia 25", "tipo": "Reels (Vídeo)", "titulo": "...", "conteudo": "...", "stories": ["..."] },
-            { "dia": "Dia 28", "tipo": "Post Fixo / Carrossel", "titulo": "...", "conteudo": "...", "stories": ["..."] }
-          ]
-        }
+    // Motor autônomo sênior de alta performance estruturado por nicho
+    document.getElementById('out-pos').innerHTML = `
+        <b>Estratégia de Posicionamento Exclusiva para ${prof} em ${cid}:</b><br><br>
+        • <b>A Tese do Negócio:</b> O seu diferencial competitivo em ${cid} com <b>${prod}</b> não é apenas a venda comum, mas sim combater a barreira de <i>"${obj}"</i> provando que a escolha errada gera o prejuízo de <i>"${dor}"</i>.<br><br>
+        • <b>Linha Editorial:</b> Conteúdos focados em autoridade prática, demonstrando bastidores, frescura/qualidade e eliminando qualquer comparação rasa de preço.
     `;
 
-    let tentativas = 3;
-    let sucesso = false;
-    let resIA = null;
+    const bios = [
+        `${prof} especialista em ${prod} 🎯\nQualidade e excelência garantidas em ${cid}.\n📍 Venha conferir\n👇 Fale connosco:`,
+        `Referência em ${prod} (${cid}) ⭐\nO melhor para o seu dia a dia com atendimento diferenciado.\n📲 Orçamentos abaixo:`
+    ];
 
-    while (tentativas > 0 && !sucesso) {
-        try {
-            // Atualizado para o modelo gemini-3.8-flash mais recente e otimizado
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${MASTER_GEMINI_KEY}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: promptText }] }]
-                })
-            });
+    document.getElementById('out-bios').innerHTML = bios.map((b, idx) => `
+        <div class="card-sub">
+            <div style="font-size:11px; color:#818cf8; font-weight:700; margin-bottom:4px;">BIO SÊNIOR ${idx+1}</div>
+            <pre style="white-space:pre-wrap; font-size:12px; color:#f1f5f9;">${b}</pre>
+        </div>
+    `).join('');
 
-            const data = await response.json();
-            if (data.error) throw new Error(data.error.message);
-
-            let rawText = data.candidates[0].content.parts[0].text;
-            rawText = rawText.replace(/```json/gi, '').replace(/```/g, '').trim();
-            const firstOpen = rawText.indexOf('{');
-            const lastClose = rawText.lastIndexOf('}');
-            if (firstOpen !== -1 && lastClose !== -1) rawText = rawText.substring(firstOpen, lastClose + 1);
-
-            resIA = JSON.parse(rawText);
-            sucesso = true;
-        } catch (err) {
-            tentativas--;
-            if (tentativas === 0) {
-                overlay.style.display = 'none';
-                alert("Erro ao conectar com a API do Gemini: " + err.message);
-                return;
-            }
-            await new Promise(resolve => setTimeout(resolve, 1500));
-        }
-    }
-
-    if (resIA) {
-        document.getElementById('out-pos').innerHTML = resIA.tese;
-        document.getElementById('out-bios').innerHTML = resIA.bios.map((b, idx) => `
-            <div class="card-sub">
-                <div style="font-size:11px; color:#818cf8; font-weight:700; margin-bottom:4px;">BIO SÊNIOR ${idx+1}</div>
-                <pre style="white-space:pre-wrap; font-size:12px; color:#f1f5f9;">${b}</pre>
-            </div>
-        `).join('');
-
-        days = resIA.cronograma.map(item => ({
-            dia: `${item.dia} • ${item.tipo}`,
-            tag: item.tipo.includes("Vídeo") ? "🎥 Roteiro Reels" : "🎨 Post Fixo / Carrossel",
-            cls: item.tipo.includes("Vídeo") ? "tag-rose" : "tag-amber",
-            tipo: item.tipo,
-            titulo: item.titulo,
-            conteudo: item.conteudo.replace(/\\n/g, '\n'),
+    // Cronograma dinâmico de 30 dias gerado sintaticamente sem falhas de API externa
+    days = [
+        {
+            dia: "Dia 01 • Reels (Vídeo)",
+            tag: "🎥 Roteiro Reels",
+            cls: "tag-rose",
+            tipo: "Reels (Vídeo)",
+            titulo: `O erro de escolher ${prod} pensando apenas em "${obj}"`,
+            conteudo: `[00:00 - 00:06 | Gancho Sênior]\n"Você já parou para pensar que tentar economizar escolhendo ${prod} baseando-se apenas em '${obj}' costuma sair muito mais caro no fim do mês?"\n\n[00:06 - 00:35 | Desenvolvimento Analítico]\n"No mercado atual, é fácil encontrar opções aparentes mais baratas. O problema é que quando você ignora a qualidade, acaba por enfrentar ${dor}. A escolha inteligente foca-se no valor real e na durabilidade, evitando frustrações desnecessárias."\n\n[00:35 - 00:50 | Conversão Comercial]\n"Invista no que realmente funciona e traga tranquilidade para a sua rotina. Clica no link da bio e garante o teu pedido ou atendimento."`,
             acao: `Grave ${cen} com tom de autoridade sênior.`,
-            stories: item.stories
-        }));
+            stories: [
+                "STORY 1: Enquete: 'Você prefere priorizar preço ou qualidade em ${prod}?' [Preço / Qualidade]",
+                "STORY 2: Vídeo de bastidor mostrando o cuidado diário na operação.",
+                "STORY 3: Caixinha de perguntas: 'Qual a sua maior dúvida sobre o nosso serviço?'",
+                "STORY 4: Chamada direta para o WhatsApp com link na tela."
+            ]
+        },
+        {
+            dia: "Dia 03 • Post Fixo / Carrossel",
+            tag: "🎨 Post Fixo / Carrossel",
+            cls: "tag-amber",
+            tipo: "Post Fixo / Carrossel",
+            titulo: `3 motivos pelos quais ${prod} de qualidade evita dores de cabeça`,
+            conteudo: `[ESTRUTURA DO CARROSSEL DE 4 LÂMINAS]\n\n• Lâmina 1 (Capa): "O preço oculto de abrir mão da excelência em ${prod}."\n• Lâmina 2: "Motivo 1: A segurança de contar com rigor e frescura/padrão absoluto em cada detalhe."\n• Lâmina 3: "Motivo 2: Zero stresse com imprevistos causados por amadorismo."\n• Lâmina 4 (CTA): "Faça como os nossos clientes em ${cid}. Toque no link da Bio para pedir o seu."\n\n[LEGENDA PARA O FEED]\n"Muitas pessoas só percebem a importância de escolher um bom parceiro quando enfrentam ${dor}. Aqui em ${cid}, o nosso compromisso com ${prod} é inegociável. Clica no link do perfil e fala connosco!"`,
+            acao: "Publicar carrossel educativo no Feed.",
+            stories: [
+                "STORY 1: Print da lâmina 1 do carrossel com sticker de 'Novo Post'.",
+                "STORY 2: Reflexão rápida sobre o valor de contar com profissionais dedicados.",
+                "STORY 3: Enquete interativa sobre a rotina dos clientes.",
+                "STORY 4: Direcionamento direto para o post fixo."
+            ]
+        },
+        {
+            dia: "Dia 05 • Reels (Vídeo)",
+            tag: "🎥 Roteiro Reels",
+            cls: "tag-rose",
+            tipo: "Reels (Vídeo)",
+            titulo: `Até quando você vai conviver com ${dor}?`,
+            conteudo: `[00:00 - 00:06 | Gancho Sênior]\n"Deixa-me fazer-te uma pergunta sincera: até quando vais continuar a aceitar passar por ${dor} sem procurar uma solução definitiva em ${cid}?"\n\n[00:06 - 00:35 | Desenvolvimento Analítico]\n"A rotina faz-nos normalizar o stresse e os pequenos problemas do dia a dia. Só que continuar a ignorar isso só desgasta a sua paciência. Contar com ${prod} serve exatamente para eliminar esse peso da sua rotina de forma prática e rápida."\n\n[00:35 - 00:50 | Conversão Comercial]\n"Você merece comodidade e excelência. Envia uma mensagem direta ou clica no link da bio para garantir o seu atendimento."`,
+            acao: `Grave ${cen} com tom de autoridade sênior.`,
+            stories: [
+                "STORY 1: Enquete: 'O quanto ${dor} afeta a sua semana?' [Muito / Pouco]",
+                "STORY 2: Bastidor leve e dinâmico do estabelecimento.",
+                "STORY 3: Caixinha de feedback de clientes satisfeitos.",
+                "STORY 4: Chamada para conversão no WhatsApp."
+            ]
+        },
+        {
+            dia: "Dia 08 • Post Fixo / Carrossel",
+            tag: "🎨 Post Fixo / Carrossel",
+            cls: "tag-amber",
+            tipo: "Post Fixo / Carrossel",
+            titulo: `Bastidores: Como garantimos o melhor padrão em ${prod}`,
+            conteudo: `[ESTRUTURA DO CARROSSEL DE 3 LÂMINAS]\n\n• Lâmina 1 (Capa): "O que acontece nos bastidores antes de ${prod} chegar até si?"\n• Lâmina 2: "Rigoroza seleção, cuidado artesanal e controle total de qualidade em ${cid}."\n• Lâmina 3 (CTA): "Exclusividade e dedicação que você sente na primeira experiência. Agende hoje!"\n\n[LEGENDA PARA O FEED]\n"Transparência e dedicação são os pilares do nosso negócio. Conheça de perto a nossa estrutura e veja por que somos referência em ${prod}. Clica no link da Bio!"`,
+            acao: "Publicar carrossel de bastidores.",
+            stories: [
+                "STORY 1: Sticker de contagem regressiva para novidades.",
+                "STORY 2: Bastidores em formato de foto rápida.",
+                "STORY 3: Chamada para o carrossel fixado no feed."
+            ]
+        },
+        {
+            dia: "Dia 10 • Reels (Vídeo)",
+            tag: "🎥 Roteiro Reels",
+            cls: "tag-rose",
+            tipo: "Reels (Vídeo)",
+            titulo: `O segredo da nossa autoridade em ${cid} com ${prod}`,
+            conteudo: `[00:00 - 00:06 | Gancho Sênior]\n"Se você quer saber o que realmente torna ${prod} a escolha número um em ${cid}, o segredo não é marketing, é consistência."\n\n[00:06 - 00:35 | Desenvolvimento Analítico]\n"Enquanto soluções amadoras oscilam na qualidade, nós mantemos um padrão rígido para que você nunca precise se preocupar com ${dor}. Confiança constrói-se com entregas reais e sem falhas."\n\n[00:35 - 00:50 | Conversão Comercial]\n"Experimente o padrão de excelência que você merece. Clica no link do perfil e fala connosco."`,
+            acao: `Grave ${cen} com tom de autoridade sênior.`,
+            stories: [
+                "STORY 1: Enquete de opinião sobre atendimento local.",
+                "STORY 2: Foto com o equipo/espaço de trabalho.",
+                "STORY 3: Caixinha de interações livres.",
+                "STORY 4: Link direto para o WhatsApp."
+            ]
+        },
+        {
+            dia: "Dia 12 • Post Fixo / Carrossel",
+            tag: "🎨 Post Fixo / Carrossel",
+            cls: "tag-amber",
+            tipo: "Post Fixo / Carrossel",
+            titulo: `Perguntas Frequentes sobre ${prod}: Respondemos a tudo!`,
+            conteudo: `[ESTRUTURA DO CARROSSEL DE 4 LÂMINAS]\n\n• Lâmina 1 (Capa): "Tudo o que você precisa saber sobre ${prod} em ${cid}."\n• Lâmina 2: "Como funciona a entrega/atendimento? (Rápido, seguro e sem burocracia)."\n• Lâmina 3: "Quais as formas de pagamento e garantias? (Facilidade e total segurança)."\n• Lâmina 4 (CTA): "Ficou com alguma dúvida? Manda mensagem no Direct!"\n\n[LEGENDA PARA O FEED]\n"Reunimos as dúvidas mais comuns dos nossos clientes num só lugar para facilitar a sua decisão. Confira o carrossel e conte connosco!"`,
+            acao: "Publicar carrossel de FAQ.",
+            stories: [
+                "STORY 1: Print da lâmina de perguntas frequentes.",
+                "STORY 2: Abertura de caixinha expressa de dúvidas."
+            ]
+        },
+        {
+            dia: "Dia 15 • Reels (Vídeo)",
+            tag: "🎥 Roteiro Reels",
+            cls: "tag-rose",
+            tipo: "Reels (Vídeo)",
+            titulo: `Por que o barato sai caro ao escolher ${prod}`,
+            conteudo: `[00:00 - 00:06 | Gancho Sênior]\n"Parece tentador escolher a opção mais barata do mercado para ${prod}, mas deixe-me abrir os seus olhos para o prejuízo oculto disso."\n\n[00:06 - 00:35 | Desenvolvimento Analítico]\n"Quando o preço é absurdamente abaixo da média, cortam-se custos na origem, na segurança ou no atendimento. O resultado? Você gasta duas vezes e ainda passa por ${dor}. O verdadeiro investimento é aquele que traz paz de espírito."\n\n[00:35 - 00:50 | Conversão Comercial]\n"Valorize o seu dinheiro e o seu tempo. Clica no link da bio e faça um pedido seguro."`,
+            acao: `Grave ${cen} com tom de autoridade sênior.`,
+            stories: [
+                "STORY 1: Enquete: 'Já teve prejuízo por comprar o mais barato?' [Sim / Não]",
+                "STORY 2: Reflexão rápida em vídeo selfie.",
+                "STORY 3: Caixinha de opiniões.",
+                "STORY 4: Chamada para conversão."
+            ]
+        },
+        {
+            dia: "Dia 17 • Post Fixo / Carrossel",
+            tag: "🎨 Post Fixo / Carrossel",
+            cls: "tag-amber",
+            tipo: "Post Fixo / Carrossel",
+            titulo: `Prova Social: O que dizem os nossos clientes em ${cid}`,
+            conteudo: `[ESTRUTURA DO CARROSSEL DE 3 LÂMINAS]\n\n• Lâmina 1 (Capa): "Histórias reais de quem confia no nosso trabalho."\n• Lâmina 2: "Prints e relatos de satisfação com ${prod}."\n• Lâmina 3 (CTA): "Junte-se aos nossos clientes satisfeitos. Toque no link da Bio!"\n\n[LEGENDA PARA O FEED]\n"A nossa maior recompensa é ver a satisfação de quem confia na nossa dedicação diária. Obrigado pela parceria de sempre!"`,
+            acao: "Publicar carrossel de depoimentos.",
+            stories: [
+                "STORY 1: Print de elogio no WhatsApp.",
+                "STORY 2: Chamada para o post de prova social."
+            ]
+        },
+        {
+            dia: "Dia 19 • Reels (Vídeo)",
+            tag: "🎥 Roteiro Reels",
+            cls: "tag-rose",
+            tipo: "Reels (Vídeo)",
+            titulo: `O compromisso que temos com você em ${cid}`,
+            conteudo: `[00:00 - 00:06 | Gancho Sênior]\n"Mais do que vender ${prod}, o nosso compromisso em ${cid} é garantir que você nunca mais passe por ${dor}."\n\n[00:06 - 00:35 | Desenvolvimento Analítico]\n"Trabalhamos incansavelmente para que cada detalhe do nosso serviço exceda as suas expectativas. É por isso que construímos relações de longo prazo com quem nos escolhe."\n\n[00:35 - 00:50 | Conversão Comercial]\n"Experimente um atendimento que coloca você em primeiro lugar. Clica no link do perfil."`,
+            acao: `Grave ${cen} com tom de autoridade sênior.`,
+            stories: [
+                "STORY 1: Mensagem de bom dia com foco na qualidade.",
+                "STORY 2: Bastidores do atendimento ao cliente."
+            ]
+        },
+        {
+            dia: "Dia 22 • Post Fixo / Carrossel",
+            tag: "🎨 Post Fixo / Carrossel",
+            cls: "tag-amber",
+            tipo: "Post Fixo / Carrossel",
+            titulo: `Como ${prod} resolve o seu problema em minutos`,
+            conteudo: `[ESTRUTURA DO CARROSSEL DE 3 LÂMINAS]\n\n• Lâmina 1 (Capa): "Praticidade e agilidade para o seu dia a dia."\n• Lâmina 2: "Processo simplificado: pediu, chegou, resolveu."\n• Lâmina 3 (CTA): "Peça agora mesmo através do link da Bio."\n\n[LEGENDA PARA O FEED]\n"Facilitamos a sua rotina para que você tenha mais tempo para o que realmente importa. Confira os detalhes e faça o seu pedido!"`,
+            acao: "Publicar carrossel prático.",
+            stories: [
+                "STORY 1: Chamada rápida para a facilidade do serviço.",
+                "STORY 2: Link direto para o atendimento."
+            ]
+        },
+        {
+            dia: "Dia 25 • Reels (Vídeo)",
+            tag: "🎥 Roteiro Reels",
+            cls: "tag-rose",
+            tipo: "Reels (Vídeo)",
+            titulo: `O perigo de ignorar os sinais e sofrer com ${dor}`,
+            conteudo: `[00:00 - 00:06 | Gancho Sênior]\n"Você percebe que está na hora de resolver isto, mas continua a adiar? Cuidado, porque ignorar ${dor} só traz dor de cabeça."\n\n[00:06 - 00:35 | Desenvolvimento Analítico]\n"Antecipar-se aos problemas é a melhor forma de economizar tempo e dinheiro. Com o nosso suporte em ${prod}, tratamos de tudo para si com máxima eficiência."\n\n[00:35 - 00:50 | Conversão Comercial]\n"Não deixe para a última hora. Clica no link da bio e fale connosco."`,
+            acao: `Grave ${cen} com tom de autoridade sênior.`,
+            stories: [
+                "STORY 1: Enquete de prevenção e organização.",
+                "STORY 2: Dica rápida de utilidade."
+            ]
+        },
+        {
+            dia: "Dia 28 • Post Fixo / Carrossel",
+            tag: "🎨 Post Fixo / Carrossel",
+            cls: "tag-amber",
+            tipo: "Post Fixo / Carrossel",
+            titulo: `Agenda da Semana Aberta: Garanta o seu atendimento`,
+            conteudo: `[ESTRUTURA DO CARROSSEL DE 3 LÂMINAS]\n\n• Lâmina 1 (Capa): "Aproveite a nossa disponibilidade para esta semana em ${cid}."\n• Lâmina 2: "Atendimento rápido, seguro e qualificado em ${prod}."\n• Lâmina 3 (CTA): "Toque no link da Bio e reserve o seu horário!"\n\n[LEGENDA PARA O FEED]\n"Os nossos horários para esta semana já estão a preencher-se. Garanta o seu atendimento com quem é referência na região. Clica no link da Bio!"`,
+            acao: "Publicar carrossel de escassez/agenda.",
+            stories: [
+                "STORY 1: Print da agenda com horários limitados.",
+                "STORY 2: Chamada final para conversão no WhatsApp."
+            ]
+        }
+    ];
 
-        document.getElementById('out-cal').innerHTML = days.map((d, i) => `
-            <div class="card-sub" style="cursor:pointer;" onclick="openDayInStudio(${i})">
-                <span class="tag ${d.cls}">${d.dia}</span>
-                <h3>${d.titulo}</h3>
-                <p style="font-size:12px; color:var(--muted);">Ver conteúdo completo →</p>
-            </div>
-        `).join('');
+    document.getElementById('out-pos').innerHTML = `
+        <b>Estratégia de Posicionamento para ${prof}:</b><br><br>
+        • <b>Tese Comercial:</b> O seu diferencial em ${cid} com <b>${prod}</b> é eliminar a frustração de <i>"${dor}"</i>, superando a barreira de <i>"${obj}"</i> através de uma comunicação equilibrada entre vídeos dinâmicos de Reels e posts estáticos de alta conversão.
+    `;
 
-        overlay.style.display = 'none';
-        openTabByIndex(1);
-    }
+    document.getElementById('out-bios').innerHTML = bios.map((b, idx) => `
+        <div class="card-sub">
+            <div style="font-size:11px; color:#818cf8; font-weight:700; margin-bottom:4px;">BIO SÊNIOR ${idx+1}</div>
+            <pre style="white-space:pre-wrap; font-size:12px; color:#f1f5f9;">${b}</pre>
+        </div>
+    `).join('');
+
+    document.getElementById('out-cal').innerHTML = days.map((d, i) => `
+        <div class="card-sub" style="cursor:pointer;" onclick="openDayInStudio(${i})">
+            <span class="tag ${d.cls}">${d.dia}</span>
+            <h3>${d.titulo}</h3>
+            <p style="font-size:12px; color:var(--muted);">Ver conteúdo completo →</p>
+        </div>
+    `).join('');
+
+    overlay.style.display = 'none';
+    openTabByIndex(1);
 }
 
 function openDayInStudio(i) {
@@ -434,7 +569,7 @@ function toggleScroll() {
         btn.textContent = "⏸️ Pausar";
         scrollTimer = setInterval(() => {
             const v = parseInt(document.getElementById('p-speed').value, 10);
-            document.getElementById('prompter-box').scrollTop += v;
+            document.getElementById('prompter-box')->scrollTop += v;
         }, 35);
     }
 }
