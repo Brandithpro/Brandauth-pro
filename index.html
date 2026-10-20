@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>BrandAuth PRO | SaaS Master v53.0</title>
+<title>BrandAuth PRO | SaaS Master v54.0</title>
 <style>
     :root {
         --bg: #070913;
@@ -78,7 +78,7 @@
     <div class="logo-title">
         <span>⚡</span> BrandAuth <span>AI PRO</span>
     </div>
-    <span class="badge">SaaS v53.0 (Master)</span>
+    <span class="badge">SaaS v54.0 (Master)</span>
 </div>
 
 <div class="tabs">
@@ -95,7 +95,7 @@
     <div id="aba-diagnostico" class="tab-pane active" style="display: block;">
         <div class="card">
             <h2>Diagnóstico Estratégico do Negócio</h2>
-            <p class="sub">Preencha os campos abaixo e toque no botão para gerar o calendário sênior de 30 dias.</p>
+            <p class="sub">Preencha os campos abaixo e clique no botão para gerar o seu calendário estratégico de 30 dias.</p>
 
             <div class="form-group">
                 <label>1. Profissão, Especialidade ou Nicho</label>
@@ -132,7 +132,8 @@
                 <input id="inp-dif" type="text" placeholder="Ex: Captação de clientes">
             </div>
 
-            <button type="button" class="btn-primary" onclick="executarGeracaoMasterSaaS()">🧠 Gerar Calendário Inteligente (30 Dias)</button>
+            <!-- BOTÃO COM ID ÚNICO PARA OUVINTE GLOBAL -->
+            <button type="button" id="btn-gerar-master" class="btn-primary">🧠 Gerar Calendário Inteligente (30 Dias)</button>
         </div>
     </div>
 
@@ -231,6 +232,14 @@
 let cronogramaGlobal = [];
 let dadosCliente = {};
 let indiceDiaAtivo = 0;
+
+// OUVINTE GLOBAL AUTOMÁTICO (Fere qualquer problema de cache de botão)
+document.addEventListener('DOMContentLoaded', function() {
+    const botaoMestre = document.getElementById('btn-gerar-master');
+    if (botaoMestre) {
+        botaoMestre.addEventListener('click', executarGeracaoMasterSaaS);
+    }
+});
 
 function mudarAbaTab(nome) {
     const abas = ['diagnostico', 'calendario', 'conteudo', 'nano', 'suporte'];
