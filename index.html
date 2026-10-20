@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>BrandAuth PRO | SaaS Sintático Inteligente v42.0</title>
+<title>BrandAuth PRO | SaaS Master v50.0</title>
 <style>
     :root {
         --bg: #070913;
@@ -80,15 +80,15 @@
 
 <div id="loading-overlay">
     <div class="spinner"></div>
-    <h3 id="loading-title" style="font-size: 17px; color: #fff; margin-bottom: 6px;">A processar inteligência sintática...</h3>
-    <p id="loading-sub" style="font-size: 12px; color: var(--muted);">A estruturar o plano de 30 dias com raciocínio sênior.</p>
+    <h3 id="loading-title" style="font-size: 17px; color: #fff; margin-bottom: 6px;">A processar a estratégia do negócio...</h3>
+    <p id="loading-sub" style="font-size: 12px; color: var(--muted);">A estruturar o plano de 30 dias com inteligência sênior.</p>
 </div>
 
 <div class="header">
     <div class="logo-title">
         <span>⚡</span> BrandAuth <span>AI PRO</span>
     </div>
-    <span class="badge">SaaS v42.0 (Inteligente)</span>
+    <span class="badge">SaaS v50.0 (Master)</span>
 </div>
 
 <div class="tabs">
@@ -105,11 +105,11 @@
     <div id="aba-diagnostico" class="tab-pane active" style="display: block;">
         <div class="card">
             <h2>Diagnóstico Estratégico do Negócio</h2>
-            <p class="sub">Preencha os campos abaixo. O sistema estruturará automaticamente um calendário de 30 dias com direção de conteúdo sênior inteligente.</p>
+            <p class="sub">Preencha os campos abaixo. O sistema estruturará instantaneamente um calendário sênior de 30 dias adaptado à sua realidade.</p>
 
             <div class="form-group">
-                <label>1. Profissão ou Especialidade</label>
-                <input id="inp-prof" type="text" placeholder="Ex: Barbeiro, Infoproduto (Ebook), Fisioterapeuta...">
+                <label>1. Profissão, Especialidade ou Nicho</label>
+                <input id="inp-prof" type="text" placeholder="Ex: Barbeiro, Infoprodutor, Nutricionista, Corretor...">
             </div>
 
             <div class="grid-2">
@@ -128,21 +128,21 @@
             </div>
 
             <div class="form-group">
-                <label>3. Produto ou Serviço Mais Vendido (Carro-Chefe)</label>
-                <input id="inp-prod" type="text" placeholder="Ex: Corte Degradê, Ebook Destrave & Grave...">
+                <label>3. Produto ou Serviço Principal (Carro-Chefe)</label>
+                <input id="inp-prod" type="text" placeholder="Ex: Corte Degradê, Ebook, Consulta...">
             </div>
 
             <div class="form-group">
-                <label>4. Qual dor ele tira do seu cliente?</label>
-                <textarea id="inp-dor" rows="2" placeholder="Ex: Medo de gravar vídeos, vergonha da câmera, falta de audiência..."></textarea>
+                <label>4. Qual dor ou prejuízo real ele resolve no cliente?</label>
+                <textarea id="inp-dor" rows="2" placeholder="Ex: Acaba com o medo de errar o visual, evita desperdício de dinheiro..."></textarea>
             </div>
 
             <div class="form-group">
                 <label>5. Dificuldade em apresentar ou vender hoje:</label>
-                <input id="inp-dif" type="text" placeholder="Ex: Expor o negócio na internet e atrair público">
+                <input id="inp-dif" type="text" placeholder="Ex: Clientes acham caro ou adiam a decisão">
             </div>
 
-            <button type="button" class="btn-primary" onclick="executarGeracaoInteligente()">🧠 Gerar Calendário Inteligente (30 Dias)</button>
+            <button type="button" class="btn-primary" onclick="gerarPlanoMasterSaaS()">🧠 Gerar Calendário Inteligente (30 Dias)</button>
         </div>
     </div>
 
@@ -230,7 +230,7 @@
             <div class="card-sub">
                 <h3>🎥 Método Destrave & Grave</h3>
                 <p style="font-size:12.5px; color:var(--muted); margin-bottom:10px;">Aprenda a gravar vídeos naturais em 15 minutos.</p>
-                <button class="btn-primary" style="margin-top:4px; padding:12px;" onclick="window.open('https://wa.me/5538999999999?text=Ol%C3%A1%2C%20quero%20conhecer%20o%20M%C3%A9todo!', '_blank')">Quero Conhecer →</button>
+                <button class="btn-primary" style="margin-top:4px; padding:12px;" onclick="window.open('https://wa.me/5538999999999?text=Ol%C3%A1,%20quero%20conhecer%20o%20M%C3%A9todo!', '_blank')">Quero Conhecer →</button>
             </div>
         </div>
     </div>
@@ -257,7 +257,7 @@ function mudarAbaTab(nome) {
     window.scrollTo(0, 0);
 }
 
-function executarGeracaoInteligente() {
+function executarGeracaoMasterSaaS() {
     const prof = document.getElementById('inp-prof').value.trim() || "Profissional";
     const atuacao = document.getElementById('inp-atuacao').value;
     const cid = document.getElementById('inp-cid').value.trim();
@@ -271,33 +271,23 @@ function executarGeracaoInteligente() {
     document.getElementById('loading-overlay').style.display = 'flex';
 
     setTimeout(() => {
-        // Classificação inteligente de tom por tipo de negócio
-        const pLower = prof.toLowerCase();
-        const prodLower = prod.toLowerCase();
-        let tipoNegocio = "servico"; // padrao
-        if (pLower.includes("infoproduto") || pLower.includes("ebook") || pLower.includes("curso") || pLower.includes("mentor") || prodLower.includes("ebook")) {
-            tipoNegocio = "infoproduto";
-        } else if (pLower.includes("advogad") || pLower.includes("fisioterapeuta") || pLower.includes("nutricionista") || pLower.includes("psicó")) {
-            tipoNegocio = "profissional";
-        }
-
         document.getElementById('resumo-estrategia').innerHTML =
-            "<b>🎯 Estratégia Contextual Ativa (" + prof + " • " + atuacao + " em " + local + "):</b><br>" +
-            "Foco em evidenciar <b>" + prod + "</b> combatendo a barreira de <i>" + dif + "</i>, provando como elimina definitivamente a dor de <i>" + dor + "</i>.";
+            "<b>🎯 Estratégia de Posicionamento Ativa:</b><br>" +
+            "O profissional <b>" + prof + "</b> (" + atuacao + " em " + local + ") destaca <b>" + prod + "</b> superando a barreira de <i>" + dif + "</i> e eliminando a dor de <i>" + dor + "</i>.";
 
-        // Matriz com raciocínio sintático fluido e inteligente (Sem colagem tosca)
-        const baseTemas = [
-            { f: "Reels", p: "Branding", t: "O erro que impede você de aproveitar " + prod, h: "O ERRO QUE CUSTA CARO AO ESCOLHER ISSO" },
-            { f: "Estático", p: "Conexão", t: "Até quando vai continuar lidando com " + dor, h: "ATÉ QUANDO VAI CONVIVER COM ESSE PROBLEMA?" },
-            { f: "Reels", p: "Vendas", t: "Por que vale a pena investir em " + prod + " agora", h: "VALE A PENA CONTRATAR AGORA?" },
-            { f: "Estático", p: "Branding", t: "Como é o nosso compromisso com você em " + local, h: "COMPROMISSO E PROFISSIONALISMO" },
-            { f: "Reels", p: "Conexão", t: "O maior mito que te contam sobre " + prod, h: "MITO VS. VERDADE SOBRE O MERCADO" },
+        // Matriz sênior infalível com tópicos de raciocínio lógico em português natural
+        const pautasMestres = [
+            { f: "Reels", p: "Branding", t: "O erro invisível que custa caro na escolha de " + prod, h: "O ERRO QUE CUSTA CARO AO ESCOLHER ISSO" },
+            { f: "Estático", p: "Conexão", t: "Até quando vai continuar a conviver com " + dor, h: "ATÉ QUANDO VAI CONVIVER COM ESSE PROBLEMA?" },
+            { f: "Reels", p: "Vendas", t: "A verdade nua e cruda sobre contratar " + prod, h: "VALE A PENA CONTRATAR AGORA?" },
+            { f: "Estático", p: "Branding", t: "Como é trabalhar com " + prof + " em " + local, h: "COMPROMISSO E PROFISSIONALISMO" },
+            { f: "Reels", p: "Conexão", t: "O maior mito que te contam sobre " + prod, h: "MITO VS. VERDADE SOBRE O SERVIÇO" },
             { f: "Estático", p: "Vendas", t: "3 razões para resolver sua necessidade esta semana", h: "3 RAZÕES PARA DECIDIR JÁ" },
             { f: "Reels", p: "Branding", t: "Por que o caminho mais barato costuma sair caro", h: "O BARATO QUE SAI MUITO CARO" },
             { f: "Estático", p: "Conexão", t: "O alívio de encontrar quem realmente resolve " + dor, h: "ENCONTRE A SOLUÇÃO DEFINITIVA" },
             { f: "Reels", p: "Vendas", t: "Como superamos o desafio de " + dif, h: "COMO SUPERAR ESTA DIFICULDADE" },
             { f: "Estático", p: "Branding", t: "O padrão de excelência por trás de " + prod, h: "EXCELÊNCIA EM CADA DETALHE" },
-            { f: "Reels", p: "Conexão", t: "Uma conversa sincera sobre o nosso método", h: "UM CONSELHO SINCERO PARA VOCÊ" },
+            { f: "Reels", p: "Conexão", t: "Uma conversa sincera sobre a nossa entrega", h: "UM CONSELHO SINCERO PARA VOCÊ" },
             { f: "Estático", p: "Vendas", t: "Passo a passo prático para ter " + prod, h: "COMO FUNCIONA NA PRÁTICA" },
             { f: "Reels", p: "Branding", t: "O que nos diferencia de verdade em " + local, h: "POR QUE SOMOS REFERÊNCIA" },
             { f: "Estático", p: "Conexão", t: "Respondendo às dúvidas mais comuns sobre " + prod, h: "TUDO O QUE VOCÊ PRECISA SABER" },
@@ -305,7 +295,7 @@ function executarGeracaoInteligente() {
             { f: "Estático", p: "Branding", t: "Nosso compromisso absoluto com o seu resultado", h: "COMPROMISSO COM O SEU SUCESSO" },
             { f: "Reels", p: "Conexão", t: "Histórias reais de quem superou " + dor, h: "HISTÓRIAS REAIS DE TRANSFORMAÇÃO" },
             { f: "Estático", p: "Vendas", t: "Condições e facilidades para fechar " + prod, h: "GARANTA SUA CONDIÇÃO ESPECIAL" },
-            { f: "Reels", p: "Branding", t: "O perigo real de adiar a busca por ajuda", h: "NÃO DEIXE PARA DEPOIS" },
+            { f: "Reels", p: "Branding", t: "O perigo real de adiar a busca por solução", h: "NÃO DEIXE PARA DEPOIS" },
             { f: "Estático", p: "Conexão", t: "O que nossos clientes mais valorizam no atendimento", h: "VALORES QUE FAZEM A DIFERENÇA" },
             { f: "Reels", p: "Vendas", t: "Por que nossa abordagem é diferente de tudo", h: "CONHEÇA NOSSO MÉTODO EXCLUSIVO" },
             { f: "Estático", p: "Branding", t: "Bastidores e dedicação diária com " + prof, h: "DEDICAÇÃO TOTAL AO SEU NEGÓCIO" },
@@ -319,26 +309,16 @@ function executarGeracaoInteligente() {
             { f: "Estático", p: "Vendas", t: "Fechamento de mês com foco total em " + prod, h: "ÚLTIMA CHAMADA DO MÊS" }
         ];
 
-        cronogramaGlobal = baseTemas.map((item, index) => {
+        cronogramaGlobal = pautasMestres.map((item, index) => {
             const numDia = (index + 1) < 10 ? "0" + (index + 1) : "" + (index + 1);
             const isReels = item.f === "Reels";
             const formatoLabel = isReels ? "🎬 Reels (Vídeo)" : "🖼️ Post Estático / Carrossel";
 
-            // Raciocínio sênior por tópicos sem repetição robótica
-            let direcaoContextual = "";
-            if (tipoNegocio === "infoproduto") {
-                direcaoContextual =
-                    "- O Assunto será: Abordar a transformação prática de " + prod + ", focando em como destravar " + dif + " e eliminar " + dor + ".\n" +
-                    "- No gancho inicial você fala: Comece o vídeo apontando uma verdade incômoda sobre o método tradicional ou sobre o medo de se expor.\n" +
-                    "- Você desenvolve falando sobre: O custo de continuar estagnado, a praticidade do seu material/método e por que " + dif + " é superável com o passo a passo certo.\n" +
-                    "- Final / CTA: Convide a pessoa a comentar 'QUERO' ou tocar no link da Bio para garantir o acesso.";
-            } else {
-                direcaoContextual =
-                    "- O Assunto será: Explicar o conceito de " + item.t.toLowerCase() + ", demonstrando que " + prod + " neutraliza " + dor + ".\n" +
-                    "- No gancho inicial você fala: Abra o conteúdo abordando diretamente a barreira que o público sente em relação a " + dif + ".\n" +
-                    "- Você desenvolve falando sobre: A importância de agir preventivamente, os riscos de improvisar e como o seu atendimento " + atuacao.toLowerCase() + " resolve tudo com segurança.\n" +
-                    "- Final / CTA: Oriente a audiência a comentar 'QUERO' ou a tocar no link da Bio para iniciar o atendimento.";
-            }
+            const direcaoSintatica =
+                "- O Assunto será: Explicar por que " + item.t.toLowerCase() + ", mostrando que " + prod + " é a chave para eliminar " + dor + ".\n" +
+                "- No gancho inicial você fala: Abra o conteúdo trazendo uma verdade direta sobre a dificuldade que o público tem com " + dif + ".\n" +
+                "- Você desenvolve falando sobre: O custo invisível de continuar a adiar a decisão, explicando os diferenciais de " + prod + " na sua própria voz e com naturalidade.\n" +
+                "- Final / CTA: Oriente a audiência a comentar 'QUERO' ou a tocar no link da Bio para iniciar o atendimento.";
 
             const legendaPronta =
                 item.t + "!\n\n" +
@@ -353,7 +333,7 @@ function executarGeracaoInteligente() {
                 "• STORY 1 (Manhã - Enquete):\n" +
                 "Texto: 'Uma pergunta sincera para começar o dia:' -> Enquete: 'Já sentiu que " + dor.slice(0, 35) + "...?' [Sim, demais / Quero resolver]\n\n" +
                 "• STORY 2 (Almoço - Bastidor):\n" +
-                "Mostre um detalhe prático ou bastidor de " + prod + ".\n\n" +
+                "Mostre um detalhe prático de " + prod + ".\n\n" +
                 "• STORY 3 (Tarde - Caixinha):\n" +
                 "Caixa de perguntas: 'Qual a sua maior dúvida sobre " + prod + "?'\n\n" +
                 "• STORY 4 (Noite - Chamada):\n" +
@@ -371,7 +351,7 @@ function executarGeracaoInteligente() {
                 titulo: item.t,
                 objetivo: "Trabalhar o pilar de " + item.p + " com foco em conversão e autoridade.",
                 headlineArte: item.h,
-                direcao: direcaoContextual,
+                direcao: direcaoSintatica,
                 legenda: legendaPronta,
                 stories: sugestaoStories,
                 promptNano: promptNano
