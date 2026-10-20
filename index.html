@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>BrandAuth PRO | SaaS Master v54.0</title>
+<title>Destrave Pro | Planeamento de Conteúdo e Autoridade</title>
 <style>
     :root {
         --bg: #070913;
@@ -31,7 +31,6 @@
     .tab-btn { background: none; border: none; color: var(--muted); padding: 12px 11px; font-size: 12px; font-weight: 700; white-space: nowrap; border-bottom: 3px solid transparent; cursor: pointer; }
     .tab-btn.active { color: #818cf8; border-bottom-color: var(--primary); }
     .tab-btn.nano-tab { color: #fbbf24; }
-    .tab-btn.upsell-tab { color: #34d399; }
 
     .container { max-width: 720px; margin: 0 auto; padding: 16px; }
     .tab-pane { display: none; }
@@ -76,36 +75,35 @@
 
 <div class="header">
     <div class="logo-title">
-        <span>⚡</span> BrandAuth <span>AI PRO</span>
+        <span>🚀</span> Destrave <span>Pro</span>
     </div>
-    <span class="badge">SaaS v54.0 (Master)</span>
+    <span class="badge">SaaS Clean v1.0</span>
 </div>
 
 <div class="tabs">
-    <button class="tab-btn active" id="tabbtn-diagnostico" onclick="mudarAbaTab('diagnostico')">1. Diagnóstico</button>
-    <button class="tab-btn" id="tabbtn-calendario" onclick="mudarAbaTab('calendario')">2. Calendário (30d)</button>
-    <button class="tab-btn" id="tabbtn-conteudo" onclick="mudarAbaTab('conteudo')">3. Direção & Legenda</button>
-    <button class="tab-btn nano-tab" id="tabbtn-nano" onclick="mudarAbaTab('nano')">🎨 4. Prompt Nano</button>
-    <button class="tab-btn upsell-tab" id="tabbtn-suporte" onclick="mudarAbaTab('suporte')">👑 5. Próximo Nível</button>
+    <button class="tab-btn active" id="tab-btn-1" onclick="mudarAba('diagnostico')">1. Diagnóstico</button>
+    <button class="tab-btn" id="tab-btn-2" onclick="mudarAba('calendario')">2. Calendário (30d)</button>
+    <button class="tab-btn" id="tab-btn-3" onclick="mudarAba('conteudo')">3. Direção & Legenda</button>
+    <button class="tab-btn nano-tab" id="tab-btn-4" onclick="mudarAba('nano')">🎨 4. Prompt Nano</button>
 </div>
 
 <div class="container">
 
     <!-- ABA 1: DIAGNÓSTICO -->
-    <div id="aba-diagnostico" class="tab-pane active" style="display: block;">
+    <div id="pane-diagnostico" class="tab-pane active" style="display: block;">
         <div class="card">
             <h2>Diagnóstico Estratégico do Negócio</h2>
-            <p class="sub">Preencha os campos abaixo e clique no botão para gerar o seu calendário estratégico de 30 dias.</p>
+            <p class="sub">Preencha os dados abaixo. O Destrave Pro gerará instantaneamente um plano sênior de 30 dias.</p>
 
             <div class="form-group">
-                <label>1. Profissão, Especialidade ou Nicho</label>
-                <input id="inp-prof" type="text" placeholder="Ex: Corretor de imóveis, Advogado, Nutricionista...">
+                <label>1. Profissão ou Especialidade</label>
+                <input id="form-prof" type="text" placeholder="Ex: Corretor de Imóveis, Fisioterapeuta, Advogado...">
             </div>
 
             <div class="grid-2">
                 <div class="form-group">
                     <label>2. Como atua?</label>
-                    <select id="inp-atuacao">
+                    <select id="form-atuacao">
                         <option value="Presencial">Presencial (Negócio Local)</option>
                         <option value="Híbrido">Híbrido</option>
                         <option value="On-line">100% On-line (Digital)</option>
@@ -113,59 +111,58 @@
                 </div>
                 <div class="form-group">
                     <label>Cidade / Região (Opcional)</label>
-                    <input id="inp-cid" type="text" placeholder="Ex: Montes Claros - MG">
+                    <input id="form-cid" type="text" placeholder="Ex: Montes Claros - MG">
                 </div>
             </div>
 
             <div class="form-group">
                 <label>3. Produto ou Serviço Principal (Carro-Chefe)</label>
-                <input id="inp-prod" type="text" placeholder="Ex: Lotes e apartamentos, Consultoria...">
+                <input id="form-prod" type="text" placeholder="Ex: Venda de Lotes, Consultoria, Consulta...">
             </div>
 
             <div class="form-group">
-                <label>4. Qual dor ou prejuízo real ele resolve no cliente?</label>
-                <textarea id="inp-dor" rows="2" placeholder="Ex: Realização do sonho da casa própria ou investimento seguro..."></textarea>
+                <label>4. Qual dor ou prejuízo real ele resolve?</label>
+                <textarea id="form-dor" rows="2" placeholder="Ex: Medo de perder dinheiro, falta de segurança, vergonha..."></textarea>
             </div>
 
             <div class="form-group">
-                <label>5. Dificuldade em apresentar ou vender hoje:</label>
-                <input id="inp-dif" type="text" placeholder="Ex: Captação de clientes">
+                <label>5. Dificuldade atual em apresentar ou vender:</label>
+                <input id="form-dif" type="text" placeholder="Ex: Clientes acham caro ou adiam a decisão">
             </div>
 
-            <!-- BOTÃO COM ID ÚNICO PARA OUVINTE GLOBAL -->
-            <button type="button" id="btn-gerar-master" class="btn-primary">🧠 Gerar Calendário Inteligente (30 Dias)</button>
+            <button type="button" class="btn-primary" onclick="processarGeracaoApp()">🚀 Gerar Calendário Completo (30 Dias)</button>
         </div>
     </div>
 
     <!-- ABA 2: CALENDÁRIO -->
-    <div id="aba-calendario" class="tab-pane" style="display: none;">
+    <div id="pane-calendario" class="tab-pane" style="display: none;">
         <div class="card">
             <h2>Calendário Estratégico (30 Dias)</h2>
-            <p class="sub">Toque em qualquer dia para ver a direção de raciocínio, legendas e sugestões:</p>
+            <p class="sub">Toque em qualquer dia para ver a direção de raciocínio e legendas:</p>
 
-            <div id="resumo-estrategia" class="card-sub" style="margin-bottom: 14px; border-color: rgba(99,102,241,0.45); font-size: 13px;"></div>
+            <div id="resumo-painel" class="card-sub" style="margin-bottom: 14px; border-color: rgba(99,102,241,0.45); font-size: 13px;"></div>
 
             <div class="filter-bar">
-                <button class="filter-btn active" onclick="filtrarDiasMaster('todos', this)">Todos (30)</button>
-                <button class="filter-btn" onclick="filtrarDiasMaster('Reels', this)">🎬 Só Reels</button>
-                <button class="filter-btn" onclick="filtrarDiasMaster('Estático', this)">🖼️ Só Estáticos</button>
-                <button class="filter-btn" onclick="filtrarDiasMaster('Branding', this)">🏛️ Branding</button>
-                <button class="filter-btn" onclick="filtrarDiasMaster('Conexão', this)">🤝 Conexão</button>
-                <button class="filter-btn" onclick="filtrarDiasMaster('Vendas', this)">💰 Vendas</button>
+                <button class="filter-btn active" onclick="filtrarLista('todos', this)">Todos (30)</button>
+                <button class="filter-btn" onclick="filtrarLista('Reels', this)">🎬 Só Reels</button>
+                <button class="filter-btn" onclick="filtrarLista('Estático', this)">🖼️ Só Estáticos</button>
+                <button class="filter-btn" onclick="filtrarLista('Branding', this)">🏛️ Branding</button>
+                <button class="filter-btn" onclick="filtrarLista('Conexão', this)">🤝 Conexão</button>
+                <button class="filter-btn" onclick="filtrarLista('Vendas', this)">💰 Vendas</button>
             </div>
 
-            <div id="lista-calendario">
+            <div id="lista-dias-container">
                 <p style="font-size:13px; color:var(--muted);">Preencha o diagnóstico na Aba 1.</p>
             </div>
         </div>
     </div>
 
-    <!-- ABA 3: DIREÇÃO & LEGENDA -->
-    <div id="aba-conteudo" class="tab-pane" style="display: none;">
+    <!-- ABA 3: CONTEÚDO -->
+    <div id="pane-conteudo" class="tab-pane" style="display: none;">
         <div class="card">
             <div id="detalhe-badges"></div>
             <h2 id="detalhe-titulo">Selecione um dia no Calendário</h2>
-            <p class="sub" id="detalhe-objetivo">Toque em qualquer card da Aba 2.</p>
+            <p class="sub" id="detalhe-sub">Toque em qualquer card da Aba 2.</p>
 
             <div class="card-sub">
                 <h3 style="color:#818cf8; font-size:13px; text-transform:uppercase;">1. Direção Estratégica (Como falar na sua voz)</h3>
@@ -176,7 +173,7 @@
             <div class="card-sub" style="border-color: rgba(245,158,11,0.45); background: rgba(245,158,11,0.06);">
                 <h3 style="color:#fbbf24; font-size:13px;">🎨 Imagem + Texto no Nano Banana</h3>
                 <p style="font-size:12px; color:#cbd5e1;">Prompt visual com texto embutido exclusivo para este post.</p>
-                <button class="btn-amber" onclick="mudarAbaTab('nano')">Ver Prompt Nano Banana →</button>
+                <button class="btn-amber" onclick="mudarAba('nano')">Ver Prompt Nano Banana →</button>
             </div>
 
             <div class="card-sub">
@@ -194,7 +191,7 @@
     </div>
 
     <!-- ABA 4: PROMPT NANO -->
-    <div id="aba-nano" class="tab-pane" style="display: none;">
+    <div id="pane-nano" class="tab-pane" style="display: none;">
         <div class="card" style="border-color: rgba(245,158,11,0.35);">
             <span class="tag tag-conexao">Gerador de Imagem + Texto na Arte</span>
             <h2>🎨 Prompt para o Nano Banana</h2>
@@ -213,65 +210,47 @@
         </div>
     </div>
 
-    <!-- ABA 5: SUPORTE -->
-    <div id="aba-suporte" class="tab-pane" style="display: none;">
-        <div class="card" style="border-color: rgba(16,185,129,0.35);">
-            <span class="tag tag-vendas">Acelerador de Resultados</span>
-            <h2>🚀 Destrave suas Vendas</h2>
-            <div class="card-sub">
-                <h3>🎥 Método Destrave & Grave</h3>
-                <p style="font-size:12.5px; color:var(--muted); margin-bottom:10px;">Aprenda a gravar vídeos naturais em 15 minutos.</p>
-                <button class="btn-primary" style="margin-top:4px; padding:12px;" onclick="window.open('https://wa.me/5538999999999?text=Ol%C3%A1,%20quero%20conhecer%20o%20M%C3%A9todo!', '_blank')">Quero Conhecer →</button>
-            </div>
-        </div>
-    </div>
-
 </div>
 
 <script>
 let cronogramaGlobal = [];
-let dadosCliente = {};
-let indiceDiaAtivo = 0;
+let meuPerfil = {};
+let diaAtivoIndex = 0;
 
-// OUVINTE GLOBAL AUTOMÁTICO (Fere qualquer problema de cache de botão)
-document.addEventListener('DOMContentLoaded', function() {
-    const botaoMestre = document.getElementById('btn-gerar-master');
-    if (botaoMestre) {
-        botaoMestre.addEventListener('click', executarGeracaoMasterSaaS);
-    }
-});
-
-function mudarAbaTab(nome) {
-    const abas = ['diagnostico', 'calendario', 'conteudo', 'nano', 'suporte'];
-    for (let i = 0; i < abas.length; i++) {
-        const p = document.getElementById('aba-' + abas[i]);
-        const b = document.getElementById('tabbtn-' + abas[i]);
+function mudarAba(nome) {
+    const lista = ['diagnostico', 'calendario', 'conteudo', 'nano'];
+    for (let i = 0; i < lista.length; i++) {
+        const p = document.getElementById('pane-' + lista[i]);
+        const b = document.getElementById('tab-btn-' + (i+1));
         if (p) p.style.display = 'none';
         if (b) b.classList.remove('active');
     }
-    const alvoP = document.getElementById('aba-' + nome);
-    const alvoB = document.getElementById('tabbtn-' + nome);
+    const alvoP = document.getElementById('pane-' + nome);
     if (alvoP) alvoP.style.display = 'block';
-    if (alvoB) alvoB.classList.add('active');
+
+    if (nome === 'diagnostico') document.getElementById('tab-btn-1').classList.add('active');
+    if (nome === 'calendario') document.getElementById('tab-btn-2').classList.add('active');
+    if (nome === 'conteudo') document.getElementById('tab-btn-3').classList.add('active');
+    if (nome === 'nano') document.getElementById('tab-btn-4').classList.add('active');
+
     window.scrollTo(0, 0);
 }
 
-function executarGeracaoMasterSaaS() {
-    const prof = document.getElementById('inp-prof').value.trim() || "Profissional";
-    const atuacao = document.getElementById('inp-atuacao').value;
-    const cid = document.getElementById('inp-cid').value.trim();
-    const prod = document.getElementById('inp-prod').value.trim() || "Serviço";
-    const dor = document.getElementById('inp-dor').value.trim() || "perder tempo ou dinheiro";
-    const dif = document.getElementById('inp-dif').value.trim() || "atrair clientes";
+function processarGeracaoApp() {
+    const prof = document.getElementById('form-prof').value.trim() || "Profissional";
+    const atuacao = document.getElementById('form-atuacao').value;
+    const cid = document.getElementById('form-cid').value.trim();
+    const prod = document.getElementById('form-prod').value.trim() || "Serviço";
+    const dor = document.getElementById('form-dor').value.trim() || "perder tempo ou dinheiro";
+    const dif = document.getElementById('form-dif').value.trim() || "atrair clientes";
 
     const local = cid ? cid : (atuacao === "On-line" ? "todo o Brasil" : "nossa região");
-    dadosCliente = { prof, atuacao, local, prod, dor, dif };
+    meuPerfil = { prof, atuacao, local, prod, dor, dif };
 
-    document.getElementById('resumo-estrategia').innerHTML =
-        "<b>🎯 Estratégia de Posicionamento Ativa:</b><br>" +
-        "O profissional <b>" + prof + "</b> (" + atuacao + " em " + local + ") destaca <b>" + prod + "</b> superando a barreira de <i>" + dif + "</i> e eliminando a dor de <i>" + dor + "</i>.";
+    document.getElementById('resumo-painel').innerHTML =
+        "<b>🎯 Estratégia Destrave Pro:</b> " + prof + " (" + atuacao + " em " + local + ") focando em <b>" + prod + "</b> para eliminar <i>" + dor + "</i> superando a barreira de <i>" + dif + "</i>.";
 
-    const baseTemas = [
+    const pautasBase = [
         { f: "Reels", p: "Branding", t: "O erro invisível ao escolher " + prod, h: "O ERRO QUE CUSTA CARO AO ESCOLHER ISSO" },
         { f: "Estático", p: "Conexão", t: "Até quando vai continuar a conviver com " + dor, h: "ATÉ QUANDO VAI CONVIVER COM ESSE PROBLEMA?" },
         { f: "Reels", p: "Vendas", t: "Por que vale a pena investir em " + prod, h: "VALE A PENA CONTRATAR AGORA?" },
@@ -304,27 +283,27 @@ function executarGeracaoMasterSaaS() {
         { f: "Estático", p: "Vendas", t: "Fechamento de mês com foco total em " + prod, h: "ÚLTIMA CHAMADA DO MÊS" }
     ];
 
-    cronogramaGlobal = baseTemas.map((item, index) => {
+    cronogramaGlobal = pautasBase.map((item, index) => {
         const numDia = (index + 1) < 10 ? "0" + (index + 1) : "" + (index + 1);
         const isReels = item.f === "Reels";
         const formatoLabel = isReels ? "🎬 Reels (Vídeo)" : "🖼️ Post Estático / Carrossel";
 
-        const direcaoSintatica =
-            "- O Assunto será: Explicar o conceito de " + item.t.toLowerCase() + ", demonstrando que " + prod + " resolve " + dor + ".\n" +
-            "- No gancho inicial você fala: Abra o conteúdo trazendo uma verdade dura ou um incômodo real que o público enfrenta relacionado a " + dif + ".\n" +
-            "- Você desenvolve falando sobre: O custo invisível de continuar a ignorar o problema, argumentando que o diferencial de " + prod + " traz segurança e previsibilidade.\n" +
-            "- Final / CTA: Oriente a audiência a comentar 'QUERO' ou a tocar no link da Bio para iniciar o atendimento " + atuacao.toLowerCase() + ".";
+        const direcao =
+            "- O Assunto será: Explicar por que " + item.t.toLowerCase() + ", mostrando que " + prod + " é a chave para eliminar " + dor + ".\n" +
+            "- No gancho inicial você fala: Abra o conteúdo trazendo uma verdade direta sobre a dificuldade que o público enfrenta com " + dif + ".\n" +
+            "- Você desenvolve falando sobre: O custo invisível de adiar a solução, argumentando que o diferencial de " + prod + " traz segurança e tranquilidade na própria voz.\n" +
+            "- Final / CTA: Oriente a audiência a comentar 'QUERO' ou tocar no link da Bio.";
 
-        const legendaPronta =
+        const legenda =
             item.t + "!\n\n" +
             "Muitas pessoas acabam por adiar a decisão de buscar " + prod + " porque esbarram na dificuldade de " + dif + ".\n\n" +
             "Mas a verdade é uma só: nada custa mais caro do que continuar a conviver com " + dor + ".\n\n" +
-            "O nosso compromisso como " + prof + " é entregar exatamente a solução que você precisa com total segurança e profissionalismo.\n\n" +
+            "O nosso compromisso como " + prof + " é entregar exatamente a solução que você precisa com total segurança.\n\n" +
             "📍 Atendimento " + atuacao + " (" + local + ")\n" +
-            "📲 Toque no link da minha Bio agora mesmo ou envie mensagem no Direct para conversarmos!\n\n" +
+            "📲 Toque no link da minha Bio!\n\n" +
             "#" + prof.replace(/\s+/g, "") + " #" + prod.replace(/\s+/g, "");
 
-        const sugestaoStories =
+        const stories =
             "• STORY 1 (Manhã - Enquete):\n" +
             "Texto: 'Uma pergunta sincera para começar o dia:' -> Enquete: 'Já sentiu que " + dor.slice(0, 35) + "...?' [Sim, demais / Quero resolver]\n\n" +
             "• STORY 2 (Almoço - Bastidor):\n" +
@@ -334,7 +313,7 @@ function executarGeracaoMasterSaaS() {
             "• STORY 4 (Noite - Chamada):\n" +
             "'Para quem votou cedo e quer resolver isto esta semana, toque no link para falar comigo diretamente.'";
 
-        const promptNanoBanana =
+        const promptNano =
             "Crie uma imagem publicitária profissional para Instagram (proporção 4:5).\n" +
             "CENA VISUAL: Fotografia comercial ultra-realista em formato vertical, ambientação brasileira autêntica representando o universo de " + prof + " e " + prod + ", iluminação cinematográfica quente e limpa.\n" +
             "TEXTO NA IMAGEM: \"" + item.h + "\" (tipografia moderna em negrito, sem serifa, perfeitamente legível em português).";
@@ -346,19 +325,19 @@ function executarGeracaoMasterSaaS() {
             titulo: item.t,
             objetivo: "Trabalhar o pilar de " + item.p + " com foco em conversão e autoridade.",
             headlineArte: item.h,
-            direcao: direcaoSintatica,
-            legenda: legendaPronta,
-            stories: sugestaoStories,
+            direcao: direcao,
+            legenda: legenda,
+            stories: stories,
             promptNano: promptNano
         };
     });
 
-    renderizarTabelaCalendario('todos');
-    mudarAbaTab('calendario');
+    renderizarTabelaCalendarioMaster('todos');
+    mudarAba('calendario');
 }
 
-function renderizarTabelaCalendario(filtro) {
-    const box = document.getElementById('lista-calendario');
+function renderizarTabelaCalendarioMaster(filtro) {
+    const box = document.getElementById('lista-dias-container');
     let html = "";
 
     for (let i = 0; i < cronogramaGlobal.length; i++) {
@@ -370,7 +349,7 @@ function renderizarTabelaCalendario(filtro) {
         const pilarCls = d.pilar === "Conexão" ? "tag-conexao" : (d.pilar === "Vendas" ? "tag-vendas" : "tag-branding");
 
         html +=
-            "<div class='day-card' onclick='entrarNoDetalheDoDia(" + i + ")'>" +
+            "<div class='day-card' onclick='clicarNoDiaDoCalendario(" + i + ")'>" +
                 "<div><span class='tag " + tagCls + "'>Dia " + d.dia + " • " + d.tipo + "</span><span class='tag " + pilarCls + "'>" + d.pilar + "</span></div>" +
                 "<h3>" + d.titulo + "</h3>" +
                 "<p style='font-size:12px; color:var(--muted); margin-top:4px;'>" + d.objetivo + "</p>" +
@@ -384,10 +363,10 @@ function filtrarDiasMaster(filtro, btn) {
     const botoes = document.querySelectorAll('.filter-btn');
     for (let i = 0; i < botoes.length; i++) botoes[i].classList.remove('active');
     if (btn) btn.classList.add('active');
-    renderizarTabelaCalendario(filtro);
+    renderizarTabelaCalendarioMaster(filtro);
 }
 
-function entrarNoDetalheDoDia(index) {
+function clicarNoDiaDoCalendario(index) {
     indiceDiaAtivo = index;
     const d = cronogramaGlobal[index];
     if (!d) return;
@@ -410,7 +389,7 @@ function entrarNoDetalheDoDia(index) {
     document.getElementById('nano-headline').textContent = d.headlineArte;
     document.getElementById('texto-prompt-nano').textContent = d.promptNano;
 
-    mudarAbaTab('conteudo');
+    mudarAba('conteudo');
 }
 
 function copiarTextoPronto(idElemento, btn) {
