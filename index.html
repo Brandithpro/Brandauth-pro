@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>BrandAuth PRO | SaaS Blindado v41.0</title>
+<title>BrandAuth PRO | SaaS Sintático Inteligente v42.0</title>
 <style>
     :root {
         --bg: #070913;
@@ -11,6 +11,7 @@
         --card-alt: #0b0f19;
         --border: #1f293d;
         --primary: #6366f1;
+        --primary-hover: #4f46e5;
         --amber: #f59e0b;
         --emerald: #10b981;
         --rose: #f43f5e;
@@ -79,15 +80,15 @@
 
 <div id="loading-overlay">
     <div class="spinner"></div>
-    <h3 id="loading-title" style="font-size: 17px; color: #fff; margin-bottom: 6px;">A estruturar o calendário...</h3>
-    <p id="loading-sub" style="font-size: 12px; color: var(--muted);">A gerar os 30 dias estratégicos.</p>
+    <h3 id="loading-title" style="font-size: 17px; color: #fff; margin-bottom: 6px;">A processar inteligência sintática...</h3>
+    <p id="loading-sub" style="font-size: 12px; color: var(--muted);">A estruturar o plano de 30 dias com raciocínio sênior.</p>
 </div>
 
 <div class="header">
     <div class="logo-title">
         <span>⚡</span> BrandAuth <span>AI PRO</span>
     </div>
-    <span class="badge">SaaS v41.0 (Blindado)</span>
+    <span class="badge">SaaS v42.0 (Inteligente)</span>
 </div>
 
 <div class="tabs">
@@ -104,11 +105,11 @@
     <div id="aba-diagnostico" class="tab-pane active" style="display: block;">
         <div class="card">
             <h2>Diagnóstico Estratégico do Negócio</h2>
-            <p class="sub">Preencha os campos abaixo. O sistema estruturará automaticamente um calendário de 30 dias com direção de conteúdo sênior.</p>
+            <p class="sub">Preencha os campos abaixo. O sistema estruturará automaticamente um calendário de 30 dias com direção de conteúdo sênior inteligente.</p>
 
             <div class="form-group">
                 <label>1. Profissão ou Especialidade</label>
-                <input id="inp-prof" type="text" placeholder="Ex: Advogado, Fisioterapeuta, Loteadora...">
+                <input id="inp-prof" type="text" placeholder="Ex: Barbeiro, Infoproduto (Ebook), Fisioterapeuta...">
             </div>
 
             <div class="grid-2">
@@ -128,20 +129,20 @@
 
             <div class="form-group">
                 <label>3. Produto ou Serviço Mais Vendido (Carro-Chefe)</label>
-                <input id="inp-prod" type="text" placeholder="Ex: Venda de Lotes, Consultoria...">
+                <input id="inp-prod" type="text" placeholder="Ex: Corte Degradê, Ebook Destrave & Grave...">
             </div>
 
             <div class="form-group">
                 <label>4. Qual dor ele tira do seu cliente?</label>
-                <textarea id="inp-dor" rows="2" placeholder="Ex: Acaba com o medo de perder dinheiro e traz segurança..."></textarea>
+                <textarea id="inp-dor" rows="2" placeholder="Ex: Medo de gravar vídeos, vergonha da câmera, falta de audiência..."></textarea>
             </div>
 
             <div class="form-group">
                 <label>5. Dificuldade em apresentar ou vender hoje:</label>
-                <input id="inp-dif" type="text" placeholder="Ex: Clientes acham caro ou adiam a decisão">
+                <input id="inp-dif" type="text" placeholder="Ex: Expor o negócio na internet e atrair público">
             </div>
 
-            <button type="button" class="btn-primary" onclick="executarGeracaoCalendario()">🧠 Gerar Calendário Completo (30 Dias)</button>
+            <button type="button" class="btn-primary" onclick="executarGeracaoInteligente()">🧠 Gerar Calendário Inteligente (30 Dias)</button>
         </div>
     </div>
 
@@ -184,7 +185,7 @@
             <div class="card-sub" style="border-color: rgba(245,158,11,0.45); background: rgba(245,158,11,0.06);">
                 <h3 style="color:#fbbf24; font-size:13px;">🎨 Imagem + Texto no Nano Banana</h3>
                 <p style="font-size:12px; color:#cbd5e1;">Prompt visual com texto embutido exclusivo para este post.</p>
-                <button class="btn-amber" onclick="abrirAbaTab('nano')">Ver Prompt Nano Banana →</button>
+                <button class="btn-amber" onclick="mudarAbaTab('nano')">Ver Prompt Nano Banana →</button>
             </div>
 
             <div class="card-sub">
@@ -256,13 +257,13 @@ function mudarAbaTab(nome) {
     window.scrollTo(0, 0);
 }
 
-function executarGeracaoCalendario() {
+function executarGeracaoInteligente() {
     const prof = document.getElementById('inp-prof').value.trim() || "Profissional";
     const atuacao = document.getElementById('inp-atuacao').value;
     const cid = document.getElementById('inp-cid').value.trim();
     const prod = document.getElementById('inp-prod').value.trim() || "Serviço";
-    const dor = document.getElementById('inp-dor').value.trim() || "Perder dinheiro ou tempo";
-    const dif = document.getElementById('inp-dif').value.trim() || "Atrair clientes";
+    const dor = document.getElementById('inp-dor').value.trim() || "perder tempo ou dinheiro";
+    const dif = document.getElementById('inp-dif').value.trim() || "atrair clientes";
 
     const local = cid ? cid : (atuacao === "On-line" ? "todo o Brasil" : "nossa região");
     dadosCliente = { prof, atuacao, local, prod, dor, dif };
@@ -270,87 +271,109 @@ function executarGeracaoCalendario() {
     document.getElementById('loading-overlay').style.display = 'flex';
 
     setTimeout(() => {
-        document.getElementById('resumo-estrategia').innerHTML =
-            "<b>🎯 Estratégia Ativa (" + prof + " • " + atuacao + " em " + local + "):</b><br>" +
-            "Foco em destacar <b>" + prod + "</b> resolvendo a dor de <i>" + dor + "</i> e superando a objeção de <i>" + dif + "</i>.";
+        // Classificação inteligente de tom por tipo de negócio
+        const pLower = prof.toLowerCase();
+        const prodLower = prod.toLowerCase();
+        let tipoNegocio = "servico"; // padrao
+        if (pLower.includes("infoproduto") || pLower.includes("ebook") || pLower.includes("curso") || pLower.includes("mentor") || prodLower.includes("ebook")) {
+            tipoNegocio = "infoproduto";
+        } else if (pLower.includes("advogad") || pLower.includes("fisioterapeuta") || pLower.includes("nutricionista") || pLower.includes("psicó")) {
+            tipoNegocio = "profissional";
+        }
 
+        document.getElementById('resumo-estrategia').innerHTML =
+            "<b>🎯 Estratégia Contextual Ativa (" + prof + " • " + atuacao + " em " + local + "):</b><br>" +
+            "Foco em evidenciar <b>" + prod + "</b> combatendo a barreira de <i>" + dif + "</i>, provando como elimina definitivamente a dor de <i>" + dor + "</i>.";
+
+        // Matriz com raciocínio sintático fluido e inteligente (Sem colagem tosca)
         const baseTemas = [
-            { d: "01", f: "Reels", p: "Branding", t: "O erro silencioso ao escolher " + prod, h: "O ERRO QUE CUSTA CARO AO ESCOLHER ISSO" },
-            { d: "02", f: "Estático", p: "Conexão", t: "Até quando vai conviver com " + dor, h: "ATÉ QUANDO VAI CONVIVER COM ESSE PROBLEMA?" },
-            { d: "03", f: "Reels", p: "Vendas", t: "A verdade sobre investir em " + prod, h: "VALE A PENA CONTRATAR AGORA?" },
-            { d: "04", f: "Estático", p: "Branding", t: "Como é trabalhar com " + prof + " em " + local, h: "COMPROMISSO E PROFISSIONALISMO" },
-            { d: "05", f: "Reels", p: "Conexão", t: "O maior mito que te contam sobre " + prod, h: "MITO VS. VERDADE SOBRE O SERVIÇO" },
-            { d: "06", f: "Estático", p: "Vendas", t: "3 razões para resolver sua necessidade esta semana", h: "3 RAZÕES PARA DECIDIR JÁ" },
-            { d: "07", f: "Reels", p: "Branding", t: "Por que o mais barato quase sempre sai mais caro", h: "O BARATO QUE SAI MUITO CARO" },
-            { d: "08", f: "Estático", p: "Conexão", t: "O alívio de encontrar quem realmente resolve " + dor, h: "ENCONTRE A SOLUÇÃO DEFINITIVA" },
-            { d: "09", f: "Reels", p: "Vendas", t: "Como superamos o desafio de " + dif, h: "COMO SUPERAR ESTA DIFICULDADE" },
-            { d: "10", f: "Estático", p: "Branding", t: "O padrão de excelência por trás de " + prod, h: "EXCELÊNCIA EM CADA DETALHE" },
-            { d: "11", f: "Reels", p: "Conexão", t: "Uma conversa sincera sobre a nossa rotina", h: "UM CONSELHO SINCERO PARA VOCÊ" },
-            { d: "12", f: "Estático", p: "Vendas", t: "Passo a passo prático para contratar " + prod, h: "COMO FUNCIONA NA PRÁTICA" },
-            { d: "13", f: "Reels", p: "Branding", t: "O que nos diferencia em " + local, h: "POR QUE SOMOS REFERÊNCIA" },
-            { d: "14", f: "Estático", p: "Conexão", t: "Respondendo às dúvidas mais comuns sobre " + prod, h: "TUDO O QUE VOCÊ PRECISA SABER" },
-            { d: "15", f: "Reels", p: "Vendas", t: "A oportunidade ideal para dar o próximo passo", h: "OPORTUNIDADE EXCLUSIVA NESTA SEMANA" },
-            { d: "16", f: "Estático", p: "Branding", t: "Nosso compromisso absoluto com o seu resultado", h: "COMPROMISSO COM O SEU SUCESSO" },
-            { d: "17", f: "Reels", p: "Conexão", t: "Histórias reais de quem superou " + dor, h: "HISTÓRIAS REAIS DE TRANSFORMAÇÃO" },
-            { d: "18", f: "Estático", p: "Vendas", t: "Condições e facilidades para fechar " + prod, h: "GARANTA SUA CONDIÇÃO ESPECIAL" },
-            { d: "19", f: "Reels", p: "Branding", t: "O perigo real de adiar a busca por ajuda", h: "NÃO DEIXE PARA DEPOIS" },
-            { d: "20", f: "Estático", p: "Conexão", t: "O que nossos clientes mais valorizam", h: "VALORES QUE FAZEM A DIFERENÇA" },
-            { d: "21", f: "Reels", p: "Vendas", t: "Por que nosso método é diferente de tudo", h: "CONHEÇA NOSSO MÉTODO EXCLUSIVO" },
-            { d: "22", f: "Estático", p: "Branding", t: "Bastidores e dedicação diária", h: "DEDICAÇÃO TOTAL AO SEU NEGÓCIO" },
-            { d: "23", f: "Reels", p: "Conexão", t: "Como identificar que chegou o momento de mudar", h: "SINAIS DE QUE VOCÊ PRECISA MUDAR" },
-            { d: "24", f: "Estático", p: "Vendas", t: "Facilidades exclusivas para começar", h: "FACILIDADES PARA VOCÊ COMEÇAR" },
-            { d: "25", f: "Reels", p: "Branding", t: "A importância de escolher com quem se identifica", h: "CONEXÃO E CONFIANÇA MÚTUA" },
-            { d: "26", f: "Estático", p: "Conexão", t: "Espaço aberto: respondendo dúvidas", h: "ESPAÇO ABERTO PARA PERGUNTAS" },
-            { d: "27", f: "Reels", p: "Vendas", t: "Últimas vagas disponíveis na nossa agenda", h: "AGENDA LIMITADA: GARANTA SUA VAGA" },
-            { d: "28", f: "Estático", p: "Branding", t: "Visão de futuro: crescendo juntos", h: "CONSTRUINDO UM FUTURO SÓLIDO" },
-            { d: "29", f: "Reels", p: "Conexão", t: "Agradecimento especial pela confiança", h: "OBRIGADO PELA PARCERIA DE SEMPRE" },
-            { d: "30", f: "Estático", p: "Vendas", t: "Fechamento de mês com foco total em " + prod, h: "ÚLTIMA CHAMADA DO MÊS" }
+            { f: "Reels", p: "Branding", t: "O erro que impede você de aproveitar " + prod, h: "O ERRO QUE CUSTA CARO AO ESCOLHER ISSO" },
+            { f: "Estático", p: "Conexão", t: "Até quando vai continuar lidando com " + dor, h: "ATÉ QUANDO VAI CONVIVER COM ESSE PROBLEMA?" },
+            { f: "Reels", p: "Vendas", t: "Por que vale a pena investir em " + prod + " agora", h: "VALE A PENA CONTRATAR AGORA?" },
+            { f: "Estático", p: "Branding", t: "Como é o nosso compromisso com você em " + local, h: "COMPROMISSO E PROFISSIONALISMO" },
+            { f: "Reels", p: "Conexão", t: "O maior mito que te contam sobre " + prod, h: "MITO VS. VERDADE SOBRE O MERCADO" },
+            { f: "Estático", p: "Vendas", t: "3 razões para resolver sua necessidade esta semana", h: "3 RAZÕES PARA DECIDIR JÁ" },
+            { f: "Reels", p: "Branding", t: "Por que o caminho mais barato costuma sair caro", h: "O BARATO QUE SAI MUITO CARO" },
+            { f: "Estático", p: "Conexão", t: "O alívio de encontrar quem realmente resolve " + dor, h: "ENCONTRE A SOLUÇÃO DEFINITIVA" },
+            { f: "Reels", p: "Vendas", t: "Como superamos o desafio de " + dif, h: "COMO SUPERAR ESTA DIFICULDADE" },
+            { f: "Estático", p: "Branding", t: "O padrão de excelência por trás de " + prod, h: "EXCELÊNCIA EM CADA DETALHE" },
+            { f: "Reels", p: "Conexão", t: "Uma conversa sincera sobre o nosso método", h: "UM CONSELHO SINCERO PARA VOCÊ" },
+            { f: "Estático", p: "Vendas", t: "Passo a passo prático para ter " + prod, h: "COMO FUNCIONA NA PRÁTICA" },
+            { f: "Reels", p: "Branding", t: "O que nos diferencia de verdade em " + local, h: "POR QUE SOMOS REFERÊNCIA" },
+            { f: "Estático", p: "Conexão", t: "Respondendo às dúvidas mais comuns sobre " + prod, h: "TUDO O QUE VOCÊ PRECISA SABER" },
+            { f: "Reels", p: "Vendas", t: "A oportunidade ideal para dar o próximo passo", h: "OPORTUNIDADE EXCLUSIVA NESTA SEMANA" },
+            { f: "Estático", p: "Branding", t: "Nosso compromisso absoluto com o seu resultado", h: "COMPROMISSO COM O SEU SUCESSO" },
+            { f: "Reels", p: "Conexão", t: "Histórias reais de quem superou " + dor, h: "HISTÓRIAS REAIS DE TRANSFORMAÇÃO" },
+            { f: "Estático", p: "Vendas", t: "Condições e facilidades para fechar " + prod, h: "GARANTA SUA CONDIÇÃO ESPECIAL" },
+            { f: "Reels", p: "Branding", t: "O perigo real de adiar a busca por ajuda", h: "NÃO DEIXE PARA DEPOIS" },
+            { f: "Estático", p: "Conexão", t: "O que nossos clientes mais valorizam no atendimento", h: "VALORES QUE FAZEM A DIFERENÇA" },
+            { f: "Reels", p: "Vendas", t: "Por que nossa abordagem é diferente de tudo", h: "CONHEÇA NOSSO MÉTODO EXCLUSIVO" },
+            { f: "Estático", p: "Branding", t: "Bastidores e dedicação diária com " + prof, h: "DEDICAÇÃO TOTAL AO SEU NEGÓCIO" },
+            { f: "Reels", p: "Conexão", t: "Como identificar que chegou o momento de mudar", h: "SINAIS DE QUE VOCÊ PRECISA MUDAR" },
+            { f: "Estático", p: "Vendas", t: "Facilidades exclusivas para começar com " + prof, h: "FACILIDADES PARA VOCÊ COMEÇAR" },
+            { f: "Reels", p: "Branding", t: "A importância de escolher com quem você se identifica", h: "CONEXÃO E CONFIANÇA MÚTUA" },
+            { f: "Estático", p: "Conexão", t: "Espaço aberto: respondendo dúvidas sobre " + prod, h: "ESPAÇO ABERTO PARA PERGUNTAS" },
+            { f: "Reels", p: "Vendas", t: "Últimas vagas disponíveis na nossa agenda", h: "AGENDA LIMITADA: GARANTA SUA VAGA" },
+            { f: "Estático", p: "Branding", t: "Visão de futuro: crescendo e evoluindo juntos", h: "CONSTRUINDO UM FUTURO SÓLIDO" },
+            { f: "Reels", p: "Conexão", t: "Agradecimento especial pela confiança em " + local, h: "OBRIGADO PELA PARCERIA DE SEMPRE" },
+            { f: "Estático", p: "Vendas", t: "Fechamento de mês com foco total em " + prod, h: "ÚLTIMA CHAMADA DO MÊS" }
         ];
 
-        cronogramaGlobal = baseTemas.map(item => {
+        cronogramaGlobal = baseTemas.map((item, index) => {
+            const numDia = (index + 1) < 10 ? "0" + (index + 1) : "" + (index + 1);
             const isReels = item.f === "Reels";
             const formatoLabel = isReels ? "🎬 Reels (Vídeo)" : "🖼️ Post Estático / Carrossel";
 
-            const direcao =
-                "- O Assunto será: Explicar o conceito de " + item.t.toLowerCase() + ", demonstrando que " + prod + " resolve " + dor + ".\n" +
-                "- No gancho inicial você fala: Abra o conteúdo trazendo uma verdade dura ou um incômodo real que o público enfrenta sobre " + dif + ".\n" +
-                "- Você desenvolve falando sobre: O custo invisível de ignorar o problema, argumentando que o diferencial de " + prod + " traz segurança e previsibilidade na própria voz.\n" +
-                "- Final / CTA: Oriente a audiência a comentar 'QUERO' ou tocar no link da Bio para iniciar o atendimento.";
+            // Raciocínio sênior por tópicos sem repetição robótica
+            let direcaoContextual = "";
+            if (tipoNegocio === "infoproduto") {
+                direcaoContextual =
+                    "- O Assunto será: Abordar a transformação prática de " + prod + ", focando em como destravar " + dif + " e eliminar " + dor + ".\n" +
+                    "- No gancho inicial você fala: Comece o vídeo apontando uma verdade incômoda sobre o método tradicional ou sobre o medo de se expor.\n" +
+                    "- Você desenvolve falando sobre: O custo de continuar estagnado, a praticidade do seu material/método e por que " + dif + " é superável com o passo a passo certo.\n" +
+                    "- Final / CTA: Convide a pessoa a comentar 'QUERO' ou tocar no link da Bio para garantir o acesso.";
+            } else {
+                direcaoContextual =
+                    "- O Assunto será: Explicar o conceito de " + item.t.toLowerCase() + ", demonstrando que " + prod + " neutraliza " + dor + ".\n" +
+                    "- No gancho inicial você fala: Abra o conteúdo abordando diretamente a barreira que o público sente em relação a " + dif + ".\n" +
+                    "- Você desenvolve falando sobre: A importância de agir preventivamente, os riscos de improvisar e como o seu atendimento " + atuacao.toLowerCase() + " resolve tudo com segurança.\n" +
+                    "- Final / CTA: Oriente a audiência a comentar 'QUERO' ou a tocar no link da Bio para iniciar o atendimento.";
+            }
 
-            const legenda =
+            const legendaPronta =
                 item.t + "!\n\n" +
                 "Muitas pessoas acabam por adiar a decisão de buscar " + prod + " porque esbarram na dificuldade de " + dif + ".\n\n" +
                 "Mas a verdade é uma só: nada custa mais caro do que continuar a conviver com " + dor + ".\n\n" +
-                "O nosso compromisso como " + prof + " é entregar exatamente o que você precisa através de um atendimento especializado.\n\n" +
+                "O nosso compromisso como " + prof + " é entregar exatamente a solução que você precisa com total segurança e profissionalismo.\n\n" +
                 "📍 Atendimento " + atuacao + " (" + local + ")\n" +
                 "📲 Toque no link da minha Bio agora mesmo ou envie mensagem no Direct para conversarmos!\n\n" +
                 "#" + prof.replace(/\s+/g, "") + " #" + prod.replace(/\s+/g, "");
 
-            const stories =
+            const sugestaoStories =
                 "• STORY 1 (Manhã - Enquete):\n" +
                 "Texto: 'Uma pergunta sincera para começar o dia:' -> Enquete: 'Já sentiu que " + dor.slice(0, 35) + "...?' [Sim, demais / Quero resolver]\n\n" +
                 "• STORY 2 (Almoço - Bastidor):\n" +
-                "Mostre um detalhe prático de " + prod + ".\n\n" +
+                "Mostre um detalhe prático ou bastidor de " + prod + ".\n\n" +
                 "• STORY 3 (Tarde - Caixinha):\n" +
                 "Caixa de perguntas: 'Qual a sua maior dúvida sobre " + prod + "?'\n\n" +
                 "• STORY 4 (Noite - Chamada):\n" +
                 "'Para quem votou cedo e quer resolver isto esta semana, toque no link para falar comigo diretamente.'";
 
-            const promptNano =
+            const promptNanoBanana =
                 "Crie uma imagem publicitária profissional para Instagram (proporção 4:5).\n" +
                 "CENA VISUAL: Fotografia comercial ultra-realista em formato vertical, ambientação brasileira autêntica representando o universo de " + prof + " e " + prod + ", iluminação cinematográfica quente e limpa.\n" +
                 "TEXTO NA IMAGEM: \"" + item.h + "\" (tipografia moderna em negrito, sem serifa, perfeitamente legível em português).";
 
             return {
-                dia: item.d,
+                dia: numDia,
                 tipo: formatoLabel,
                 pilar: item.p,
                 titulo: item.t,
                 objetivo: "Trabalhar o pilar de " + item.p + " com foco em conversão e autoridade.",
                 headlineArte: item.h,
-                direcao: direcao,
-                legenda: legenda,
-                stories: stories,
+                direcao: direcaoContextual,
+                legenda: legendaPronta,
+                stories: sugestaoStories,
                 promptNano: promptNano
             };
         });
