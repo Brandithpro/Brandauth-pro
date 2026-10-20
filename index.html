@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>BrandAuth PRO | Conversa Dinâmica v37.1</title>
+<title>BrandAuth PRO | SaaS Blindado v41.0</title>
 <style>
     :root {
         --bg: #070913;
@@ -11,7 +11,6 @@
         --card-alt: #0b0f19;
         --border: #1f293d;
         --primary: #6366f1;
-        --primary-hover: #4f46e5;
         --amber: #f59e0b;
         --emerald: #10b981;
         --rose: #f43f5e;
@@ -43,12 +42,13 @@
     h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: #fff; }
     p.sub { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
 
-    /* Estilo Chat Dinâmico */
-    .chat-box { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; max-height: 380px; overflow-y: auto; padding-right: 4px; }
-    .chat-msg { max-width: 85%; padding: 12px 14px; border-radius: 14px; font-size: 13.5px; line-height: 1.5; }
-    .chat-ia { background: #1e293b; color: #f8fafc; align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid #334155; }
-    .chat-user { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
-    .chat-input-area { display: flex; gap: 8px; margin-top: 12px; align-items: center; }
+    .form-group { margin-bottom: 14px; }
+    label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; color: #cbd5e1; margin-bottom: 6px; letter-spacing: 0.3px; }
+    input, select, textarea { width: 100%; background: var(--card-alt); border: 1px solid var(--border); color: #fff; padding: 12px; border-radius: 10px; font-size: 14px; outline: none; }
+    input:focus, select:focus, textarea:focus { border-color: var(--primary); }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    @media (max-width: 500px) { .grid-2 { grid-template-columns: 1fr; } }
 
     .btn-primary { width: 100%; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; border: none; padding: 15px; border-radius: 12px; font-size: 15px; font-weight: 800; cursor: pointer; margin-top: 8px; box-shadow: 0 4px 15px rgba(99,102,241,0.35); }
     .btn-copy { background: #1e293b; color: #e2e8f0; border: 1px solid #334155; padding: 10px 14px; border-radius: 10px; font-size: 12px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 10px; }
@@ -79,104 +79,130 @@
 
 <div id="loading-overlay">
     <div class="spinner"></div>
-    <h3 id="loading-title" style="font-size: 17px; color: #fff; margin-bottom: 6px;">A processar o plano estratégico...</h3>
-    <p id="loading-sub" style="font-size: 12px; color: var(--muted);">A estruturar o calendário de 30 dias.</p>
+    <h3 id="loading-title" style="font-size: 17px; color: #fff; margin-bottom: 6px;">A estruturar o calendário...</h3>
+    <p id="loading-sub" style="font-size: 12px; color: var(--muted);">A gerar os 30 dias estratégicos.</p>
 </div>
 
 <div class="header">
     <div class="logo-title">
         <span>⚡</span> BrandAuth <span>AI PRO</span>
     </div>
-    <span class="badge">SaaS v37.1 (Chat Dinâmico)</span>
+    <span class="badge">SaaS v41.0 (Blindado)</span>
 </div>
 
 <div class="tabs">
-    <button class="tab-btn active" id="tabbtn-diagnostico" onclick="abrirAba('diagnostico')">1. Conversa IA</button>
-    <button class="tab-btn" id="tabbtn-calendario" onclick="abrirAba('calendario')">2. Calendário (30d)</button>
-    <button class="tab-btn" id="tabbtn-conteudo" onclick="abrirAba('conteudo')">3. Direção & Legenda</button>
-    <button class="tab-btn nano-tab" id="tabbtn-nano" onclick="abrirAba('nano')">🎨 4. Prompt Nano Banana</button>
-    <button class="tab-btn upsell-tab" id="tabbtn-suporte" onclick="abrirAba('suporte')">👑 5. Próximo Nível</button>
+    <button class="tab-btn active" id="tabbtn-diagnostico" onclick="mudarAbaTab('diagnostico')">1. Diagnóstico</button>
+    <button class="tab-btn" id="tabbtn-calendario" onclick="mudarAbaTab('calendario')">2. Calendário (30d)</button>
+    <button class="tab-btn" id="tabbtn-conteudo" onclick="mudarAbaTab('conteudo')">3. Direção & Legenda</button>
+    <button class="tab-btn nano-tab" id="tabbtn-nano" onclick="mudarAbaTab('nano')">🎨 4. Prompt Nano</button>
+    <button class="tab-btn upsell-tab" id="tabbtn-suporte" onclick="mudarAbaTab('suporte')">👑 5. Próximo Nível</button>
 </div>
 
 <div class="container">
 
-    <!-- ================= ABA 1: CHAT DINÂMICO ================= -->
-    <div id="aba-diagnostico" class="tab-pane active">
+    <!-- ABA 1: DIAGNÓSTICO -->
+    <div id="aba-diagnostico" class="tab-pane active" style="display: block;">
         <div class="card">
-            <h2>💬 Diagnóstico Conversacional</h2>
-            <p class="sub">Responda às perguntas abaixo como se estivesse a conversar com o seu Diretor de Conteúdo.</p>
+            <h2>Diagnóstico Estratégico do Negócio</h2>
+            <p class="sub">Preencha os campos abaixo. O sistema estruturará automaticamente um calendário de 30 dias com direção de conteúdo sênior.</p>
 
-            <div class="chat-box" id="caixa-chat">
-                <div class="chat-msg chat-ia">
-                    Olá! Sou o seu Diretor de Conteúdo. Para começarmos, qual é a sua <b>profissão, produto ou serviço</b> nas redes sociais?
+            <div class="form-group">
+                <label>1. Profissão ou Especialidade</label>
+                <input id="inp-prof" type="text" placeholder="Ex: Advogado, Fisioterapeuta, Loteadora...">
+            </div>
+
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>2. Como atua?</label>
+                    <select id="inp-atuacao">
+                        <option value="Presencial">Presencial (Negócio Local)</option>
+                        <option value="Híbrido">Híbrido</option>
+                        <option value="On-line">100% On-line (Digital)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Cidade / Região (Opcional)</label>
+                    <input id="inp-cid" type="text" placeholder="Ex: Montes Claros - MG">
                 </div>
             </div>
 
-            <div class="chat-input-area" id="area-input-chat">
-                <input id="input-resposta-usuario" type="text" placeholder="Escreva a sua resposta aqui..." onkeypress="escutarEnter(event)">
-                <button type="button" class="btn-primary" style="width: auto; margin-top: 0; padding: 12px 20px;" onclick="envolverRespostaChat()">Enviar ➔</button>
+            <div class="form-group">
+                <label>3. Produto ou Serviço Mais Vendido (Carro-Chefe)</label>
+                <input id="inp-prod" type="text" placeholder="Ex: Venda de Lotes, Consultoria...">
             </div>
+
+            <div class="form-group">
+                <label>4. Qual dor ele tira do seu cliente?</label>
+                <textarea id="inp-dor" rows="2" placeholder="Ex: Acaba com o medo de perder dinheiro e traz segurança..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>5. Dificuldade em apresentar ou vender hoje:</label>
+                <input id="inp-dif" type="text" placeholder="Ex: Clientes acham caro ou adiam a decisão">
+            </div>
+
+            <button type="button" class="btn-primary" onclick="executarGeracaoCalendario()">🧠 Gerar Calendário Completo (30 Dias)</button>
         </div>
     </div>
 
-    <!-- ================= ABA 2: CALENDÁRIO DE 30 DIAS ================= -->
-    <div id="aba-calendario" class="tab-pane">
+    <!-- ABA 2: CALENDÁRIO -->
+    <div id="aba-calendario" class="tab-pane" style="display: none;">
         <div class="card">
             <h2>Calendário Estratégico (30 Dias)</h2>
-            <p class="sub">Toque em qualquer dia para ver a direção de raciocínio, legendas e sugestões de stories:</p>
+            <p class="sub">Toque em qualquer dia para ver a direção de raciocínio, legendas e sugestões:</p>
 
             <div id="resumo-estrategia" class="card-sub" style="margin-bottom: 14px; border-color: rgba(99,102,241,0.45); font-size: 13px;"></div>
 
             <div class="filter-bar">
-                <button class="filter-btn active" onclick="filtrarCalendario('todos', this)">Todos (30)</button>
-                <button class="filter-btn" onclick="filtrarCalendario('Reels', this)">🎬 Só Reels</button>
-                <button class="filter-btn" onclick="filtrarCalendario('Estático', this)">🖼️ Só Estáticos</button>
-                <button class="filter-btn" onclick="filtrarCalendario('Branding', this)">🏛️ Branding</button>
-                <button class="filter-btn" onclick="filtrarCalendario('Conexão', this)">🤝 Conexão</button>
-                <button class="filter-btn" onclick="filtrarCalendario('Vendas', this)">💰 Vendas</button>
+                <button class="filter-btn active" onclick="filtrarDiasMaster('todos', this)">Todos (30)</button>
+                <button class="filter-btn" onclick="filtrarDiasMaster('Reels', this)">🎬 Só Reels</button>
+                <button class="filter-btn" onclick="filtrarDiasMaster('Estático', this)">🖼️ Só Estáticos</button>
+                <button class="filter-btn" onclick="filtrarDiasMaster('Branding', this)">🏛️ Branding</button>
+                <button class="filter-btn" onclick="filtrarDiasMaster('Conexão', this)">🤝 Conexão</button>
+                <button class="filter-btn" onclick="filtrarDiasMaster('Vendas', this)">💰 Vendas</button>
             </div>
 
             <div id="lista-calendario">
-                <p style="font-size:13px; color:var(--muted);">Conclua a conversa na Aba 1 para gerar o seu calendário.</p>
+                <p style="font-size:13px; color:var(--muted);">Preencha o diagnóstico na Aba 1.</p>
             </div>
         </div>
     </div>
 
     <!-- ABA 3: DIREÇÃO & LEGENDA -->
-    <div id="aba-conteudo" class="tab-pane">
+    <div id="aba-conteudo" class="tab-pane" style="display: none;">
         <div class="card">
             <div id="detalhe-badges"></div>
             <h2 id="detalhe-titulo">Selecione um dia no Calendário</h2>
-            <p class="sub" id="detalhe-objetivo">Toque em qualquer card da Aba 2 para ver a diretriz completa.</p>
+            <p class="sub" id="detalhe-objetivo">Toque em qualquer card da Aba 2.</p>
 
             <div class="card-sub">
-                <h3 style="color:#818cf8; font-size:13px; text-transform:uppercase;">1. Direção Estratégica (Como falar)</h3>
+                <h3 style="color:#818cf8; font-size:13px; text-transform:uppercase;">1. Direção Estratégica (Como falar na sua voz)</h3>
                 <div id="texto-direcao" class="pre-box" style="margin-top:8px;"></div>
-                <button class="btn-copy" onclick="copiarTexto('texto-direcao', this)">📋 Copiar Direção Estratégica</button>
+                <button class="btn-copy" onclick="copiarTextoPronto('texto-direcao', this)">📋 Copiar Direção</button>
             </div>
 
             <div class="card-sub" style="border-color: rgba(245,158,11,0.45); background: rgba(245,158,11,0.06);">
                 <h3 style="color:#fbbf24; font-size:13px;">🎨 Imagem + Texto no Nano Banana</h3>
                 <p style="font-size:12px; color:#cbd5e1;">Prompt visual com texto embutido exclusivo para este post.</p>
-                <button class="btn-amber" onclick="abrirAba('nano')">Ver Prompt Nano Banana →</button>
+                <button class="btn-amber" onclick="abrirAbaTab('nano')">Ver Prompt Nano Banana →</button>
             </div>
 
             <div class="card-sub">
                 <h3 style="color:#34d399; font-size:13px; text-transform:uppercase;">2. Legenda Pronta (Copiar e Colar)</h3>
                 <div id="texto-legenda" class="pre-box" style="margin-top:8px;"></div>
-                <button class="btn-copy" onclick="copiarTexto('texto-legenda', this)">📋 Copiar Legenda Pronta</button>
+                <button class="btn-copy" onclick="copiarTextoPronto('texto-legenda', this)">📋 Copiar Legenda</button>
             </div>
 
             <div class="card-sub">
                 <h3 style="color:#fbbf24; font-size:13px; text-transform:uppercase;">3. Sugestão de Stories & Enquetes</h3>
                 <div id="texto-stories" class="pre-box" style="margin-top:8px;"></div>
-                <button class="btn-copy" onclick="copiarTexto('texto-stories', this)">📋 Copiar Sugestão de Stories</button>
+                <button class="btn-copy" onclick="copiarTextoPronto('texto-stories', this)">📋 Copiar Stories</button>
             </div>
         </div>
     </div>
 
-    <!-- ABA 4: PROMPT NANO BANANA -->
-    <div id="aba-nano" class="tab-pane">
+    <!-- ABA 4: PROMPT NANO -->
+    <div id="aba-nano" class="tab-pane" style="display: none;">
         <div class="card" style="border-color: rgba(245,158,11,0.35);">
             <span class="tag tag-conexao">Gerador de Imagem + Texto na Arte</span>
             <h2>🎨 Prompt para o Nano Banana</h2>
@@ -189,21 +215,21 @@
 
             <div class="card-sub">
                 <div style="font-size:11px; color:#818cf8; font-weight:800; margin-bottom:6px;">PROMPT COMPLETO PARA O NANO BANANA:</div>
-                <div id="texto-prompt-nano" class="pre-box" style="font-size:13px;">Toque em um dia do Calendário (Aba 2) para gerar o prompt visual.</div>
-                <button class="btn-amber" onclick="copiarTexto('texto-prompt-nano', this)">📋 Copiar Prompt Nano Banana</button>
+                <div id="texto-prompt-nano" class="pre-box" style="font-size:13px;">Toque em um dia do Calendário (Aba 2).</div>
+                <button class="btn-amber" onclick="copiarTextoPronto('texto-prompt-nano', this)">📋 Copiar Prompt Nano</button>
             </div>
         </div>
     </div>
 
     <!-- ABA 5: SUPORTE -->
-    <div id="aba-suporte" class="tab-pane">
+    <div id="aba-suporte" class="tab-pane" style="display: none;">
         <div class="card" style="border-color: rgba(16,185,129,0.35);">
             <span class="tag tag-vendas">Acelerador de Resultados</span>
             <h2>🚀 Destrave suas Vendas</h2>
             <div class="card-sub">
                 <h3>🎥 Método Destrave & Grave</h3>
                 <p style="font-size:12.5px; color:var(--muted); margin-bottom:10px;">Aprenda a gravar vídeos naturais em 15 minutos.</p>
-                <button class="btn-primary" style="margin-top:4px; padding:12px;" onclick="window.open('https://wa.me/5538999999999?text=Ol%C3%A1,%20quero%20conhecer%20o%20M%C3%A9todo!', '_blank')">Quero Conhecer →</button>
+                <button class="btn-primary" style="margin-top:4px; padding:12px;" onclick="window.open('https://wa.me/5538999999999?text=Ol%C3%A1%2C%20quero%20conhecer%20o%20M%C3%A9todo!', '_blank')">Quero Conhecer →</button>
             </div>
         </div>
     </div>
@@ -211,183 +237,109 @@
 </div>
 
 <script>
-let passoChat = 1;
-let respostasUsuario = {};
-let calendario30Dias = [];
-let dadosNegocio = {};
-let diaAtualIdx = 0;
+let cronogramaGlobal = [];
+let dadosCliente = {};
+let indiceDiaAtivo = 0;
 
-function abrirAba(nomeAba) {
+function mudarAbaTab(nome) {
     const abas = ['diagnostico', 'calendario', 'conteudo', 'nano', 'suporte'];
     for (let i = 0; i < abas.length; i++) {
-        document.getElementById('aba-' + abas[i]).classList.remove('active');
-        document.getElementById('tabbtn-' + abas[i]).classList.remove('active');
+        const p = document.getElementById('aba-' + abas[i]);
+        const b = document.getElementById('tabbtn-' + abas[i]);
+        if (p) p.style.display = 'none';
+        if (b) b.classList.remove('active');
     }
-    document.getElementById('aba-' + nomeAba).classList.add('active');
-    document.getElementById('tabbtn-' + nomeAba).classList.add('active');
+    const alvoP = document.getElementById('aba-' + nome);
+    const alvoB = document.getElementById('tabbtn-' + nome);
+    if (alvoP) alvoP.style.display = 'block';
+    if (alvoB) alvoB.classList.add('active');
     window.scrollTo(0, 0);
 }
 
-function limparPontoFinal(texto) {
-    if (!texto) return "";
-    return texto.trim().replace(/\.+$/, "");
-}
+function executarGeracaoCalendario() {
+    const prof = document.getElementById('inp-prof').value.trim() || "Profissional";
+    const atuacao = document.getElementById('inp-atuacao').value;
+    const cid = document.getElementById('inp-cid').value.trim();
+    const prod = document.getElementById('inp-prod').value.trim() || "Serviço";
+    const dor = document.getElementById('inp-dor').value.trim() || "Perder dinheiro ou tempo";
+    const dif = document.getElementById('inp-dif').value.trim() || "Atrair clientes";
 
-function mostrarLoading(titulo, sub) {
-    document.getElementById('loading-title').textContent = titulo;
-    document.getElementById('loading-sub').textContent = sub;
+    const local = cid ? cid : (atuacao === "On-line" ? "todo o Brasil" : "nossa região");
+    dadosCliente = { prof, atuacao, local, prod, dor, dif };
+
     document.getElementById('loading-overlay').style.display = 'flex';
-}
 
-function esconderLoading() {
-    document.getElementById('loading-overlay').style.display = 'none';
-}
-
-function escutarEnter(e) {
-    if (e.key === 'Enter') {
-        envolverRespostaChat();
-    }
-}
-
-function adicionarMensagemChat(texto, tipo) {
-    const box = document.getElementById('caixa-chat');
-    const div = document.createElement('div');
-    div.className = 'chat-msg ' + (tipo === 'ia' ? 'chat-ia' : 'chat-user');
-    div.innerHTML = texto;
-    box.appendChild(div);
-    box.scrollTop = box.scrollHeight;
-}
-
-function envolverRespostaChat() {
-    const input = document.getElementById('input-resposta-usuario');
-    const val = input.value.trim();
-    if (!val) return;
-
-    adicionarMensagemChat(val, 'user');
-    input.value = "";
-
-    if (passoChat === 1) {
-        respostasUsuario.profissao = val;
-        passoChat = 2;
-        setTimeout(() => {
-            adicionarMensagemChat("Ótimo! Atua de forma <b>Presencial (Negócio Local)</b>, <b>Híbrida</b> ou <b>100% On-line (Digital)</b>?", 'ia');
-        }, 500);
-    } else if (passoChat === 2) {
-        respostasUsuario.atuacao = val;
-        passoChat = 3;
-        setTimeout(() => {
-            adicionarMensagemChat("Perfeito. Qual é o seu <b>produto ou serviço mais vendido</b>?", 'ia');
-        }, 500);
-    } else if (passoChat === 3) {
-        respostasUsuario.vendido = val;
-        passoChat = 4;
-        setTimeout(() => {
-            adicionarMensagemChat("Qual é a <b>maior dor ou frustração</b> que o seu cliente tem antes de o contratar?", 'ia');
-        }, 500);
-    } else if (passoChat === 4) {
-        respostasUsuario.dor = val;
-        passoChat = 5;
-        setTimeout(() => {
-            adicionarMensagemChat("Para fecharmos, qual é a sua <b>maior dificuldade</b> hoje em apresentar ou vender o seu trabalho?", 'ia');
-        }, 500);
-    } else if (passoChat === 5) {
-        respostasUsuario.dificuldade = val;
-        passoChat = 6;
-        document.getElementById('area-input-chat').style.display = 'none';
-        setTimeout(() => {
-            adicionarMensagemChat("Excelente! Já recolhi os pontos fundamentais. Vou estruturar agora o seu <b>Calendário Estratégico de 30 Dias</b>...", 'ia');
-        }, 500);
-
-        setTimeout(() => {
-            gerarCalendarioAutonomoConversacional();
-        }, 1200);
-    }
-}
-
-function gerarCalendarioAutonomoConversacional() {
-    const r = respostasUsuario;
-    const profissao = limparPontoFinal(r.profissao) || "Profissional";
-    const atuacao = r.atuacao || "Presencial";
-    const maisVendido = limparPontoFinal(r.vendido) || "Serviço";
-    const dor = limparPontoFinal(r.dor) || "Perder tempo ou dinheiro";
-    const dificuldade = limparPontoFinal(r.dificuldade) || "Atrair clientes";
-    const localTexto = atuacao.toLowerCase().includes("on-line") ? "todo o Brasil" : "nossa região";
-
-    dadosNegocio = { profissao, atuacao, localTexto, maisVendido, dor, dificuldade };
-
-    mostrarLoading("A criar estratégia sênior...", "Montando o calendário de 30 dias com diretrizes inteligentes.");
-
-    setTimeout(function() {
+    setTimeout(() => {
         document.getElementById('resumo-estrategia').innerHTML =
-            "<b>🎯 Estratégia de Posicionamento (" + profissao + " • " + atuacao + " em " + localTexto + "):</b><br>" +
-            "O seu foco é vender <b>" + maisVendido + "</b> superando a dificuldade de <i>" + dificuldade + "</i> e resolvendo a dor de <i>" + dor + "</i>.";
+            "<b>🎯 Estratégia Ativa (" + prof + " • " + atuacao + " em " + local + "):</b><br>" +
+            "Foco em destacar <b>" + prod + "</b> resolvendo a dor de <i>" + dor + "</i> e superando a objeção de <i>" + dif + "</i>.";
 
-        const matrizTemas = [
-            { d: "01", f: "Reels", p: "Branding", t: "O erro silencioso na hora de escolher " + maisVendido, h: "O ERRO QUE CUSTA CARO AO ESCOLHER ISSO" },
-            { d: "02", f: "Estático", p: "Conexão", t: "Por que continua a conviver com " + dor, h: "ATÉ QUANDO VAI CONVIVER COM ESSE PROBLEMA?" },
-            { d: "03", f: "Reels", p: "Vendas", t: "A verdade nua e cruda sobre investir em " + maisVendido, h: "VALE A PENA INVESTIR AGORA?" },
-            { d: "04", f: "Estático", p: "Branding", t: "Como é trabalhar com " + profissao + " em " + localTexto, h: "BASTIDORES E COMPROMISSO REAL" },
-            { d: "05", f: "Reels", p: "Conexão", t: "O maior mito que te contam sobre " + maisVendido, h: "MITO VS. VERDADE SOBRE O SERVIÇO" },
+        const baseTemas = [
+            { d: "01", f: "Reels", p: "Branding", t: "O erro silencioso ao escolher " + prod, h: "O ERRO QUE CUSTA CARO AO ESCOLHER ISSO" },
+            { d: "02", f: "Estático", p: "Conexão", t: "Até quando vai conviver com " + dor, h: "ATÉ QUANDO VAI CONVIVER COM ESSE PROBLEMA?" },
+            { d: "03", f: "Reels", p: "Vendas", t: "A verdade sobre investir em " + prod, h: "VALE A PENA CONTRATAR AGORA?" },
+            { d: "04", f: "Estático", p: "Branding", t: "Como é trabalhar com " + prof + " em " + local, h: "COMPROMISSO E PROFISSIONALISMO" },
+            { d: "05", f: "Reels", p: "Conexão", t: "O maior mito que te contam sobre " + prod, h: "MITO VS. VERDADE SOBRE O SERVIÇO" },
             { d: "06", f: "Estático", p: "Vendas", t: "3 razões para resolver sua necessidade esta semana", h: "3 RAZÕES PARA DECIDIR JÁ" },
             { d: "07", f: "Reels", p: "Branding", t: "Por que o mais barato quase sempre sai mais caro", h: "O BARATO QUE SAI MUITO CARO" },
             { d: "08", f: "Estático", p: "Conexão", t: "O alívio de encontrar quem realmente resolve " + dor, h: "ENCONTRE A SOLUÇÃO DEFINITIVA" },
-            { d: "09", f: "Reels", p: "Vendas", t: "Como superamos a dificuldade de " + dificuldade, h: "COMO SUPERAR ESTA DIFICULDADE" },
-            { d: "10", f: "Estático", p: "Branding", t: "O padrão de excelência por trás de " + maisVendido, h: "EXCELÊNCIA EM CADA DETALHE" },
+            { d: "09", f: "Reels", p: "Vendas", t: "Como superamos o desafio de " + dif, h: "COMO SUPERAR ESTA DIFICULDADE" },
+            { d: "10", f: "Estático", p: "Branding", t: "O padrão de excelência por trás de " + prod, h: "EXCELÊNCIA EM CADA DETALHE" },
             { d: "11", f: "Reels", p: "Conexão", t: "Uma conversa sincera sobre a nossa rotina", h: "UM CONSELHO SINCERO PARA VOCÊ" },
-            { d: "12", f: "Estático", p: "Vendas", t: "Passo a passo prático para contratar " + maisVendido, h: "COMO FUNCIONA NA PRÁTICA" },
-            { d: "13", f: "Reels", p: "Branding", t: "O que nos diferencia de verdade em " + localTexto, h: "POR QUE SOMOS REFERÊNCIA" },
-            { d: "14", f: "Estático", p: "Conexão", t: "Respondendo às dúvidas mais comuns sobre " + maisVendido, h: "TUDO O QUE VOCÊ PRECISA SABER" },
+            { d: "12", f: "Estático", p: "Vendas", t: "Passo a passo prático para contratar " + prod, h: "COMO FUNCIONA NA PRÁTICA" },
+            { d: "13", f: "Reels", p: "Branding", t: "O que nos diferencia em " + local, h: "POR QUE SOMOS REFERÊNCIA" },
+            { d: "14", f: "Estático", p: "Conexão", t: "Respondendo às dúvidas mais comuns sobre " + prod, h: "TUDO O QUE VOCÊ PRECISA SABER" },
             { d: "15", f: "Reels", p: "Vendas", t: "A oportunidade ideal para dar o próximo passo", h: "OPORTUNIDADE EXCLUSIVA NESTA SEMANA" },
             { d: "16", f: "Estático", p: "Branding", t: "Nosso compromisso absoluto com o seu resultado", h: "COMPROMISSO COM O SEU SUCESSO" },
             { d: "17", f: "Reels", p: "Conexão", t: "Histórias reais de quem superou " + dor, h: "HISTÓRIAS REAIS DE TRANSFORMAÇÃO" },
-            { d: "18", f: "Estático", p: "Vendas", t: "Condições e facilidades para fechar " + maisVendido, h: "GARANTA SUA CONDIÇÃO ESPECIAL" },
+            { d: "18", f: "Estático", p: "Vendas", t: "Condições e facilidades para fechar " + prod, h: "GARANTA SUA CONDIÇÃO ESPECIAL" },
             { d: "19", f: "Reels", p: "Branding", t: "O perigo real de adiar a busca por ajuda", h: "NÃO DEIXE PARA DEPOIS" },
-            { d: "20", f: "Estático", p: "Conexão", t: "O que nossos clientes mais valorizam no atendimento", h: "VALORES QUE FAZEM A DIFERENÇA" },
-            { d: "21", f: "Reels", p: "Vendas", t: "Por que nosso método é diferente de tudo no mercado", h: "CONHEÇA NOSSO MÉTODO EXCLUSIVO" },
-            { d: "22", f: "Estático", p: "Branding", t: "Bastidores e dedicação diária com " + profissao, h: "DEDICAÇÃO TOTAL AO SEU NEGÓCIO" },
+            { d: "20", f: "Estático", p: "Conexão", t: "O que nossos clientes mais valorizam", h: "VALORES QUE FAZEM A DIFERENÇA" },
+            { d: "21", f: "Reels", p: "Vendas", t: "Por que nosso método é diferente de tudo", h: "CONHEÇA NOSSO MÉTODO EXCLUSIVO" },
+            { d: "22", f: "Estático", p: "Branding", t: "Bastidores e dedicação diária", h: "DEDICAÇÃO TOTAL AO SEU NEGÓCIO" },
             { d: "23", f: "Reels", p: "Conexão", t: "Como identificar que chegou o momento de mudar", h: "SINAIS DE QUE VOCÊ PRECISA MUDAR" },
-            { d: "24", f: "Estático", p: "Vendas", t: "Facilidades exclusivas para começar com " + profissao, h: "FACILIDADES PARA VOCÊ COMEÇAR" },
+            { d: "24", f: "Estático", p: "Vendas", t: "Facilidades exclusivas para começar", h: "FACILIDADES PARA VOCÊ COMEÇAR" },
             { d: "25", f: "Reels", p: "Branding", t: "A importância de escolher com quem se identifica", h: "CONEXÃO E CONFIANÇA MÚTUA" },
-            { d: "26", f: "Estático", p: "Conexão", t: "Espaço aberto: respondendo sobre " + maisVendido, h: "ESPAÇO ABERTO PARA PERGUNTAS" },
+            { d: "26", f: "Estático", p: "Conexão", t: "Espaço aberto: respondendo dúvidas", h: "ESPAÇO ABERTO PARA PERGUNTAS" },
             { d: "27", f: "Reels", p: "Vendas", t: "Últimas vagas disponíveis na nossa agenda", h: "AGENDA LIMITADA: GARANTA SUA VAGA" },
-            { d: "28", f: "Estático", p: "Branding", t: "Visão de futuro: crescendo e evoluindo juntos", h: "CONSTRUINDO UM FUTURO SÓLIDO" },
-            { d: "29", f: "Reels", p: "Conexão", t: "Agradecimento especial pela confiança em " + localTexto, h: "OBRIGADO PELA PARCERIA DE SEMPRE" },
-            { d: "30", f: "Estático", p: "Vendas", t: "Fechamento de mês com foco total em " + maisVendido, h: "ÚLTIMA CHAMADA DO MÊS" }
+            { d: "28", f: "Estático", p: "Branding", t: "Visão de futuro: crescendo juntos", h: "CONSTRUINDO UM FUTURO SÓLIDO" },
+            { d: "29", f: "Reels", p: "Conexão", t: "Agradecimento especial pela confiança", h: "OBRIGADO PELA PARCERIA DE SEMPRE" },
+            { d: "30", f: "Estático", p: "Vendas", t: "Fechamento de mês com foco total em " + prod, h: "ÚLTIMA CHAMADA DO MÊS" }
         ];
 
-        calendario30Dias = matrizTemas.map(item => {
+        cronogramaGlobal = baseTemas.map(item => {
             const isReels = item.f === "Reels";
             const formatoLabel = isReels ? "🎬 Reels (Vídeo)" : "🖼️ Post Estático / Carrossel";
 
-            const direcaoSintatica =
-                "- O Assunto será: Explicar o conceito de " + item.t.toLowerCase() + ", demonstrando que " + maisVendido + " resolve " + dor + ".\n" +
-                "- No gancho inicial você fala: Abra o vídeo ou carrossel trazendo uma verdade dura ou um incômodo real que o seu público enfrenta relacionado a " + dificuldade + ".\n" +
-                "- Você desenvolve falando sobre: O custo invisível de continuar a ignorar o problema, argumentando que o diferencial de " + maisVendido + " traz segurança e previsibilidade.\n" +
-                "- Final / CTA: Oriente o cliente a comentar 'QUERO' ou a tocar no link da Bio para iniciar o atendimento " + atuacao.toLowerCase() + ".";
+            const direcao =
+                "- O Assunto será: Explicar o conceito de " + item.t.toLowerCase() + ", demonstrando que " + prod + " resolve " + dor + ".\n" +
+                "- No gancho inicial você fala: Abra o conteúdo trazendo uma verdade dura ou um incômodo real que o público enfrenta sobre " + dif + ".\n" +
+                "- Você desenvolve falando sobre: O custo invisível de ignorar o problema, argumentando que o diferencial de " + prod + " traz segurança e previsibilidade na própria voz.\n" +
+                "- Final / CTA: Oriente a audiência a comentar 'QUERO' ou tocar no link da Bio para iniciar o atendimento.";
 
-            const legendaPronta =
+            const legenda =
                 item.t + "!\n\n" +
-                "Muitas pessoas acabam por adiar a decisão de buscar " + maisVendido + " porque esbarram na dificuldade de " + dificuldade + ".\n\n" +
+                "Muitas pessoas acabam por adiar a decisão de buscar " + prod + " porque esbarram na dificuldade de " + dif + ".\n\n" +
                 "Mas a verdade é uma só: nada custa mais caro do que continuar a conviver com " + dor + ".\n\n" +
-                "O nosso compromisso como " + profissao + " é entregar exatamente o que você precisa através de um atendimento especializado.\n\n" +
-                "📍 Atendimento " + atuacao + " (" + localTexto + ")\n" +
+                "O nosso compromisso como " + prof + " é entregar exatamente o que você precisa através de um atendimento especializado.\n\n" +
+                "📍 Atendimento " + atuacao + " (" + local + ")\n" +
                 "📲 Toque no link da minha Bio agora mesmo ou envie mensagem no Direct para conversarmos!\n\n" +
-                "#" + profissao.replace(/\s+/g, "") + " #" + maisVendido.replace(/\s+/g, "");
+                "#" + prof.replace(/\s+/g, "") + " #" + prod.replace(/\s+/g, "");
 
-            const sugestaoStories =
+            const stories =
                 "• STORY 1 (Manhã - Enquete):\n" +
                 "Texto: 'Uma pergunta sincera para começar o dia:' -> Enquete: 'Já sentiu que " + dor.slice(0, 35) + "...?' [Sim, demais / Quero resolver]\n\n" +
                 "• STORY 2 (Almoço - Bastidor):\n" +
-                "Mostre um detalhe prático de " + maisVendido + ".\n\n" +
+                "Mostre um detalhe prático de " + prod + ".\n\n" +
                 "• STORY 3 (Tarde - Caixinha):\n" +
-                "Caixa de perguntas: 'Qual a sua maior dúvida sobre " + maisVendido + "?'\n\n" +
+                "Caixa de perguntas: 'Qual a sua maior dúvida sobre " + prod + "?'\n\n" +
                 "• STORY 4 (Noite - Chamada):\n" +
                 "'Para quem votou cedo e quer resolver isto esta semana, toque no link para falar comigo diretamente.'";
 
-            const promptNanoBanana =
+            const promptNano =
                 "Crie uma imagem publicitária profissional para Instagram (proporção 4:5).\n" +
-                "CENA VISUAL: Fotografia comercial ultra-realista em formato vertical, ambientação brasileira autêntica representando o universo de " + profissao + " e " + maisVendido + ", iluminação cinematográfica quente e limpa.\n" +
-                "TEXTO NA IMAGEM: \"" + item.h + "\" (tipografia moderna em negrito, sem serifa, perfeitamente legível em português do Brasil).";
+                "CENA VISUAL: Fotografia comercial ultra-realista em formato vertical, ambientação brasileira autêntica representando o universo de " + prof + " e " + prod + ", iluminação cinematográfica quente e limpa.\n" +
+                "TEXTO NA IMAGEM: \"" + item.h + "\" (tipografia moderna em negrito, sem serifa, perfeitamente legível em português).";
 
             return {
                 dia: item.d,
@@ -396,25 +348,25 @@ function gerarCalendarioAutonomoConversacional() {
                 titulo: item.t,
                 objetivo: "Trabalhar o pilar de " + item.p + " com foco em conversão e autoridade.",
                 headlineArte: item.h,
-                direcao: direcaoSintatica,
-                legenda: legendaPronta,
-                stories: sugestaoStories,
+                direcao: direcao,
+                legenda: legenda,
+                stories: stories,
                 promptNano: promptNano
             };
         });
 
-        renderizarListaCalendario('todos');
-        esconderLoading();
-        abrirAba('calendario');
+        renderizarTabelaCalendario('todos');
+        document.getElementById('loading-overlay').style.display = 'none';
+        mudarAbaTab('calendario');
     }, 600);
 }
 
-function renderizarListaCalendario(filtro) {
+function renderizarTabelaCalendario(filtro) {
     const box = document.getElementById('lista-calendario');
     let html = "";
 
-    for (let i = 0; i < calendario30Dias.length; i++) {
-        const d = calendario30Dias[i];
+    for (let i = 0; i < cronogramaGlobal.length; i++) {
+        const d = cronogramaGlobal[i];
         if (filtro !== 'todos' && !d.tipo.includes(filtro) && d.pilar !== filtro) continue;
 
         const isReels = d.tipo.includes("Reels");
@@ -422,7 +374,7 @@ function renderizarListaCalendario(filtro) {
         const pilarCls = d.pilar === "Conexão" ? "tag-conexao" : (d.pilar === "Vendas" ? "tag-vendas" : "tag-branding");
 
         html +=
-            "<div class='day-card' onclick='abrirConteudoDoDia(" + i + ")'>" +
+            "<div class='day-card' onclick='entrarNoDetalheDoDia(" + i + ")'>" +
                 "<div><span class='tag " + tagCls + "'>Dia " + d.dia + " • " + d.tipo + "</span><span class='tag " + pilarCls + "'>" + d.pilar + "</span></div>" +
                 "<h3>" + d.titulo + "</h3>" +
                 "<p style='font-size:12px; color:var(--muted); margin-top:4px;'>" + d.objetivo + "</p>" +
@@ -432,16 +384,16 @@ function renderizarListaCalendario(filtro) {
     box.innerHTML = html || "<p style='font-size:13px; color:var(--muted);'>Nenhum dia encontrado.</p>";
 }
 
-function filtrarCalendario(filtro, btn) {
+function filtrarDiasMaster(filtro, btn) {
     const botoes = document.querySelectorAll('.filter-btn');
     for (let i = 0; i < botoes.length; i++) botoes[i].classList.remove('active');
     if (btn) btn.classList.add('active');
-    renderizarListaCalendario(filtro);
+    renderizarTabelaCalendario(filtro);
 }
 
-function abrirConteudoDoDia(index) {
-    diaAtualIdx = index;
-    const d = calendario30Dias[index];
+function entrarNoDetalheDoDia(index) {
+    indiceDiaAtivo = index;
+    const d = cronogramaGlobal[index];
     if (!d) return;
 
     const isReels = d.tipo.includes("Reels");
@@ -462,10 +414,10 @@ function abrirConteudoDoDia(index) {
     document.getElementById('nano-headline').textContent = d.headlineArte;
     document.getElementById('texto-prompt-nano').textContent = d.promptNano;
 
-    abrirAba('conteudo');
+    mudarAbaTab('conteudo');
 }
 
-function copiarTexto(idElemento, btn) {
+function copiarTextoPronto(idElemento, btn) {
     const el = document.getElementById(idElemento);
     if (!el) return;
     navigator.clipboard.writeText(el.textContent);
