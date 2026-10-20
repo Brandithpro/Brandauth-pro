@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Destrave Pro | Planeamento de Conteúdo e Autoridade</title>
+<title>Destrave Pro | Versão 1.0 Limpa</title>
 <style>
     :root {
         --bg: #070913;
@@ -77,33 +77,33 @@
     <div class="logo-title">
         <span>🚀</span> Destrave <span>Pro</span>
     </div>
-    <span class="badge">Clean Engine v1.1</span>
+    <span class="badge">Versão 1.0 Limpa</span>
 </div>
 
 <div class="tabs">
-    <button class="tab-btn active" id="tab-btn-1" onclick="mudarAba('diagnostico')">1. Diagnóstico</button>
-    <button class="tab-btn" id="tab-btn-2" onclick="mudarAba('calendario')">2. Calendário (30d)</button>
-    <button class="tab-btn" id="tab-btn-3" onclick="mudarAba('conteudo')">3. Direção & Legenda</button>
-    <button class="tab-btn nano-tab" id="tab-btn-4" onclick="mudarAba('nano')">🎨 4. Prompt Nano</button>
+    <button class="tab-btn active" id="btn-aba-1" onclick="mudarAba('diagnostico')">1. Diagnóstico</button>
+    <button class="tab-btn" id="btn-aba-2" onclick="mudarAba('calendario')">2. Calendário (30d)</button>
+    <button class="tab-btn" id="btn-aba-3" onclick="mudarAba('conteudo')">3. Direção & Legenda</button>
+    <button class="tab-btn nano-tab" id="btn-aba-4" onclick="mudarAba('nano')">🎨 4. Prompt Nano</button>
 </div>
 
 <div class="container">
 
     <!-- ABA 1: DIAGNÓSTICO -->
-    <div id="pane-diagnostico" class="tab-pane active" style="display: block;">
+    <div id="bloco-diagnostico" class="tab-pane active" style="display: block;">
         <div class="card">
             <h2>Diagnóstico Estratégico do Negócio</h2>
-            <p class="sub">Preencha os dados abaixo. O Destrave Pro gerará instantaneamente um plano sênior de 30 dias com raciocínio inteligente.</p>
+            <p class="sub">Preencha abaixo para gerar o seu plano personalizado de 30 dias.</p>
 
             <div class="form-group">
                 <label>1. Profissão ou Especialidade</label>
-                <input id="form-prof" type="text" placeholder="Ex: Corretor de Seguros, Fisioterapeuta, Advogado...">
+                <input id="input-prof" type="text" placeholder="Ex: Corretor de Seguros, Fisioterapeuta...">
             </div>
 
             <div class="grid-2">
                 <div class="form-group">
                     <label>2. Como atua?</label>
-                    <select id="form-atuacao">
+                    <select id="input-atuacao">
                         <option value="Presencial">Presencial (Negócio Local)</option>
                         <option value="Híbrido">Híbrido</option>
                         <option value="On-line">100% On-line (Digital)</option>
@@ -111,63 +111,63 @@
                 </div>
                 <div class="form-group">
                     <label>Cidade / Região (Opcional)</label>
-                    <input id="form-cid" type="text" placeholder="Ex: Montes Claros - MG">
+                    <input id="input-cid" type="text" placeholder="Ex: Montes Claros - MG">
                 </div>
             </div>
 
             <div class="form-group">
-                <label>3. Produto ou Serviço Principal (Carro-Chefe)</label>
-                <input id="form-prod" type="text" placeholder="Ex: Garantia de Infraestrutura, Consultoria...">
+                <label>3. Produto ou Serviço Principal</label>
+                <input id="input-prod" type="text" placeholder="Ex: Garantia de Infraestrutura, Consultoria...">
             </div>
 
             <div class="form-group">
                 <label>4. Qual vantagem ou garantia única ele entrega?</label>
-                <textarea id="form-dor" rows="2" placeholder="Ex: Segurança total contra atrasos e redução de custos operacionais..."></textarea>
+                <textarea id="input-vantagem" rows="2" placeholder="Ex: Segurança total contra atrasos e redução de custos..."></textarea>
             </div>
 
             <div class="form-group">
                 <label>5. Dificuldade atual em apresentar ou vender:</label>
-                <input id="form-dif" type="text" placeholder="Ex: Captar loteadoras, clientes que adiam a decisão">
+                <input id="input-dif" type="text" placeholder="Ex: Clientes que adiam a decisão">
             </div>
 
-            <button type="button" class="btn-primary" onclick="processarGeracaoApp()">🚀 Gerar Calendário Completo (30 Dias)</button>
+            <button type="button" class="btn-primary" onclick="gerarPlanoDestravePro()">🚀 Gerar Calendário Completo (30 Dias)</button>
         </div>
     </div>
 
     <!-- ABA 2: CALENDÁRIO -->
-    <div id="pane-calendario" class="tab-pane" style="display: none;">
+    <div id="bloco-calendario" class="tab-pane" style="display: none;">
         <div class="card">
             <h2>Calendário Estratégico (30 Dias)</h2>
-            <p class="sub">Toque em qualquer dia para abrir a direção de raciocínio, legendas e stories:</p>
+            <p class="sub">Toque em qualquer dia para ver a direção de raciocínio, legendas e stories:</p>
 
-            <div id="resumo-painel" class="card-sub" style="margin-bottom: 14px; border-color: rgba(99,102,241,0.45); font-size: 13px;"></div>
+            <div id="painel-resumo" class="card-sub" style="margin-bottom: 14px; border-color: rgba(99,102,241,0.45); font-size: 13px;"></div>
 
             <div class="filter-bar">
-                <button class="filter-btn active" onclick="filtrarLista('todos', this)">Todos (30)</button>
-                <button class="filter-btn" onclick="filtrarLista('Reels', this)">🎬 Só Reels</button>
-                <button class="filter-btn" onclick="filtrarLista('Estático', this)">🖼️ Só Estáticos</button>
-                <button class="filter-btn" onclick="filtrarLista('Branding', this)">🏛️ Branding</button>
-                <button class="filter-btn" onclick="filtrarLista('Conexão', this)">🤝 Conexão</button>
-                <button class="filter-btn" onclick="filtrarLista('Vendas', this)">💰 Vendas</button>
+                <button class="filter-btn active" onclick="filtrarDias('todos', this)">Todos (30)</button>
+                <button class="filter-btn" onclick="filtrarDias('Reels', this)">🎬 Só Reels</button>
+                <button class="filter-btn" onclick="filtrarDias('Estático', this)">🖼️ Só Estáticos</button>
+                <button class="filter-btn" onclick="filtrarDias('Branding', this)">🏛️ Branding</button>
+                <button class="filter-btn" onclick="filtrarDias('Conexão', this)">🤝 Conexão</button>
+                <button class="filter-btn" onclick="filtrarDias('Vendas', this)">💰 Vendas</button>
             </div>
 
-            <div id="lista-dias-container">
+            <div id="painel-lista-dias">
                 <p style="font-size:13px; color:var(--muted);">Preencha o diagnóstico na Aba 1.</p>
             </div>
         </div>
     </div>
 
     <!-- ABA 3: CONTEÚDO -->
-    <div id="pane-conteudo" class="tab-pane" style="display: none;">
+    <div id="bloco-conteudo" class="tab-pane" style="display: none;">
         <div class="card">
             <div id="detalhe-badges"></div>
             <h2 id="detalhe-titulo">Selecione um dia no Calendário</h2>
-            <p class="sub" id="detalhe-sub">Toque em qualquer card da Aba 2.</p>
+            <p class="sub">Toque em qualquer card da Aba 2 para abrir a estratégia.</p>
 
             <div class="card-sub">
                 <h3 style="color:#818cf8; font-size:13px; text-transform:uppercase;">1. Direção Estratégica (Como falar na sua voz)</h3>
-                <div id="texto-direcao" class="pre-box" style="margin-top:8px;"></div>
-                <button class="btn-copy" onclick="copiarTextoPronto('texto-direcao', this)">📋 Copiar Direção</button>
+                <div id="view-direcao" class="pre-box" style="margin-top:8px;"></div>
+                <button class="btn-copy" onclick="copiarTextoPronto('view-direcao', this)">📋 Copiar Direção</button>
             </div>
 
             <div class="card-sub" style="border-color: rgba(245,158,11,0.45); background: rgba(245,158,11,0.06);">
@@ -178,20 +178,20 @@
 
             <div class="card-sub">
                 <h3 style="color:#34d399; font-size:13px; text-transform:uppercase;">2. Legenda Pronta (Copiar e Colar)</h3>
-                <div id="texto-legenda" class="pre-box" style="margin-top:8px;"></div>
-                <button class="btn-copy" onclick="copiarTextoPronto('texto-legenda', this)">📋 Copiar Legenda</button>
+                <div id="view-legenda" class="pre-box" style="margin-top:8px;"></div>
+                <button class="btn-copy" onclick="copiarTextoPronto('view-legenda', this)">📋 Copiar Legenda</button>
             </div>
 
             <div class="card-sub">
                 <h3 style="color:#fbbf24; font-size:13px; text-transform:uppercase;">3. Sugestão de Stories & Enquetes</h3>
-                <div id="texto-stories" class="pre-box" style="margin-top:8px;"></div>
-                <button class="btn-copy" onclick="copiarTextoPronto('texto-stories', this)">📋 Copiar Stories</button>
+                <div id="view-stories" class="pre-box" style="margin-top:8px;"></div>
+                <button class="btn-copy" onclick="copiarTextoPronto('view-stories', this)">📋 Copiar Stories</button>
             </div>
         </div>
     </div>
 
     <!-- ABA 4: PROMPT NANO -->
-    <div id="pane-nano" class="tab-pane" style="display: none;">
+    <div id="bloco-nano" class="tab-pane" style="display: none;">
         <div class="card" style="border-color: rgba(245,158,11,0.35);">
             <span class="tag tag-conexao">Gerador de Imagem + Texto na Arte</span>
             <h2>🎨 Prompt para o Nano Banana</h2>
@@ -199,13 +199,13 @@
 
             <div class="card-sub" style="border-color: rgba(245,158,11,0.4);">
                 <div style="font-size:11px; color:#fbbf24; font-weight:800; margin-bottom:6px;">TEXTO ESCRITO DENTRO DA IMAGEM:</div>
-                <div id="nano-headline" style="font-size:15px; font-weight:800; color:#fff;">Selecione um dia na Aba 2</div>
+                <div id="view-headline" style="font-size:15px; font-weight:800; color:#fff;">Selecione um dia na Aba 2</div>
             </div>
 
             <div class="card-sub">
                 <div style="font-size:11px; color:#818cf8; font-weight:800; margin-bottom:6px;">PROMPT COMPLETO PARA O NANO BANANA:</div>
-                <div id="texto-prompt-nano" class="pre-box" style="font-size:13px;">Toque em um dia do Calendário (Aba 2).</div>
-                <button class="btn-amber" onclick="copiarTextoPronto('texto-prompt-nano', this)">📋 Copiar Prompt Nano</button>
+                <div id="view-prompt-nano" class="pre-box" style="font-size:13px;">Toque em um dia do Calendário (Aba 2).</div>
+                <button class="btn-amber" onclick="copiarTextoPronto('view-prompt-nano', this)">📋 Copiar Prompt Nano</button>
             </div>
         </div>
     </div>
@@ -213,30 +213,29 @@
 </div>
 
 <script>
-let cronogramaGlobal = [];
-let meuPerfil = {};
-let diaAtivoIndex = 0;
+let bancoCronograma = [];
+let perfilUsuario = {};
 
 function mudarAba(nome) {
-    const lista = ['diagnostico', 'calendario', 'conteudo', 'nano'];
-    for (let i = 0; i < lista.length; i++) {
-        const p = document.getElementById('pane-' + lista[i]);
-        const b = document.getElementById('tab-btn-' + (i+1));
+    const abas = ['diagnostico', 'calendario', 'conteudo', 'nano'];
+    for (let i = 0; i < abas.length; i++) {
+        const p = document.getElementById('pane-' + abas[i]);
+        const b = document.getElementById('btn-aba-' + (i+1));
         if (p) p.style.display = 'none';
         if (b) b.classList.remove('active');
     }
     const alvoP = document.getElementById('pane-' + nome);
     if (alvoP) alvoP.style.display = 'block';
 
-    if (nome === 'diagnostico') document.getElementById('tab-btn-1').classList.add('active');
-    if (nome === 'calendario') document.getElementById('tab-btn-2').classList.add('active');
-    if (nome === 'conteudo') document.getElementById('tab-btn-3').classList.add('active');
-    if (nome === 'nano') document.getElementById('tab-btn-4').classList.add('active');
+    if (nome === 'diagnostico') document.getElementById('btn-aba-1').classList.add('active');
+    if (nome === 'calendario') document.getElementById('btn-aba-2').classList.add('active');
+    if (nome === 'conteudo') document.getElementById('btn-aba-3').classList.add('active');
+    if (nome === 'nano') document.getElementById('btn-aba-4').classList.add('active');
 
     window.scrollTo(0, 0);
 }
 
-function processarGeracaoApp() {
+function gerarPlanoDestravePro() {
     const prof = document.getElementById('form-prof').value.trim() || "Profissional";
     const atuacao = document.getElementById('form-atuacao').value;
     const cid = document.getElementById('form-cid').value.trim();
@@ -245,13 +244,13 @@ function processarGeracaoApp() {
     const dif = document.getElementById('form-dif').value.trim() || "atrair clientes";
 
     const local = cid ? cid : (atuacao === "On-line" ? "todo o Brasil" : "nossa região");
-    meuPerfil = { prof, atuacao, local, prod, vantagem, dif };
+    perfilUsuario = { prof, atuacao, local, prod, vantagem, dif };
 
-    document.getElementById('resumo-painel').innerHTML =
+    document.getElementById('painel-resumo').innerHTML =
         "<b>🎯 Estratégia Destrave Pro:</b> " + prof + " (" + atuacao + " em " + local + ") focando em <b>" + prod + "</b> para destacar a vantagem de <i>" + vantagem + "</i> superando o desafio de <i>" + dif + "</i>.";
 
-    const pautasBase = [
-        { f: "Reels", p: "Branding", t: "O poder oculto de contar com " + prod, h: "O DIFERENCIAL QUE MUSTA O JOGO EM " + prod.toUpperCase() },
+    const pautasMestres = [
+        { f: "Reels", p: "Branding", t: "O poder oculto de contar com " + prod, h: "O DIFERENCIAL QUE MUDA O JOGO EM " + prod.toUpperCase() },
         { f: "Estático", p: "Conexão", t: "Como " + vantagem + " muda completamente o seu resultado", h: "A VANTAGEM QUE VOCÊ ESTÁ A PERDER" },
         { f: "Reels", p: "Vendas", t: "Por que vale a pena garantir " + prod + " agora", h: "VALE A PENA CONTRATAR AGORA?" },
         { f: "Estático", p: "Branding", t: "Como é trabalhar com " + prof + " em " + local, h: "COMPROMISSO E PROFISSIONALISMO" },
@@ -290,7 +289,7 @@ function processarGeracaoApp() {
 
         const direcao =
             "- O Assunto será: Explicar a vantagem de " + item.t.toLowerCase() + ", demonstrando que " + prod + " entrega " + vantagem + ".\n" +
-            "- No gancho inicial você fala: Abra o conteúdo valorizando o benefício sênior e resolvendo a barreira que o público enfrenta com " + dif + ".\n" +
+            "- No gancho inicial você fala: Abra o conteúdo valorizando o benefício e resolvendo a barreira que o público enfrenta com " + dif + ".\n" +
             "- Você desenvolve falando sobre: O ganho real de contar com " + prod + ", argumentando sobre a solidez e os resultados que " + vantagem + " proporciona na própria voz.\n" +
             "- Final / CTA: Oriente a audiência a comentar 'QUERO' ou tocar no link da Bio.";
 
@@ -303,7 +302,7 @@ function processarGeracaoApp() {
             "📲 Toque no link da minha Bio!\n\n" +
             "#" + prof.replace(/\s+/g, "") + " #" + prod.replace(/\s+/g, "");
 
-        const sugestaoStories =
+        const stories =
             "• STORY 1 (Manhã - Enquete):\n" +
             "Texto: 'Uma pergunta sincera para começar o dia:' -> Enquete: 'Para você, o mais importante ao contratar " + prod + " é " + vantagem.slice(0, 30) + "...?' [Com certeza / Quero saber mais]\n\n" +
             "• STORY 2 (Almoço - Bastidor):\n" +
@@ -327,16 +326,16 @@ function processarGeracaoApp() {
             headlineArte: item.h,
             direcao: direcao,
             legenda: legenda,
-            stories: sugestaoStories,
+            stories: stories,
             promptNano: promptNano
         };
     });
 
-    renderizarTabelaCalendarioMaster('todos');
+    renderizarListaMaster('todos');
     mudarAba('calendario');
 }
 
-function renderizarTabelaCalendarioMaster(filtro) {
+function renderizarListaMaster(filtro) {
     const box = document.getElementById('lista-dias-container');
     let html = "";
 
@@ -349,7 +348,7 @@ function renderizarTabelaCalendarioMaster(filtro) {
         const pilarCls = d.pilar === "Conexão" ? "tag-conexao" : (d.pilar === "Vendas" ? "tag-vendas" : "tag-branding");
 
         html +=
-            "<div class='day-card' onclick='clicarNoDiaDoCalendario(" + i + ")'>" +
+            "<div class='day-card' onclick='abrirDetalheDia(" + i + ")'>" +
                 "<div><span class='tag " + tagCls + "'>Dia " + d.dia + " • " + d.tipo + "</span><span class='tag " + pilarCls + "'>" + d.pilar + "</span></div>" +
                 "<h3>" + d.titulo + "</h3>" +
                 "<p style='font-size:12px; color:var(--muted); margin-top:4px;'>" + d.objetivo + "</p>" +
@@ -359,15 +358,15 @@ function renderizarTabelaCalendarioMaster(filtro) {
     box.innerHTML = html || "<p style='font-size:13px; color:var(--muted);'>Nenhum dia encontrado.</p>";
 }
 
-function filtrarDiasMaster(filtro, btn) {
+function filtrarDias(filtro, btn) {
     const botoes = document.querySelectorAll('.filter-btn');
     for (let i = 0; i < botoes.length; i++) botoes[i].classList.remove('active');
     if (btn) btn.classList.add('active');
-    renderizarTabelaCalendarioMaster(filtro);
+    renderizarListaMaster(filtro);
 }
 
-function clicarNoDiaDoCalendario(index) {
-    indiceDiaAtivo = index;
+function abrirDetalheDia(index) {
+    diaAtivoIndex = index;
     const d = cronogramaGlobal[index];
     if (!d) return;
 
@@ -377,10 +376,10 @@ function clicarNoDiaDoCalendario(index) {
 
     document.getElementById('detalhe-badges').innerHTML =
         "<span class='tag " + tagCls + "'>Dia " + d.dia + " • " + d.tipo + "</span>" +
-        "<span class='tag " + pilarCls + "'>Pilar: " + d.pilar + "</span>";
+        "<span class='tag " + pilarCls + "'>Post: " + d.pilar + "</span>";
 
     document.getElementById('detalhe-titulo').textContent = d.titulo;
-    document.getElementById('detalhe-objetivo').textContent = d.objetivo;
+    document.getElementById('detalhe-sub').textContent = d.objetivo;
 
     document.getElementById('texto-direcao').textContent = d.direcao;
     document.getElementById('texto-legenda').textContent = d.legenda;
