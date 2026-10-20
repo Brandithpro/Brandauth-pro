@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>BrandAuth PRO | SaaS Master v51.0</title>
+<title>BrandAuth PRO | SaaS Master v52.0</title>
 <style>
     :root {
         --bg: #070913;
@@ -70,25 +70,15 @@
     .day-card { background: var(--card-alt); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-bottom: 10px; cursor: pointer; transition: 0.15s; }
     .day-card:hover { border-color: var(--primary); }
     .pre-box { white-space: pre-wrap; font-size: 13.5px; color: #f1f5f9; line-height: 1.65; }
-
-    #loading-overlay { display: none; position: fixed; inset: 0; background: rgba(7, 9, 19, 0.94); z-index: 200; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px; }
-    .spinner { width: 48px; height: 48px; border: 4px solid rgba(99,102,241,0.2); border-top-color: #6366f1; border-radius: 50%; animation: spin 0.75s linear infinite; margin-bottom: 16px; }
-    @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
-
-<div id="loading-overlay">
-    <div class="spinner"></div>
-    <h3 style="font-size: 17px; color: #fff; margin-bottom: 6px;">A gerar o seu plano sênior...</h3>
-    <p style="font-size: 12px; color: var(--muted);">A estruturar o calendário de 30 dias sob medida.</p>
-</div>
 
 <div class="header">
     <div class="logo-title">
         <span>⚡</span> BrandAuth <span>AI PRO</span>
     </div>
-    <span class="badge">SaaS v51.0 (Master)</span>
+    <span class="badge">SaaS v52.0 (Blindado)</span>
 </div>
 
 <div class="tabs">
@@ -109,7 +99,7 @@
 
             <div class="form-group">
                 <label>1. Profissão, Especialidade ou Nicho</label>
-                <input id="inp-prof" type="text" placeholder="Ex: Corretor de imóveis, Advogado, Nutricionista...">
+                <input id="inp-prof" type="text" placeholder="Ex: Agência de marketing, Corretor, Nutricionista...">
             </div>
 
             <div class="grid-2">
@@ -129,20 +119,20 @@
 
             <div class="form-group">
                 <label>3. Produto ou Serviço Principal (Carro-Chefe)</label>
-                <input id="inp-prod" type="text" placeholder="Ex: Lotes e apartamentos, Consultoria...">
+                <input id="inp-prod" type="text" placeholder="Ex: Tráfego pago, Consultoria...">
             </div>
 
             <div class="form-group">
                 <label>4. Qual dor ou prejuízo real ele resolve no cliente?</label>
-                <textarea id="inp-dor" rows="2" placeholder="Ex: Realização do sonho da casa própria ou investimento seguro..."></textarea>
+                <textarea id="inp-dor" rows="2" placeholder="Ex: Clientes chegando, falta de vendas..."></textarea>
             </div>
 
             <div class="form-group">
                 <label>5. Dificuldade em apresentar ou vender hoje:</label>
-                <input id="inp-dif" type="text" placeholder="Ex: Captação de clientes">
+                <input id="inp-dif" type="text" placeholder="Ex: Prospectar, explicar o valor...">
             </div>
 
-            <button type="button" class="btn-primary" onclick="gerarPlanoMasterSaaS()">🧠 Gerar Calendário Inteligente (30 Dias)</button>
+            <button type="button" class="btn-primary" onclick="executarGeracaoMasterSaaS()">🧠 Gerar Calendário Inteligente (30 Dias)</button>
         </div>
     </div>
 
@@ -257,7 +247,7 @@ function mudarAbaTab(nome) {
     window.scrollTo(0, 0);
 }
 
-function gerarPlanoMasterSaaS() {
+function executarGeracaoMasterSaaS() {
     const prof = document.getElementById('inp-prof').value.trim() || "Profissional";
     const atuacao = document.getElementById('inp-atuacao').value;
     const cid = document.getElementById('inp-cid').value.trim();
@@ -268,99 +258,94 @@ function gerarPlanoMasterSaaS() {
     const local = cid ? cid : (atuacao === "On-line" ? "todo o Brasil" : "nossa região");
     dadosCliente = { prof, atuacao, local, prod, dor, dif };
 
-    document.getElementById('loading-overlay').style.display = 'flex';
+    document.getElementById('resumo-estrategia').innerHTML =
+        "<b>🎯 Estratégia de Posicionamento Ativa:</b><br>" +
+        "O profissional <b>" + prof + "</b> (" + atuacao + " em " + local + ") destaca <b>" + prod + "</b> superando a barreira de <i>" + dif + "</i> e eliminando a dor de <i>" + dor + "</i>.";
 
-    setTimeout(() => {
-        document.getElementById('resumo-estrategia').innerHTML =
-            "<b>🎯 Estratégia de Posicionamento Ativa:</b><br>" +
-            "O profissional <b>" + prof + "</b> (" + atuacao + " em " + local + ") destaca <b>" + prod + "</b> superando a barreira de <i>" + dif + "</i> e eliminando a dor de <i>" + dor + "</i>.";
+    const baseTemas = [
+        { f: "Reels", p: "Branding", t: "O erro invisível ao escolher " + prod, h: "O ERRO QUE CUSTA CARO AO ESCOLHER ISSO" },
+        { f: "Estático", p: "Conexão", t: "Até quando vai continuar a conviver com " + dor, h: "ATÉ QUANDO VAI CONVIVER COM ESSE PROBLEMA?" },
+        { f: "Reels", p: "Vendas", t: "Por que vale a pena investir em " + prod, h: "VALE A PENA CONTRATAR AGORA?" },
+        { f: "Estático", p: "Branding", t: "Como é trabalhar com " + prof + " em " + local, h: "COMPROMISSO E PROFISSIONALISMO" },
+        { f: "Reels", p: "Conexão", t: "O maior mito que te contam sobre " + prod, h: "MITO VS. VERDADE SOBRE O SERVIÇO" },
+        { f: "Estático", p: "Vendas", t: "3 razões para resolver sua necessidade esta semana", h: "3 RAZÕES PARA DECIDIR JÁ" },
+        { f: "Reels", p: "Branding", t: "Por que o caminho mais barato costuma sair caro", h: "O BARATO QUE SAI MUITO CARO" },
+        { f: "Estático", p: "Conexão", t: "O alívio de encontrar quem realmente resolve " + dor, h: "ENCONTRE A SOLUÇÃO DEFINITIVA" },
+        { f: "Reels", p: "Vendas", t: "Como superamos o desafio de " + dif, h: "COMO SUPERAR ESTA DIFICULDADE" },
+        { f: "Estático", p: "Branding", t: "O padrão de excelência por trás de " + prod, h: "EXCELÊNCIA EM CADA DETALHE" },
+        { f: "Reels", p: "Conexão", t: "Uma conversa sincera sobre a nossa entrega", h: "UM CONSELHO SINCERO PARA VOCÊ" },
+        { f: "Estático", p: "Vendas", t: "Passo a passo prático para ter " + prod, h: "COMO FUNCIONA NA PRÁTICA" },
+        { f: "Reels", p: "Branding", t: "O que nos diferencia de verdade em " + local, h: "POR QUE SOMOS REFERÊNCIA" },
+        { f: "Estático", p: "Conexão", t: "Respondendo às dúvidas mais comuns sobre " + prod, h: "TUDO O QUE VOCÊ PRECISA SABER" },
+        { f: "Reels", p: "Vendas", t: "A oportunidade ideal para dar o próximo passo", h: "OPORTUNIDADE EXCLUSIVA NESTA SEMANA" },
+        { f: "Estático", p: "Branding", t: "Nosso compromisso absoluto com o seu resultado", h: "COMPROMISSO COM O SEU SUCESSO" },
+        { f: "Reels", p: "Conexão", t: "Histórias reais de quem superou " + dor, h: "HISTÓRIAS REAIS DE TRANSFORMAÇÃO" },
+        { f: "Estático", p: "Vendas", t: "Condições e facilidades para fechar " + prod, h: "GARANTA SUA CONDIÇÃO ESPECIAL" },
+        { f: "Reels", p: "Branding", t: "O perigo real de adiar a busca por ajuda", h: "NÃO DEIXE PARA DEPOIS" },
+        { f: "Estático", p: "Conexão", t: "O que nossos clientes mais valorizam no atendimento", h: "VALORES QUE FAZEM A DIFERENÇA" },
+        { f: "Reels", p: "Vendas", t: "Por que nossa abordagem é diferente de tudo", h: "CONHEÇA NOSSO MÉTODO EXCLUSIVO" },
+        { f: "Estático", p: "Branding", t: "Bastidores e dedicação diária com " + prof, h: "DEDICAÇÃO TOTAL AO SEU NEGÓCIO" },
+        { f: "Reels", p: "Conexão", t: "Como identificar que chegou o momento de mudar", h: "SINAIS DE QUE VOCÊ PRECISA MUDAR" },
+        { f: "Estático", p: "Vendas", t: "Facilidades exclusivas para começar com " + prof, h: "FACILIDADES PARA VOCÊ COMEÇAR" },
+        { f: "Reels", p: "Branding", t: "A importância de escolher com quem você se identifica", h: "CONEXÃO E CONFIANÇA MÚTUA" },
+        { f: "Estático", p: "Conexão", t: "Espaço aberto: respondendo dúvidas sobre " + prod, h: "ESPAÇO ABERTO PARA PERGUNTAS" },
+        { f: "Reels", p: "Vendas", t: "Últimas vagas disponíveis na nossa agenda", h: "AGENDA LIMITADA: GARANTA SUA VAGA" },
+        { f: "Estático", p: "Branding", t: "Visão de futuro: crescendo e evoluindo juntos", h: "CONSTRUINDO UM FUTURO SÓLIDO" },
+        { f: "Reels", p: "Conexão", t: "Agradecimento especial pela confiança em " + local, h: "OBRIGADO PELA PARCERIA DE SEMPRE" },
+        { f: "Estático", p: "Vendas", t: "Fechamento de mês com foco total em " + prod, h: "ÚLTIMA CHAMADA DO MÊS" }
+    ];
 
-        const baseTemas = [
-            { f: "Reels", p: "Branding", t: "O erro invisível ao escolher " + prod, h: "O ERRO QUE CUSTA CARO AO ESCOLHER ISSO" },
-            { f: "Estático", p: "Conexão", t: "Até quando vai continuar a conviver com " + dor, h: "ATÉ QUANDO VAI CONVIVER COM ESSE PROBLEMA?" },
-            { f: "Reels", p: "Vendas", t: "Por que vale a pena investir em " + prod, h: "VALE A PENA CONTRATAR AGORA?" },
-            { f: "Estático", p: "Branding", t: "Como é trabalhar com " + prof + " em " + local, h: "COMPROMISSO E PROFISSIONALISMO" },
-            { f: "Reels", p: "Conexão", t: "O maior mito que te contam sobre " + prod, h: "MITO VS. VERDADE SOBRE O SERVIÇO" },
-            { f: "Estático", p: "Vendas", t: "3 razões para resolver sua necessidade esta semana", h: "3 RAZÕES PARA DECIDIR JÁ" },
-            { f: "Reels", p: "Branding", t: "Por que o caminho mais barato costuma sair caro", h: "O BARATO QUE SAI MUITO CARO" },
-            { f: "Estático", p: "Conexão", t: "O alívio de encontrar quem realmente resolve " + dor, h: "ENCONTRE A SOLUÇÃO DEFINITIVA" },
-            { f: "Reels", p: "Vendas", t: "Como superamos o desafio de " + dif, h: "COMO SUPERAR ESTA DIFICULDADE" },
-            { f: "Estático", p: "Branding", t: "O padrão de excelência por trás de " + prod, h: "EXCELÊNCIA EM CADA DETALHE" },
-            { f: "Reels", p: "Conexão", t: "Uma conversa sincera sobre a nossa entrega", h: "UM CONSELHO SINCERO PARA VOCÊ" },
-            { f: "Estático", p: "Vendas", t: "Passo a passo prático para ter " + prod, h: "COMO FUNCIONA NA PRÁTICA" },
-            { f: "Reels", p: "Branding", t: "O que nos diferencia de verdade em " + local, h: "POR QUE SOMOS REFERÊNCIA" },
-            { f: "Estático", p: "Conexão", t: "Respondendo às dúvidas mais comuns sobre " + prod, h: "TUDO O QUE VOCÊ PRECISA SABER" },
-            { f: "Reels", p: "Vendas", t: "A oportunidade ideal para dar o próximo passo", h: "OPORTUNIDADE EXCLUSIVA NESTA SEMANA" },
-            { f: "Estático", p: "Branding", t: "Nosso compromisso absoluto com o seu resultado", h: "COMPROMISSO COM O SEU SUCESSO" },
-            { f: "Reels", p: "Conexão", t: "Histórias reais de quem superou " + dor, h: "HISTÓRIAS REAIS DE TRANSFORMAÇÃO" },
-            { f: "Estático", p: "Vendas", t: "Condições e facilidades para fechar " + prod, h: "GARANTA SUA CONDIÇÃO ESPECIAL" },
-            { f: "Reels", p: "Branding", t: "O perigo real de adiar a busca por ajuda", h: "NÃO DEIXE PARA DEPOIS" },
-            { f: "Estático", p: "Conexão", t: "O que nossos clientes mais valorizam no atendimento", h: "VALORES QUE FAZEM A DIFERENÇA" },
-            { f: "Reels", p: "Vendas", t: "Por que nossa abordagem é diferente de tudo", h: "CONHEÇA NOSSO MÉTODO EXCLUSIVO" },
-            { f: "Estático", p: "Branding", t: "Bastidores e dedicação diária com " + prof, h: "DEDICAÇÃO TOTAL AO SEU NEGÓCIO" },
-            { f: "Reels", p: "Conexão", t: "Como identificar que chegou o momento de mudar", h: "SINAIS DE QUE VOCÊ PRECISA MUDAR" },
-            { f: "Estático", p: "Vendas", t: "Facilidades exclusivas para começar com " + prof, h: "FACILIDADES PARA VOCÊ COMEÇAR" },
-            { f: "Reels", p: "Branding", t: "A importância de escolher com quem você se identifica", h: "CONEXÃO E CONFIANÇA MÚTUA" },
-            { f: "Estático", p: "Conexão", t: "Espaço aberto: respondendo dúvidas sobre " + prod, h: "ESPAÇO ABERTO PARA PERGUNTAS" },
-            { f: "Reels", p: "Vendas", t: "Últimas vagas disponíveis na nossa agenda", h: "AGENDA LIMITADA: GARANTA SUA VAGA" },
-            { f: "Estático", p: "Branding", t: "Visão de futuro: crescendo e evoluindo juntos", h: "CONSTRUINDO UM FUTURO SÓLIDO" },
-            { f: "Reels", p: "Conexão", t: "Agradecimento especial pela confiança em " + local, h: "OBRIGADO PELA PARCERIA DE SEMPRE" },
-            { f: "Estático", p: "Vendas", t: "Fechamento de mês com foco total em " + prod, h: "ÚLTIMA CHAMADA DO MÊS" }
-        ];
+    cronogramaGlobal = baseTemas.map((item, index) => {
+        const numDia = (index + 1) < 10 ? "0" + (index + 1) : "" + (index + 1);
+        const isReels = item.f === "Reels";
+        const formatoLabel = isReels ? "🎬 Reels (Vídeo)" : "🖼️ Post Estático / Carrossel";
 
-        cronogramaGlobal = baseTemas.map((item, index) => {
-            const numDia = (index + 1) < 10 ? "0" + (index + 1) : "" + (index + 1);
-            const isReels = item.f === "Reels";
-            const formatoLabel = isReels ? "🎬 Reels (Vídeo)" : "🖼️ Post Estático / Carrossel";
+        const direcaoSintatica =
+            "- O Assunto será: Explicar o conceito de " + item.t.toLowerCase() + ", demonstrando que " + prod + " resolve " + dor + ".\n" +
+            "- No gancho inicial você fala: Abra o conteúdo trazendo uma verdade dura ou um incômodo real que o público enfrenta relacionado a " + dif + ".\n" +
+            "- Você desenvolve falando sobre: O custo invisível de continuar a ignorar o problema, argumentando que o diferencial de " + prod + " traz segurança e previsibilidade.\n" +
+            "- Final / CTA: Oriente a audiência a comentar 'QUERO' ou a tocar no link da Bio para iniciar o atendimento " + atuacao.toLowerCase() + ".";
 
-            const direcaoSintatica =
-                "- O Assunto será: Explicar o conceito de " + item.t.toLowerCase() + ", demonstrando que " + prod + " resolve " + dor + ".\n" +
-                "- No gancho inicial você fala: Abra o conteúdo trazendo uma verdade dura ou um incômodo real que o público enfrenta relacionado a " + dif + ".\n" +
-                "- Você desenvolve falando sobre: O custo invisível de continuar a ignorar o problema, argumentando que o diferencial de " + prod + " traz segurança e previsibilidade.\n" +
-                "- Final / CTA: Oriente a audiência a comentar 'QUERO' ou a tocar no link da Bio para iniciar o atendimento " + atuacao.toLowerCase() + ".";
+        const legendaPronta =
+            item.t + "!\n\n" +
+            "Muitas pessoas acabam por adiar a decisão de buscar " + prod + " porque esbarram na dificuldade de " + dif + ".\n\n" +
+            "Mas a verdade é uma só: nada custa mais caro do que continuar a conviver com " + dor + ".\n\n" +
+            "O nosso compromisso como " + prof + " é entregar exatamente a solução que você precisa com total segurança e profissionalismo.\n\n" +
+            "📍 Atendimento " + atuacao + " (" + local + ")\n" +
+            "📲 Toque no link da minha Bio agora mesmo ou envie mensagem no Direct para conversarmos!\n\n" +
+            "#" + prof.replace(/\s+/g, "") + " #" + prod.replace(/\s+/g, "");
 
-            const legendaPronta =
-                item.t + "!\n\n" +
-                "Muitas pessoas acabam por adiar a decisão de buscar " + prod + " porque esbarram na dificuldade de " + dif + ".\n\n" +
-                "Mas a verdade é uma só: nada custa mais caro do que continuar a conviver com " + dor + ".\n\n" +
-                "O nosso compromisso como " + prof + " é entregar exatamente a solução que você precisa com total segurança e profissionalismo.\n\n" +
-                "📍 Atendimento " + atuacao + " (" + local + ")\n" +
-                "📲 Toque no link da minha Bio agora mesmo ou envie mensagem no Direct para conversarmos!\n\n" +
-                "#" + prof.replace(/\s+/g, "") + " #" + prod.replace(/\s+/g, "");
+        const sugestaoStories =
+            "• STORY 1 (Manhã - Enquete):\n" +
+            "Texto: 'Uma pergunta sincera para começar o dia:' -> Enquete: 'Já sentiu que " + dor.slice(0, 35) + "...?' [Sim, demais / Quero resolver]\n\n" +
+            "• STORY 2 (Almoço - Bastidor):\n" +
+            "Mostre um detalhe prático de " + prod + ".\n\n" +
+            "• STORY 3 (Tarde - Caixinha):\n" +
+            "Caixa de perguntas: 'Qual a sua maior dúvida sobre " + prod + "?'\n\n" +
+            "• STORY 4 (Noite - Chamada):\n" +
+            "'Para quem votou cedo e quer resolver isto esta semana, toque no link para falar comigo diretamente.'";
 
-            const sugestaoStories =
-                "• STORY 1 (Manhã - Enquete):\n" +
-                "Texto: 'Uma pergunta sincera para começar o dia:' -> Enquete: 'Já sentiu que " + dor.slice(0, 35) + "...?' [Sim, demais / Quero resolver]\n\n" +
-                "• STORY 2 (Almoço - Bastidor):\n" +
-                "Mostre um detalhe prático de " + prod + ".\n\n" +
-                "• STORY 3 (Tarde - Caixinha):\n" +
-                "Caixa de perguntas: 'Qual a sua maior dúvida sobre " + prod + "?'\n\n" +
-                "• STORY 4 (Noite - Chamada):\n" +
-                "'Para quem votou cedo e quer resolver isto esta semana, toque no link para falar comigo diretamente.'";
+        const promptNanoBanana =
+            "Crie uma imagem publicitária profissional para Instagram (proporção 4:5).\n" +
+            "CENA VISUAL: Fotografia comercial ultra-realista em formato vertical, ambientação brasileira autêntica representando o universo de " + prof + " e " + prod + ", iluminação cinematográfica quente e limpa.\n" +
+            "TEXTO NA IMAGEM: \"" + item.h + "\" (tipografia moderna em negrito, sem serifa, perfeitamente legível em português).";
 
-            const promptNanoBanana =
-                "Crie uma imagem publicitária profissional para Instagram (proporção 4:5).\n" +
-                "CENA VISUAL: Fotografia comercial ultra-realista em formato vertical, ambientação brasileira autêntica representando o universo de " + prof + " e " + prod + ", iluminação cinematográfica quente e limpa.\n" +
-                "TEXTO NA IMAGEM: \"" + item.h + "\" (tipografia moderna em negrito, sem serifa, perfeitamente legível em português).";
+        return {
+            dia: numDia,
+            tipo: formatoLabel,
+            pilar: item.p,
+            titulo: item.t,
+            objetivo: "Trabalhar o pilar de " + item.p + " com foco em conversão e autoridade.",
+            headlineArte: item.h,
+            direcao: direcaoSintatica,
+            legenda: legendaPronta,
+            stories: sugestaoStories,
+            promptNano: promptNano
+        };
+    });
 
-            return {
-                dia: numDia,
-                tipo: formatoLabel,
-                pilar: item.p,
-                titulo: item.t,
-                objetivo: "Trabalhar o pilar de " + item.p + " com foco em conversão e autoridade.",
-                headlineArte: item.h,
-                direcao: direcaoSintatica,
-                legenda: legendaPronta,
-                stories: sugestaoStories,
-                promptNano: promptNano
-            };
-        });
-
-        renderizarTabelaCalendario('todos');
-        document.getElementById('loading-overlay').style.display = 'none';
-        mudarAbaTab('calendario');
-    }, 600);
+    renderizarTabelaCalendario('todos');
+    mudarAbaTab('calendario');
 }
 
 function renderizarTabelaCalendario(filtro) {
