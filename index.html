@@ -87,7 +87,7 @@
     <div class="logo-title">
         <span>⚡</span> BrandAuth <span>AI PRO</span>
     </div>
-    <span class="badge">SaaS Master v31.0</span>
+    <span class="badge">SaaS Master v31.1</span>
 </div>
 
 <div class="tabs">
@@ -249,21 +249,17 @@ let cacheConteudoDias = {};
 let dadosNegocio = {};
 let diaAtualIdx = 0;
 
-// CHAVE MESTRA EMBUTIDA NOS BASTIDORES (O cliente não vê e o Vercel roda direto)
+// CHAVE MESTRA EMBUTIDA
 const MASTER_GEMINI_KEY = "AIzaSyCDTbKeQZpVcozE6y3Su4NxUQoUEZa6HZY";
 
 function abrirAba(nomeAba) {
     const abas = ['diagnostico', 'calendario', 'conteudo', 'nano', 'suporte'];
     for (let i = 0; i < abas.length; i++) {
-        const pane = document.getElementById('aba-' + abas[i]);
-        const btn = document.getElementById('tabbtn-' + abas[i]);
-        if (pane) pane.classList.remove('active');
-        if (btn) btn.classList.remove('active');
+        document.getElementById('aba-' + abas[i]).classList.remove('active');
+        document.getElementById('tabbtn-' + abas[i]).classList.remove('active');
     }
-    const paneAlvo = document.getElementById('aba-' + nomeAba);
-    const btnAlvo = document.getElementById('tabbtn-' + nomeAba);
-    if (paneAlvo) paneAlvo.classList.add('active');
-    if (btnAlvo) btnAlvo.classList.add('active');
+    document.getElementById('aba-' + nomeAba).classList.add('active');
+    document.getElementById('tabbtn-' + nomeAba).classList.add('active');
     window.scrollTo(0, 0);
 }
 
@@ -289,7 +285,8 @@ function esconderLoading() {
 }
 
 async function chamarGeminiJSON(promptTexto) {
-    const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + MASTER_GEMINI_KEY;
+    // Atualizado para o endpoint estável universal gemini-2.5-flash
+    const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + MASTER_GEMINI_KEY;
     const resp = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -388,7 +385,7 @@ Gere exatamente os 30 itens dentro do array "dias" (do "01" ao "30").`;
         }
 
         document.getElementById('resumo-estrategia').innerHTML =
-            "<b>🎯 Estratégia Ativa (" + p.profissao + " • " + p.atuacao + "):</b><br>" + (res.diagnosticoEstrategico || "") + htmlBios;
+            "<b>🎯 Estratégia Ativa (" + profissao + " • " + atuacao + "):</b><br>" + (res.diagnosticoEstrategico || "") + htmlBios;
 
         renderizarListaCalendario('todos');
         esconderLoading();
