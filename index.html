@@ -77,7 +77,7 @@
     <div class="logo-title">
         <span>🚀</span> Destrave <span>Pro</span>
     </div>
-    <span class="badge">SaaS Clean v1.0</span>
+    <span class="badge">Clean Engine v1.1</span>
 </div>
 
 <div class="tabs">
@@ -93,11 +93,11 @@
     <div id="pane-diagnostico" class="tab-pane active" style="display: block;">
         <div class="card">
             <h2>Diagnóstico Estratégico do Negócio</h2>
-            <p class="sub">Preencha os dados abaixo. O Destrave Pro gerará instantaneamente um plano sênior de 30 dias.</p>
+            <p class="sub">Preencha os dados abaixo. O Destrave Pro gerará instantaneamente um plano sênior de 30 dias com raciocínio inteligente.</p>
 
             <div class="form-group">
                 <label>1. Profissão ou Especialidade</label>
-                <input id="form-prof" type="text" placeholder="Ex: Corretor de Imóveis, Fisioterapeuta, Advogado...">
+                <input id="form-prof" type="text" placeholder="Ex: Corretor de Seguros, Fisioterapeuta, Advogado...">
             </div>
 
             <div class="grid-2">
@@ -117,17 +117,17 @@
 
             <div class="form-group">
                 <label>3. Produto ou Serviço Principal (Carro-Chefe)</label>
-                <input id="form-prod" type="text" placeholder="Ex: Venda de Lotes, Consultoria, Consulta...">
+                <input id="form-prod" type="text" placeholder="Ex: Garantia de Infraestrutura, Consultoria...">
             </div>
 
             <div class="form-group">
-                <label>4. Qual dor ou prejuízo real ele resolve?</label>
-                <textarea id="form-dor" rows="2" placeholder="Ex: Medo de perder dinheiro, falta de segurança, vergonha..."></textarea>
+                <label>4. Qual vantagem ou garantia única ele entrega?</label>
+                <textarea id="form-dor" rows="2" placeholder="Ex: Segurança total contra atrasos e redução de custos operacionais..."></textarea>
             </div>
 
             <div class="form-group">
                 <label>5. Dificuldade atual em apresentar ou vender:</label>
-                <input id="form-dif" type="text" placeholder="Ex: Clientes acham caro ou adiam a decisão">
+                <input id="form-dif" type="text" placeholder="Ex: Captar loteadoras, clientes que adiam a decisão">
             </div>
 
             <button type="button" class="btn-primary" onclick="processarGeracaoApp()">🚀 Gerar Calendário Completo (30 Dias)</button>
@@ -138,7 +138,7 @@
     <div id="pane-calendario" class="tab-pane" style="display: none;">
         <div class="card">
             <h2>Calendário Estratégico (30 Dias)</h2>
-            <p class="sub">Toque em qualquer dia para ver a direção de raciocínio e legendas:</p>
+            <p class="sub">Toque em qualquer dia para abrir a direção de raciocínio, legendas e stories:</p>
 
             <div id="resumo-painel" class="card-sub" style="margin-bottom: 14px; border-color: rgba(99,102,241,0.45); font-size: 13px;"></div>
 
@@ -241,24 +241,24 @@ function processarGeracaoApp() {
     const atuacao = document.getElementById('form-atuacao').value;
     const cid = document.getElementById('form-cid').value.trim();
     const prod = document.getElementById('form-prod').value.trim() || "Serviço";
-    const dor = document.getElementById('form-dor').value.trim() || "perder tempo ou dinheiro";
+    const vantagem = document.getElementById('form-dor').value.trim() || "segurança e eficiência";
     const dif = document.getElementById('form-dif').value.trim() || "atrair clientes";
 
     const local = cid ? cid : (atuacao === "On-line" ? "todo o Brasil" : "nossa região");
-    meuPerfil = { prof, atuacao, local, prod, dor, dif };
+    meuPerfil = { prof, atuacao, local, prod, vantagem, dif };
 
     document.getElementById('resumo-painel').innerHTML =
-        "<b>🎯 Estratégia Destrave Pro:</b> " + prof + " (" + atuacao + " em " + local + ") focando em <b>" + prod + "</b> para eliminar <i>" + dor + "</i> superando a barreira de <i>" + dif + "</i>.";
+        "<b>🎯 Estratégia Destrave Pro:</b> " + prof + " (" + atuacao + " em " + local + ") focando em <b>" + prod + "</b> para destacar a vantagem de <i>" + vantagem + "</i> superando o desafio de <i>" + dif + "</i>.";
 
     const pautasBase = [
-        { f: "Reels", p: "Branding", t: "O erro invisível ao escolher " + prod, h: "O ERRO QUE CUSTA CARO AO ESCOLHER ISSO" },
-        { f: "Estático", p: "Conexão", t: "Até quando vai continuar a conviver com " + dor, h: "ATÉ QUANDO VAI CONVIVER COM ESSE PROBLEMA?" },
-        { f: "Reels", p: "Vendas", t: "Por que vale a pena investir em " + prod, h: "VALE A PENA CONTRATAR AGORA?" },
+        { f: "Reels", p: "Branding", t: "O poder oculto de contar com " + prod, h: "O DIFERENCIAL QUE MUSTA O JOGO EM " + prod.toUpperCase() },
+        { f: "Estático", p: "Conexão", t: "Como " + vantagem + " muda completamente o seu resultado", h: "A VANTAGEM QUE VOCÊ ESTÁ A PERDER" },
+        { f: "Reels", p: "Vendas", t: "Por que vale a pena garantir " + prod + " agora", h: "VALE A PENA CONTRATAR AGORA?" },
         { f: "Estático", p: "Branding", t: "Como é trabalhar com " + prof + " em " + local, h: "COMPROMISSO E PROFISSIONALISMO" },
-        { f: "Reels", p: "Conexão", t: "O maior mito que te contam sobre " + prod, h: "MITO VS. VERDADE SOBRE O SERVIÇO" },
-        { f: "Estático", p: "Vendas", t: "3 razões para resolver sua necessidade esta semana", h: "3 RAZÕES PARA DECIDIR JÁ" },
-        { f: "Reels", p: "Branding", t: "Por que o caminho mais barato costuma sair caro", h: "O BARATO QUE SAI MUITO CARO" },
-        { f: "Estático", p: "Conexão", t: "O alívio de encontrar quem realmente resolve " + dor, h: "ENCONTRE A SOLUÇÃO DEFINITIVA" },
+        { f: "Reels", p: "Conexão", t: "O maior benefício de escolher " + prod, h: "O BENEFÍCIO REAL QUE NINGUÉM CONTA" },
+        { f: "Estático", p: "Vendas", t: "3 razões para garantir sua segurança esta semana", h: "3 RAZÕES PARA DECIDIR JÁ" },
+        { f: "Reels", p: "Branding", t: "Por que o trabalho amador custa caro a prazo", h: "O CUSTO OCULTO DE ESCOLHER ATALHOS" },
+        { f: "Estático", p: "Conexão", t: "A tranquilidade de ter " + vantagem, h: "A TRANQULIDADE DE UM SERVIÇO SEGURO" },
         { f: "Reels", p: "Vendas", t: "Como superamos o desafio de " + dif, h: "COMO SUPERAR ESTA DIFICULDADE" },
         { f: "Estático", p: "Branding", t: "O padrão de excelência por trás de " + prod, h: "EXCELÊNCIA EM CADA DETALHE" },
         { f: "Reels", p: "Conexão", t: "Uma conversa sincera sobre a nossa entrega", h: "UM CONSELHO SINCERO PARA VOCÊ" },
@@ -267,13 +267,13 @@ function processarGeracaoApp() {
         { f: "Estático", p: "Conexão", t: "Respondendo às dúvidas mais comuns sobre " + prod, h: "TUDO O QUE VOCÊ PRECISA SABER" },
         { f: "Reels", p: "Vendas", t: "A oportunidade ideal para dar o próximo passo", h: "OPORTUNIDADE EXCLUSIVA NESTA SEMANA" },
         { f: "Estático", p: "Branding", t: "Nosso compromisso absoluto com o seu resultado", h: "COMPROMISSO COM O SEU SUCESSO" },
-        { f: "Reels", p: "Conexão", t: "Histórias reais de quem superou " + dor, h: "HISTÓRIAS REAIS DE TRANSFORMAÇÃO" },
-        { f: "Estático", p: "Vendas", t: "Condições e facilidades para fechar " + prod, h: "GARANTA SUA CONDIÇÃO ESPECIAL" },
-        { f: "Reels", p: "Branding", t: "O perigo real de adiar a busca por ajuda", h: "NÃO DEIXE PARA DEPOIS" },
+        { f: "Reels", p: "Conexão", t: "Histórias reais de clientes beneficiados por " + prod, h: "HISTÓRIAS REAIS DE SUCESSO" },
+        { f: "Estático", p: "Vendas", t: "Condições especiais para fechar " + prod, h: "GARANTA SUA CONDIÇÃO ESPECIAL" },
+        { f: "Reels", p: "Branding", t: "A importância de antecipar-se e agir com segurança", h: "PREVENÇÃO E SEGURANÇA EM PRIMEIRO LUGAR" },
         { f: "Estático", p: "Conexão", t: "O que nossos clientes mais valorizam no atendimento", h: "VALORES QUE FAZEM A DIFERENÇA" },
-        { f: "Reels", p: "Vendas", t: "Por que nossa abordagem é diferente de tudo", h: "CONHEÇA NOSSO MÉTODO EXCLUSIVO" },
+        { f: "Reels", p: "Vendas", t: "Por que nossa abordagem em " + prod + " é única", h: "CONHEÇA NOSSO MÉTODO EXCLUSIVO" },
         { f: "Estático", p: "Branding", t: "Bastidores e dedicação diária com " + prof, h: "DEDICAÇÃO TOTAL AO SEU NEGÓCIO" },
-        { f: "Reels", p: "Conexão", t: "Como identificar que chegou o momento de mudar", h: "SINAIS DE QUE VOCÊ PRECISA MUDAR" },
+        { f: "Reels", p: "Conexão", t: "Como identificar que chegou o momento de evoluir", h: "SINAIS DE QUE VOCÊ PRECISA EVOLUIR" },
         { f: "Estático", p: "Vendas", t: "Facilidades exclusivas para começar com " + prof, h: "FACILIDADES PARA VOCÊ COMEÇAR" },
         { f: "Reels", p: "Branding", t: "A importância de escolher com quem você se identifica", h: "CONEXÃO E CONFIANÇA MÚTUA" },
         { f: "Estático", p: "Conexão", t: "Espaço aberto: respondendo dúvidas sobre " + prod, h: "ESPAÇO ABERTO PARA PERGUNTAS" },
@@ -289,29 +289,29 @@ function processarGeracaoApp() {
         const formatoLabel = isReels ? "🎬 Reels (Vídeo)" : "🖼️ Post Estático / Carrossel";
 
         const direcao =
-            "- O Assunto será: Explicar por que " + item.t.toLowerCase() + ", mostrando que " + prod + " é a chave para eliminar " + dor + ".\n" +
-            "- No gancho inicial você fala: Abra o conteúdo trazendo uma verdade direta sobre a dificuldade que o público enfrenta com " + dif + ".\n" +
-            "- Você desenvolve falando sobre: O custo invisível de adiar a solução, argumentando que o diferencial de " + prod + " traz segurança e tranquilidade na própria voz.\n" +
+            "- O Assunto será: Explicar a vantagem de " + item.t.toLowerCase() + ", demonstrando que " + prod + " entrega " + vantagem + ".\n" +
+            "- No gancho inicial você fala: Abra o conteúdo valorizando o benefício sênior e resolvendo a barreira que o público enfrenta com " + dif + ".\n" +
+            "- Você desenvolve falando sobre: O ganho real de contar com " + prod + ", argumentando sobre a solidez e os resultados que " + vantagem + " proporciona na própria voz.\n" +
             "- Final / CTA: Oriente a audiência a comentar 'QUERO' ou tocar no link da Bio.";
 
         const legenda =
             item.t + "!\n\n" +
-            "Muitas pessoas acabam por adiar a decisão de buscar " + prod + " porque esbarram na dificuldade de " + dif + ".\n\n" +
-            "Mas a verdade é uma só: nada custa mais caro do que continuar a conviver com " + dor + ".\n\n" +
-            "O nosso compromisso como " + prof + " é entregar exatamente a solução que você precisa com total segurança.\n\n" +
+            "Quando se trata de escolher " + prod + ", o que realmente importa é a garantia de contar com " + vantagem + ".\n\n" +
+            "Muitas pessoas acabam por hesitar por causa de " + dif + ", mas a escolha certa muda completamente o patamar do seu projeto.\n\n" +
+            "O nosso compromisso como " + prof + " é entregar excelência e previsibilidade do início ao fim.\n\n" +
             "📍 Atendimento " + atuacao + " (" + local + ")\n" +
             "📲 Toque no link da minha Bio!\n\n" +
             "#" + prof.replace(/\s+/g, "") + " #" + prod.replace(/\s+/g, "");
 
-        const stories =
+        const sugestaoStories =
             "• STORY 1 (Manhã - Enquete):\n" +
-            "Texto: 'Uma pergunta sincera para começar o dia:' -> Enquete: 'Já sentiu que " + dor.slice(0, 35) + "...?' [Sim, demais / Quero resolver]\n\n" +
+            "Texto: 'Uma pergunta sincera para começar o dia:' -> Enquete: 'Para você, o mais importante ao contratar " + prod + " é " + vantagem.slice(0, 30) + "...?' [Com certeza / Quero saber mais]\n\n" +
             "• STORY 2 (Almoço - Bastidor):\n" +
-            "Mostre um detalhe prático de " + prod + ".\n\n" +
+            "Mostre o compromisso prático de " + prof + ".\n\n" +
             "• STORY 3 (Tarde - Caixinha):\n" +
             "Caixa de perguntas: 'Qual a sua maior dúvida sobre " + prod + "?'\n\n" +
             "• STORY 4 (Noite - Chamada):\n" +
-            "'Para quem votou cedo e quer resolver isto esta semana, toque no link para falar comigo diretamente.'";
+            "'Quer garantir um atendimento especializado esta semana? Toque no link para falar comigo diretamente.'";
 
         const promptNano =
             "Crie uma imagem publicitária profissional para Instagram (proporção 4:5).\n" +
@@ -323,11 +323,11 @@ function processarGeracaoApp() {
             tipo: formatoLabel,
             pilar: item.p,
             titulo: item.t,
-            objetivo: "Trabalhar o pilar de " + item.p + " com foco em conversão e autoridade.",
+            objetivo: "Trabalhar o pilar de " + item.p + " com foco em valorização e autoridade.",
             headlineArte: item.h,
             direcao: direcao,
             legenda: legenda,
-            stories: stories,
+            stories: sugestaoStories,
             promptNano: promptNano
         };
     });
