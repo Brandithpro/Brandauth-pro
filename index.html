@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>BrandAuth PRO | SaaS Oficial v22.2</title>
+<title>BrandAuth PRO | Gerador de Calendário de Postagens</title>
 <style>
     :root {
         --bg: #070913;
@@ -15,542 +15,558 @@
         --amber: #f59e0b;
         --emerald: #10b981;
         --rose: #f43f5e;
+        --cyan: #06b6d4;
         --text: #f8fafc;
         --muted: #94a3b8;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background: var(--bg); color: var(--text); padding-bottom: 90px; line-height: 1.6; }
+    body { background: var(--bg); color: var(--text); padding-bottom: 90px; line-height: 1.55; }
     
-    .header { background: rgba(17, 24, 39, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 14px 16px; position: sticky; top: 0; z-index: 20; display: flex; justify-content: space-between; align-items: center; }
+    .header { background: rgba(17, 24, 39, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 14px 16px; position: sticky; top: 0; z-index: 30; display: flex; justify-content: space-between; align-items: center; }
     .logo-title { font-size: 17px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 6px; }
     .logo-title span { color: #818cf8; }
-    .badge { font-size: 10px; background: rgba(99,102,241,0.2); color: #a5b4fc; padding: 2px 8px; border-radius: 99px; border: 1px solid rgba(99,102,241,0.4); font-weight: 700; }
+    .badge { font-size: 10px; background: rgba(16,185,129,0.15); color: #34d399; padding: 3px 9px; border-radius: 99px; border: 1px solid rgba(16,185,129,0.35); font-weight: 700; }
 
-    .tabs { display: flex; overflow-x: auto; background: rgba(17, 24, 39, 0.9); border-bottom: 1px solid var(--border); padding: 0 8px; gap: 4px; position: sticky; top: 53px; z-index: 19; }
+    .tabs { display: flex; overflow-x: auto; background: rgba(17, 24, 39, 0.95); border-bottom: 1px solid var(--border); padding: 0 8px; gap: 4px; position: sticky; top: 53px; z-index: 29; }
     .tabs::-webkit-scrollbar { display: none; }
-    .tab-btn { background: none; border: none; color: var(--muted); padding: 12px 12px; font-size: 13px; font-weight: 600; white-space: nowrap; border-bottom: 3px solid transparent; cursor: pointer; transition: 0.2s; }
+    .tab-btn { background: none; border: none; color: var(--muted); padding: 12px 11px; font-size: 12px; font-weight: 700; white-space: nowrap; border-bottom: 3px solid transparent; cursor: pointer; transition: 0.2s; }
     .tab-btn.active { color: #818cf8; border-bottom-color: var(--primary); }
-    .tab-btn.upsell-tab { color: #fbbf24; }
+    .tab-btn.nano-tab { color: #fbbf24; }
+    .tab-btn.upsell-tab { color: #34d399; }
 
-    .container { max-width: 700px; margin: 0 auto; padding: 16px; }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
+    .container { max-width: 720px; margin: 0 auto; padding: 16px; }
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
 
     .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 18px; margin-bottom: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
     .card-sub { background: var(--card-alt); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-top: 10px; }
-    h2 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+    h2 { font-size: 18px; font-weight: 800; margin-bottom: 4px; color: #fff; }
     h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: #fff; }
-    p.sub { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
+    p.sub { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
 
     .form-group { margin-bottom: 14px; }
-    label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; color: #cbd5e1; margin-bottom: 6px; letter-spacing: 0.4px; }
+    label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; color: #cbd5e1; margin-bottom: 6px; letter-spacing: 0.3px; }
     input, select, textarea { width: 100%; background: var(--card-alt); border: 1px solid var(--border); color: #fff; padding: 12px; border-radius: 10px; font-size: 14px; outline: none; transition: 0.2s; }
-    input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(99,102,241,0.2); }
+    input:focus, select:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(99,102,241,0.25); }
 
-    .btn-primary { width: 100%; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; border: none; padding: 15px; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px; box-shadow: 0 4px 15px rgba(99,102,241,0.35); }
-    .btn-secondary { background: #1e293b; color: #e2e8f0; border: 1px solid #334155; padding: 10px 14px; border-radius: 10px; font-size: 12px; font-weight: 600; cursor: pointer; }
-    .btn-emerald { background: var(--emerald); color: #052e16; border: none; padding: 10px 14px; border-radius: 10px; font-size: 12px; font-weight: 800; cursor: pointer; }
-    .btn-amber { width: 100%; background: var(--amber); color: #0f172a; border: none; padding: 13px; border-radius: 12px; font-size: 13px; font-weight: 800; cursor: pointer; margin-top: 10px; box-shadow: 0 4px 12px rgba(245,158,11,0.2); }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    @media (max-width: 500px) { .grid-2 { grid-template-columns: 1fr; } }
 
-    .tag { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 99px; margin-bottom: 6px; }
-    .tag-amber { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
-    .tag-rose { background: rgba(244,63,94,0.15); color: #fb7185; border: 1px solid rgba(244,63,94,0.3); }
-    .tag-emerald { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+    .btn-primary { width: 100%; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; border: none; padding: 15px; border-radius: 12px; font-size: 15px; font-weight: 800; cursor: pointer; margin-top: 8px; box-shadow: 0 4px 15px rgba(99,102,241,0.35); }
+    .btn-primary:active { transform: scale(0.99); }
+    .btn-copy { background: #1e293b; color: #e2e8f0; border: 1px solid #334155; padding: 10px 14px; border-radius: 10px; font-size: 12px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 8px; }
+    .btn-amber { width: 100%; background: var(--amber); color: #0f172a; border: none; padding: 13px; border-radius: 12px; font-size: 13px; font-weight: 800; cursor: pointer; margin-top: 10px; }
 
-    .mode-switch { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; background: var(--card-alt); padding: 6px; border-radius: 12px; border: 1px solid var(--border); margin: 12px 0; }
-    .mode-btn { background: transparent; color: var(--muted); border: none; padding: 10px 6px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; }
-    .mode-btn.active { background: var(--primary); color: #fff; }
+    .tag { display: inline-block; font-size: 10px; font-weight: 800; padding: 3px 9px; border-radius: 99px; margin-right: 4px; margin-bottom: 6px; text-transform: uppercase; }
+    .tag-reels { background: rgba(244,63,94,0.15); color: #fb7185; border: 1px solid rgba(244,63,94,0.3); }
+    .tag-estatico { background: rgba(6,182,212,0.15); color: #22d3ee; border: 1px solid rgba(6,182,212,0.3); }
+    .tag-branding { background: rgba(99,102,241,0.15); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.3); }
+    .tag-conexao { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+    .tag-vendas { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
 
-    #loading-overlay { display: none; position: fixed; inset: 0; background: rgba(7, 9, 19, 0.96); z-index: 200; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px; }
-    .spinner { width: 50px; height: 50px; border: 4px solid rgba(99,102,241,0.2); border-top-color: #6366f1; border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 20px; }
+    .filter-bar { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 12px; }
+    .filter-bar::-webkit-scrollbar { display: none; }
+    .filter-btn { background: var(--card-alt); color: var(--muted); border: 1px solid var(--border); padding: 7px 12px; border-radius: 99px; font-size: 11px; font-weight: 700; white-space: nowrap; cursor: pointer; }
+    .filter-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    .day-card { background: var(--card-alt); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-bottom: 10px; cursor: pointer; transition: 0.15s; }
+    .day-card:hover { border-color: var(--primary); }
+    .pre-box { white-space: pre-wrap; font-size: 13.5px; color: #f1f5f9; line-height: 1.65; }
+
+    #loading-overlay { display: none; position: fixed; inset: 0; background: rgba(7, 9, 19, 0.94); z-index: 200; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px; }
+    .spinner { width: 48px; height: 48px; border: 4px solid rgba(99,102,241,0.2); border-top-color: #6366f1; border-radius: 50%; animation: spin 0.75s linear infinite; margin-bottom: 16px; }
     @keyframes spin { to { transform: rotate(360deg); } }
-
-    #prompter-modal { display: none; position: fixed; inset: 0; background: #000; z-index: 100; flex-direction: column; justify-content: space-between; padding: 16px; }
-    .prompter-bar { background: #111827; border: 1px solid #374151; border-radius: 12px; padding: 10px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; }
-    #prompter-box { flex: 1; overflow-y: auto; margin: 14px 0; padding: 60px 12px 140px 12px; }
-    #prompter-text { font-size: 26px; font-weight: 700; color: #fff; line-height: 1.6; white-space: pre-wrap; }
 </style>
 </head>
 <body>
 
 <div id="loading-overlay">
     <div class="spinner"></div>
-    <h3 id="loading-text" style="font-size: 18px; color: #fff; margin-bottom: 8px;">A processar a estratégia sênior...</h3>
-    <p style="font-size: 13px; color: var(--muted);">A estruturar o plano de 30 dias (Vídeos + Posts) sob medida.</p>
+    <h3 id="loading-text" style="font-size: 17px; color: #fff; margin-bottom: 6px;">Montando seu Calendário de 30 Dias...</h3>
+    <p style="font-size: 12px; color: var(--muted);">Alternando Reels, Postagens Estáticas, Legendas, Stories e Prompts Nano Banana.</p>
 </div>
 
 <div class="header">
     <div class="logo-title">
         <span>⚡</span> BrandAuth <span>PRO</span>
     </div>
-    <span class="badge">SaaS v22.2 (Autônomo)</span>
+    <span class="badge">30 Dias + Nano Banana</span>
 </div>
 
 <div class="tabs">
-    <button class="tab-btn active" onclick="openTab('diagnostico', this)">1. Diagnóstico</button>
-    <button class="tab-btn" onclick="openTab('dossie', this)">2. Posicionamento</button>
-    <button class="tab-btn" onclick="openTab('calendario', this)">3. Cronograma (30 Dias)</button>
-    <button class="tab-btn" onclick="openTab('estudio', this)">4. Estúdio / Teleprompter</button>
-    <button class="tab-btn upsell-tab" onclick="openTab('upsell', this)">👑 5. Suporte</button>
+    <button class="tab-btn active" id="tabbtn-diagnostico" onclick="abrirAba('diagnostico')">1. Perguntas</button>
+    <button class="tab-btn" id="tabbtn-calendario" onclick="abrirAba('calendario')">2. Calendário (30d)</button>
+    <button class="tab-btn" id="tabbtn-conteudo" onclick="abrirAba('conteudo')">3. Post, Legenda & Stories</button>
+    <button class="tab-btn nano-tab" id="tabbtn-nano" onclick="abrirAba('nano')">🎨 4. Prompt Nano Banana</button>
+    <button class="tab-btn upsell-tab" id="tabbtn-suporte" onclick="abrirAba('suporte')">👑 5. Próximo Nível</button>
 </div>
 
 <div class="container">
 
-    <!-- ABA 1: DIAGNÓSTICO -->
-    <div id="diagnostico" class="tab-content active" style="display: block;">
+    <!-- ================= ABA 1: PERGUNTAS FÁCEIS ================= -->
+    <div id="aba-diagnostico" class="tab-pane active">
         <div class="card">
-            <h2>Diagnóstico & Contexto do Profissional</h2>
-            <p class="sub">Indique as observações reais. O sistema gerará o cronograma completo de 30 dias alternando entre Reels e Posts Fixos.</p>
+            <h2>Diagnóstico Rápido do Profissional</h2>
+            <p class="sub">Responda de forma simples. O sistema vai pensar estrategicamente na dor do seu cliente e montar 30 dias de conteúdo pronto.</p>
 
             <div class="form-group">
-                <label>1. Profissão ou Especialidade</label>
-                <input id="inp-prof" type="text" placeholder="Ex: Loteamento">
+                <label>1. Qual sua profissão, produto ou serviço nas redes sociais?</label>
+                <input id="inp-profissao" type="text" placeholder="Ex: Corretor de Loteamentos, Nutricionista, Esteticista, Loja de Água...">
+            </div>
+
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>2. Você atua Presencialmente, On-line ou Híbrido?</label>
+                    <select id="inp-atuacao">
+                        <option value="Presencial">Presencial (Negócio Local)</option>
+                        <option value="Híbrido">Híbrido (Presencial e On-line)</option>
+                        <option value="On-line">100% On-line (Todo o Brasil)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Sua Cidade ou Região (Opcional)</label>
+                    <input id="inp-cidade" type="text" placeholder="Ex: Montes Claros - MG">
+                </div>
             </div>
 
             <div class="form-group">
-                <label>2. Sua Cidade / Região</label>
-                <input id="inp-cid" type="text" placeholder="Ex: Monte Azul MG">
+                <label>3. Qual é o seu produto ou serviço mais vendido?</label>
+                <input id="inp-vendido" type="text" placeholder="Ex: Lotes financiados, Acompanhamento de 90 dias, Limpeza de pele...">
             </div>
 
             <div class="form-group">
-                <label>3. Serviço Principal (Carro-Chefe)</label>
-                <input id="inp-prod" type="text" placeholder="Ex: Venda de lotes">
+                <label>4. Descreva um pouco sobre ele (como funciona ou grande diferencial):</label>
+                <textarea id="inp-descricao" rows="2" placeholder="Ex: Entrada facilitada direto com a loteadora sem burocracia de banco / Atendimento personalizado com resultado já na primeira sessão..."></textarea>
             </div>
 
             <div class="form-group">
-                <label>4. Objeções comuns que o cliente tem</label>
-                <input id="inp-obj" type="text" placeholder="Ex: Localização e preços">
+                <label>5. Qual dor ele tira do seu cliente? (O que resolve na vida dele?)</label>
+                <textarea id="inp-dor" rows="2" placeholder="Ex: Tira o cliente do aluguel e do medo de perder dinheiro para a inflação / Acaba com a baixa autoestima e dores no corpo..."></textarea>
             </div>
 
             <div class="form-group">
-                <label>5. Maior Dor ou Prejuízo Real</label>
-                <textarea id="inp-dor" rows="2" placeholder="Ex: Loteamento parado e sem venda..."></textarea>
+                <label>6. Qual sua dificuldade em apresentar ou vender hoje?</label>
+                <input id="inp-dificuldade" type="text" placeholder="Ex: Clientes acham caro, deixam para depois ou não entendem o valor">
             </div>
 
-            <div class="form-group">
-                <label>6. Onde o profissional grava?</label>
-                <input id="inp-cen" type="text" placeholder="Ex: Loteamento">
-            </div>
-
-            <!-- BOTÃO COM CHAMADA DIRETA INLINE -->
-            <button onclick="iniciarMotorSaaS()" class="btn-primary">🧠 Gerar Plano Completo de 30 Dias</button>
+            <button type="button" class="btn-primary" onclick="gerarCalendarioDePostagens()">📅 Gerar Calendário de Postagens (30 Dias)</button>
         </div>
     </div>
 
-    <!-- ABA 2: DOSSIÊ E BIO -->
-    <div id="dossie" class="tab-content" style="display: none;">
+    <!-- ================= ABA 2: CALENDÁRIO DE 30 DIAS ================= -->
+    <div id="aba-calendario" class="tab-pane">
         <div class="card">
-            <span class="tag tag-amber">Estudo Estratégico de Posicionamento</span>
-            <h3>Análise de Mercado</h3>
-            <div id="out-pos" class="card-sub" style="font-size:13px; line-height: 1.6;">Preencha o diagnóstico na Aba 1.</div>
-        </div>
+            <h2>Seu Calendário de Postagens (30 Dias)</h2>
+            <p class="sub">Alternando estrategicamente entre Reels e Postagens Estáticas nos pilares de Branding, Conexão e Vendas. Toque em qualquer dia:</p>
 
-        <div class="card">
-            <span class="tag tag-emerald">Bio Imã Estratégica</span>
-            <h3>Bios Customizadas</h3>
-            <div id="out-bios"></div>
-        </div>
-    </div>
+            <div id="resumo-posicionamento" class="card-sub" style="margin-bottom: 14px; border-color: rgba(99,102,241,0.4); font-size: 12.5px;"></div>
 
-    <!-- ABA 3: CRONOGRAMA DE 30 DIAS -->
-    <div id="calendario" class="tab-content" style="display: none;">
-        <div class="card">
-            <h2>Cronograma Estratégico (30 Dias)</h2>
-            <p class="sub">Alternância inteligente entre Roteiros de Vídeo (Reels) e Posts Fixos/Carrosséis. Toque em qualquer dia:</p>
-            <div id="out-cal"></div>
-        </div>
-    </div>
-
-    <!-- ABA 4: ESTÚDIO & TELEPROMPTER -->
-    <div id="tab-estudio" class="tab-content" style="display: none;">
-        <div class="card">
-            <span id="st-tag" class="tag tag-amber">Detalhes do Dia</span>
-            <h2 id="st-title">Nenhum conteúdo selecionado</h2>
-
-            <div class="mode-switch">
-                <button id="m-script" class="mode-btn active" onclick="setMode('script')">📝 Ver Conteúdo / Roteiro</button>
-                <button id="m-stories" class="mode-btn" onclick="setMode('stories')">📲 Sugestão de Stories</button>
+            <div class="filter-bar">
+                <button class="filter-btn active" onclick="filtrarDias('todos', this)">Todos (30)</button>
+                <button class="filter-btn" onclick="filtrarDias('Reels', this)">🎬 Só Reels (15)</button>
+                <button class="filter-btn" onclick="filtrarDias('Estático', this)">🖼️ Só Estáticos (15)</button>
+                <button class="filter-btn" onclick="filtrarDias('Branding', this)">🏛️ Branding</button>
+                <button class="filter-btn" onclick="filtrarDias('Conexão', this)">🤝 Conexão</button>
+                <button class="filter-btn" onclick="filtrarDias('Vendas', this)">💰 Vendas</button>
             </div>
 
-            <div id="btn-prompter-container" style="display:flex; gap:8px; margin-bottom:12px;">
-                <button class="btn-secondary" style="flex:1;" onclick="copiarEstudio()" id="btn-copy">📋 Copiar Conteúdo</button>
-                <button class="btn-emerald" id="btn-tele-trigger" style="flex:1;" onclick="abrirPrompter()">▶️ Abrir Teleprompter</button>
+            <div id="lista-calendario">
+                <p style="font-size:13px; color:var(--muted);">Preencha as perguntas na Aba 1 e clique em "Gerar Calendário de Postagens".</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= ABA 3: CONTEÚDO, LEGENDA & STORIES ================= -->
+    <div id="aba-conteudo" class="tab-pane">
+        <div class="card">
+            <div id="detalhe-badges"></div>
+            <h2 id="detalhe-titulo">Selecione um dia no Calendário</h2>
+            <p class="sub" id="detalhe-sub">Tudo pronto para você gravar ou publicar, copiar a legenda e movimentar os Stories.</p>
+
+            <!-- BLOCO 1: ROTEIRO OU ESTRUTURA ESTÁTICA -->
+            <div class="card-sub">
+                <h3 id="label-bloco-principal" style="color:#818cf8; font-size:13px; text-transform:uppercase;">1. Estrutura do Conteúdo</h3>
+                <div id="texto-roteiro" class="pre-box" style="margin-top:8px;"></div>
+                <button class="btn-copy" onclick="copiarElemento('texto-roteiro', this)">📋 Copiar Estrutura / Roteiro</button>
             </div>
 
-            <div id="st-body"></div>
+            <!-- ATALHO NANO BANANA QUANDO FOR POST ESTÁTICO -->
+            <div id="atalho-nano" class="card-sub" style="border-color: rgba(245,158,11,0.45); background: rgba(245,158,11,0.06); display:none;">
+                <h3 style="color:#fbbf24; font-size:13px;">🎨 Precisa da Imagem Pronta com Texto para este Post?</h3>
+                <p style="font-size:12px; color:#cbd5e1;">Já geramos o prompt completo com texto embutido na imagem para você colar no Nano Banana.</p>
+                <button class="btn-amber" onclick="abrirAba('nano')">Ver Prompt Nano Banana deste Dia →</button>
+            </div>
+
+            <!-- BLOCO 2: LEGENDA PRONTA -->
+            <div class="card-sub">
+                <h3 style="color:#34d399; font-size:13px; text-transform:uppercase;">2. Legenda Pronta (Copiar e Colar no Post)</h3>
+                <div id="texto-legenda" class="pre-box" style="margin-top:8px;"></div>
+                <button class="btn-copy" onclick="copiarElemento('texto-legenda', this)">📋 Copiar Legenda Pronta</button>
+            </div>
+
+            <!-- BLOCO 3: STORIES E ENQUETES DO DIA -->
+            <div class="card-sub">
+                <h3 style="color:#fbbf24; font-size:13px; text-transform:uppercase;">3. Sequência de Stories & Enquetes do Dia</h3>
+                <div id="texto-stories" class="pre-box" style="margin-top:8px;"></div>
+                <button class="btn-copy" onclick="copiarElemento('texto-stories', this)">📋 Copiar Sequência de Stories</button>
+            </div>
         </div>
     </div>
 
-    <!-- ABA 5: SUPORTE / VENDAS -->
-    <div id="upsell" class="tab-content" style="display: none;">
-        <div class="card" style="border-color: var(--amber);">
-            <span class="tag tag-amber">Suporte Avançado</span>
-            <h2>🚀 Quer expandir seus resultados?</h2>
-            <p class="sub">Fale diretamente com o desenvolvedor para mentorias e pacotes exclusivos.</p>
-            <button class="btn-amber" onclick="window.open('https://wa.me/5538999999999?text=Olá,%20sou%20assinante%20do%20BrandAuth%20e%20quero%20evoluir%20meu%20projeto', '_blank')">💬 Falar com o Criador no WhatsApp ↗</button>
+    <!-- ================= ABA 4: PROMPT NANO BANANA ================= -->
+    <div id="aba-nano" class="tab-pane">
+        <div class="card" style="border-color: rgba(245,158,11,0.35);">
+            <span class="tag tag-conexao">Gerador de Imagem + Texto Embutido</span>
+            <h2>🎨 Prompt Otimizado para Nano Banana</h2>
+            <p class="sub">Copie o prompt abaixo e cole no Nano Banana (gerador de imagens) para criar a arte profissional com contexto 100% brasileiro e texto escrito diretamente na imagem.</p>
+
+            <div class="form-group">
+                <label>Escolha o Dia do Calendário para a Arte:</label>
+                <select id="select-dia-nano" onchange="selecionarDiaPeloNano(this.value)"></select>
+            </div>
+
+            <div class="form-group">
+                <label>Estilo Visual da Arte:</label>
+                <select id="select-estilo-nano" onchange="atualizarPromptNanoBanana()">
+                    <option value="fotografico">📸 Fotografia Realista Brasileira + Texto de Impacto</option>
+                    <option value="corporativo">💼 Corporativo Clean & Minimalista (Alto Padrão)</option>
+                    <option value="contraste">⚡ Contraste Comercial (Foco em Dor vs. Solução)</option>
+                </select>
+            </div>
+
+            <div class="card-sub" style="border-color: rgba(245,158,11,0.4);">
+                <div style="font-size:11px; color:#fbbf24; font-weight:800; margin-bottom:6px;">FRASE QUE VAI APARECER ESCRITA NA IMAGEM:</div>
+                <div id="nano-headline" style="font-size:15px; font-weight:800; color:#fff;"></div>
+            </div>
+
+            <div class="card-sub">
+                <div style="font-size:11px; color:#818cf8; font-weight:800; margin-bottom:6px;">PROMPT COMPLETO PARA COLAR NO NANO BANANA:</div>
+                <div id="texto-prompt-nano" class="pre-box" style="font-size:13px;"></div>
+                <button class="btn-amber" onclick="copiarElemento('texto-prompt-nano', this)">📋 Copiar Prompt para o Nano Banana</button>
+            </div>
         </div>
     </div>
 
-</div>
+    <!-- ================= ABA 5: PRÓXIMO NÍVEL (SEUS PRODUTOS) ================= -->
+    <div id="aba-suporte" class="tab-pane">
+        <div class="card" style="border-color: rgba(16,185,129,0.35);">
+            <span class="tag tag-vendas">Acelerador de Resultados</span>
+            <h2>🚀 Destrave suas Gravações & Vendas</h2>
+            <p class="sub">Agora que você já tem os 30 dias de calendário, legendas e prompts na mão, dê o próximo passo para multiplicar seus clientes:</p>
 
-<!-- MODAL TELEPROMPTER -->
-<div id="prompter-modal">
-    <div class="prompter-bar">
-        <button class="btn-emerald" id="btn-play" onclick="toggleScroll()">▶️ Rolar Texto</button>
-        <div style="display:flex; align-items:center; gap:6px; font-size:12px;">
-            <span>Vel:</span>
-            <input id="p-speed" type="range" min="1" max="5" value="2" style="width:70px; padding:0;">
+            <div class="card-sub">
+                <h3>🎥 Treinamento Destrave & Grave</h3>
+                <p style="font-size:12.5px; color:var(--muted); margin-bottom:10px;">Aprenda a gravar seus Reels da semana em 15 minutos pelo celular, com naturalidade, sem vergonha da câmera e sem precisar de estúdio.</p>
+                <button class="btn-primary" style="margin-top:4px; padding:12px;" onclick="window.open('https://wa.me/5538999999999?text=Ol%C3%A1%2C%20estou%20usando%20o%20App%20de%20Calend%C3%A1rio%20e%20quero%20conhecer%20o%20Destrave%20e%20Grave!', '_blank')">Quero Destravar Minhas Gravações →</button>
+            </div>
+
+            <div class="card-sub">
+                <h3>📍 Mentoria & Posicionamento no Google Local</h3>
+                <p style="font-size:12.5px; color:var(--muted); margin-bottom:10px;">Coloque o seu negócio no topo das pesquisas da sua cidade e receba clientes prontos para comprar no seu WhatsApp.</p>
+                <button class="btn-amber" onclick="window.open('https://wa.me/5538999999999?text=Ol%C3%A1%2C%20quero%20saber%20mais%20sobre%20a%20Mentoria%20e%20Google%20Local!', '_blank')">💬 Falar com o Especialista no WhatsApp</button>
+            </div>
         </div>
-        <button class="btn-secondary" onclick="fecharPrompter()" style="background:#ef4444; color:#fff; border:none;">✖ Fechar</button>
     </div>
-    <div id="prompter-box">
-        <div id="prompter-text"></div>
-    </div>
-    <div style="text-align:center; font-size:11px; color:var(--muted);">Olhe para o topo da tela para manter contato visual com a câmera.</div>
+
 </div>
 
 <script>
-let days = [];
-let curDay = 0;
-let curMode = 'script';
-let scrollTimer = null;
+let calendario30Dias = [];
+let diaAtivoIndex = 0;
+let dadosPerfil = {};
 
-function openTab(id, btn) {
-    document.querySelectorAll('.tab-content').forEach(el => {
-        el.style.display = 'none';
-    });
-    document.querySelectorAll('.tab-btn').forEach(el => {
-        el.classList.remove('active');
-    });
-    const target = document.getElementById(id);
-    if(target) {
-        target.style.display = 'block';
+function abrirAba(nomeAba) {
+    const abas = ['diagnostico', 'calendario', 'conteudo', 'nano', 'suporte'];
+    for (let i = 0; i < abas.length; i++) {
+        const pane = document.getElementById('aba-' + abas[i]);
+        const btn = document.getElementById('tabbtn-' + abas[i]);
+        if (pane) pane.classList.remove('active');
+        if (btn) btn.classList.remove('active');
     }
-    if (btn) {
-        btn.classList.add('active');
-    }
+    const paneAlvo = document.getElementById('aba-' + nomeAba);
+    const btnAlvo = document.getElementById('tabbtn-' + nomeAba);
+    if (paneAlvo) paneAlvo.classList.add('active');
+    if (btnAlvo) btnAlvo.classList.add('active');
     window.scrollTo(0, 0);
 }
 
-function openTabByIndex(idx) {
-    const btns = document.querySelectorAll('.tab-btn');
-    if (btns[idx]) btns[idx].click();
+function limparPontoFinal(texto) {
+    if (!texto) return "";
+    return texto.trim().replace(/\.+$/, "");
 }
 
-async function iniciarMotorSaaS() {
-    const prof = document.getElementById('inp-prof').value.trim() || "Profissional";
-    const cid = document.getElementById('inp-cid').value.trim() || "Local";
-    const prod = document.getElementById('inp-prod').value.trim() || "Serviço";
-    const obj = document.getElementById('inp-obj').value.trim() || "Objeção";
-    const dor = document.getElementById('inp-dor').value.trim() || "Prejuízo";
-    const cen = document.getElementById('inp-cen').value.trim() || "no local de atendimento";
+function minusculaInicial(texto) {
+    if (!texto) return "";
+    const limpo = limparPontoFinal(texto);
+    return limpo.charAt(0).toLowerCase() + limpo.slice(1);
+}
 
-    days = [];
-    curDay = 0;
+function gerarCalendarioDePostagens() {
+    const profissao = limparPontoFinal(document.getElementById('inp-profissao').value) || "Especialista no meu nicho";
+    const atuacao = document.getElementById('inp-atuacao').value;
+    const cidade = limparPontoFinal(document.getElementById('inp-cidade').value);
+    const maisVendido = limparPontoFinal(document.getElementById('inp-vendido').value) || "meu serviço principal";
+    const descricao = limparPontoFinal(document.getElementById('inp-descricao').value) || "atendimento personalizado e focado em resultado prático";
+    const dor = limparPontoFinal(document.getElementById('inp-dor').value) || "perder tempo e dinheiro tentando resolver o problema sem orientação";
+    const dificuldade = limparPontoFinal(document.getElementById('inp-dificuldade').value) || "clientes que olham apenas preço e adiam a decisão";
+
+    const localTexto = cidade ? cidade : (atuacao === "On-line" ? "todo o Brasil" : "nossa região");
+    dadosPerfil = { profissao, atuacao, cidade, localTexto, maisVendido, descricao, dor, dificuldade };
 
     const overlay = document.getElementById('loading-overlay');
-    const txt = document.getElementById('loading-text');
     overlay.style.display = 'flex';
-    txt.textContent = `A analisar o posicionamento para ${prof}...`;
 
-    await new Promise(r => setTimeout(r, 1000));
+    setTimeout(function() {
+        construirMatriz30Dias();
+        overlay.style.display = 'none';
+        abrirAba('calendario');
+    }, 650);
+}
 
-    document.getElementById('out-pos').innerHTML = `
-        <b>Estratégia de Posicionamento Exclusiva para ${prof} em ${cid}:</b><br><br>
-        • <b>A Tese do Negócio:</b> O seu diferencial competitivo em ${cid} com <b>${prod}</b> não é apenas a venda comum, mas sim combater a barreira de <i>"${obj}"</i> provando que a escolha errada gera o prejuízo de <i>"${dor}"</i>.<br><br>
-        • <b>Linha Editorial:</b> Conteúdos focados em autoridade prática, demonstrando bastidores, valor e eliminando qualquer comparação rasa de preço.
-    `;
+function construirMatriz30Dias() {
+    const p = dadosPerfil;
+    const dorMin = minusculaInicial(p.dor);
+    const descMin = minusculaInicial(p.descricao);
+    const difMin = minusculaInicial(p.dificuldade);
 
-    const bios = [
-        `${prof} especialista em ${prod} 🎯\nQualidade e excelência garantidas em ${cid}.\n📍 Venha conferir\n👇 Fale connosco:`,
-        `Referência em ${prod} (${cid}) ⭐\nO melhor para o seu dia a dia com atendimento diferenciado.\n📲 Orçamentos abaixo:`
+    document.getElementById('resumo-posicionamento').innerHTML =
+        "<b>🎯 Estratégia Ativa (" + p.profissao + " • " + p.atuacao + "):</b><br>" +
+        "Foco em vender <b>" + p.maisVendido + "</b> destacando <i>" + descMin + "</i>, " +
+        "eliminando a dor do cliente (<i>" + dorMin + "</i>) e destravando sua dificuldade atual (<i>" + difMin + "</i>).";
+
+    const planosBase = [
+        // SEMANA 1
+        { pilar: "Branding", formato: "Reels", angulo: "O Erro Invisível", tema: "Por que tanta gente sofre com " + dorMin, headlineArte: "O ERRO QUE CUSTA CARO EM " + p.maisVendido.toUpperCase() },
+        { pilar: "Conexão", formato: "Estático", angulo: "Mito vs. Verdade", tema: "A verdade que ninguém te conta sobre " + p.maisVendido, headlineArte: "MITO VS. VERDADE: " + p.maisVendido.toUpperCase() },
+        { pilar: "Vendas", formato: "Reels", angulo: "Quebra de Objeção", tema: "Por que adiar " + p.maisVendido + " sai mais caro depois", headlineArte: "DEIXAR PARA DEPOIS SAI O DOBRO DO PREÇO" },
+        { pilar: "Branding", formato: "Estático", angulo: "Diferencial Único", tema: "Como funciona " + p.maisVendido + " na prática: " + p.descricao, headlineArte: "COMO RESOLVEMOS ISSO COM SEGURANÇA" },
+        { pilar: "Conexão", formato: "Reels", angulo: "Bastidores Reais", tema: "O que acontece nos bastidores do meu trabalho como " + p.profissao, headlineArte: "O QUE NINGUÉM VÊ NOS BASTIDORES" },
+        { pilar: "Vendas", formato: "Estático", angulo: "Chamada Direta", tema: "Para quem é indicado " + p.maisVendido + " em " + p.localTexto, headlineArte: "PARA QUEM É O NOSSO ATENDIMENTO?" },
+        // SEMANA 2
+        { pilar: "Branding", formato: "Reels", angulo: "Opinião Forte", tema: "Pare de escolher " + p.profissao + " apenas pelo menor preço", headlineArte: "O BARATO QUE SAI CARO NO SEU BOLSO" },
+        { pilar: "Conexão", formato: "Estático", angulo: "Identificação de Dor", tema: "3 sinais de que você precisa resolver " + dorMin + " urgente", headlineArte: "3 SINAIS DE ALERTA QUE VOCÊ NÃO PODE IGNORAR" },
+        { pilar: "Vendas", formato: "Reels", angulo: "Solução Prática", tema: "Como " + p.maisVendido + " entrega " + descMin, headlineArte: "O CAMINHO MAIS SEGURO PARA O SEU RESULTADO" },
+        { pilar: "Branding", formato: "Estático", angulo: "Checklist de Ouro", tema: "O que avaliar antes de fechar " + p.maisVendido, headlineArte: "CHECKLIST ANTES DE TOMAR SUA DECISÃO" },
+        { pilar: "Conexão", formato: "Reels", angulo: "História de Cliente", tema: "O maior alívio de quem finalmente resolve " + dorMin, headlineArte: "A PAZ DE FAZER A ESCOLHA CERTA" },
+        { pilar: "Vendas", formato: "Estático", angulo: "Comparativo Inteligente", tema: "Fazer no improviso vs. Contar com " + p.maisVendido, headlineArte: "IMPROVISO VS. SOLUÇÃO PROFISSIONAL" },
+        // SEMANA 3
+        { pilar: "Branding", formato: "Reels", angulo: "Se Eu Fosse Você", tema: "Se eu estivesse no seu lugar buscando " + p.maisVendido + " hoje", headlineArte: "O QUE EU FARIA NO SEU LUGAR HOJE" },
+        { pilar: "Conexão", formato: "Estático", angulo: "Perguntas Frequentes", tema: "Respondendo a maior dúvida sobre " + p.maisVendido, headlineArte: "SUA MAIOR DÚVIDA RESPONDIDA CLARO E DIRETO" },
+        { pilar: "Vendas", formato: "Reels", angulo: "Resposta à Objeção", tema: "Destravando a dúvida: " + p.dificuldade, headlineArte: "VALE A PENA INVESTIR AGORA?" },
+        { pilar: "Branding", formato: "Estático", angulo: "Autoridade Técnica", tema: "O detalhe em " + p.maisVendido + " que garante a sua tranquilidade", headlineArte: "O DETALHE QUE FAZ TODA A DIFERENÇA" },
+        { pilar: "Conexão", formato: "Reels", angulo: "Conversa Franca (Yap)", tema: "Por que eu trabalho com " + p.maisVendido + " desse jeito", headlineArte: "NOSSO COMPROMISSO COM O SEU RESULTADO" },
+        { pilar: "Vendas", formato: "Estático", angulo: "Passo a Passo", tema: "Os 3 passos simples para você contratar " + p.maisVendido + " hoje", headlineArte: "3 PASSOS PARA COMEÇAR AINDA ESTA SEMANA" },
+        // SEMANA 4
+        { pilar: "Branding", formato: "Reels", angulo: "Alerta de Mercado", tema: "A armadilha mais comum que faz as pessoas sofrerem com " + dorMin, headlineArte: "NÃO CAIA NESSA ARMADILHA COMUM" },
+        { pilar: "Conexão", formato: "Estático", angulo: "Reflexão de Valor", tema: "Quanto custa continuar convivendo com " + dorMin + "?", headlineArte: "QUANTO CUSTA NÃO RESOLVER ISSO HOJE?" },
+        { pilar: "Vendas", formato: "Reels", angulo: "Convite Direto", tema: "Condição e acompanhamento em " + p.maisVendido + " (" + p.localTexto + ")", headlineArte: "ATENDIMENTO ABERTO EM " + p.localTexto.toUpperCase() },
+        { pilar: "Branding", formato: "Estático", angulo: "Padrão de Qualidade", tema: "Por que nosso foco é " + descMin, headlineArte: "QUALIDADE E SEGURANÇA EM PRIMEIRO LUGAR" },
+        { pilar: "Conexão", formato: "Reels", angulo: "Dúvida de Balcão", tema: "O que um cliente me perguntou essa semana sobre " + p.maisVendido, headlineArte: "A PERGUNTA QUE TODO CLIENTE FAZ" },
+        { pilar: "Vendas", formato: "Estático", angulo: "Benefício Imediato", tema: "O que muda na sua vida assim que você garante " + p.maisVendido, headlineArte: "A TRANSFORMAÇÃO QUE VOCÊ MERECE VIVER" },
+        // RETA FINAL (DIAS 25 A 30)
+        { pilar: "Branding", formato: "Reels", angulo: "Visão de Futuro", tema: "Onde você vai estar daqui a 6 meses se resolver " + dorMin + " hoje", headlineArte: "SUA DECISÃO DE HOJE DEFINE SEU AMANHÃ" },
+        { pilar: "Conexão", formato: "Estático", angulo: "Transparência Total", tema: "O que está incluso quando você escolhe " + p.maisVendido, headlineArte: "TRANSPARÊNCIA DO INÍCIO AO FIM" },
+        { pilar: "Vendas", formato: "Reels", angulo: "Quebra de Indecisão", tema: "Para você que está adiando " + p.maisVendido + " há semanas", headlineArte: "CHEGA DE ADIAR O QUE É IMPORTANTE" },
+        { pilar: "Branding", formato: "Estático", angulo: "Resumo de Valor", tema: "Por que somos referência em " + p.maisVendido + " (" + p.localTexto + ")", headlineArte: "REFERÊNCIA EM " + p.maisVendido.toUpperCase() },
+        { pilar: "Conexão", formato: "Reels", angulo: "Recado Pessoal", tema: "Um conselho sincero de " + p.profissao + " para você", headlineArte: "UM CONSELHO SINCERO PARA VOCÊ" },
+        { pilar: "Vendas", formato: "Estático", angulo: "Fechamento do Mês", tema: "Últimos horários e oportunidades do mês para " + p.maisVendido, headlineArte: "ÚLTIMAS OPORTUNIDADES DO MÊS: CHAME AGORA" }
     ];
 
-    document.getElementById('out-bios').innerHTML = bios.map((b, idx) => `
-        <div class="card-sub">
-            <div style="font-size:11px; color:#818cf8; font-weight:700; margin-bottom:4px;">BIO SÊNIOR ${idx+1}</div>
-            <pre style="white-space:pre-wrap; font-size:12px; color:#f1f5f9;">${b}</pre>
-        </div>
-    `).join('');
+    calendario30Dias = [];
 
-    days = [
-        {
-            dia: "Dia 01 • Reels (Vídeo)",
-            tag: "🎥 Roteiro Reels",
-            cls: "tag-rose",
-            tipo: "Reels (Vídeo)",
-            titulo: `O erro de escolher ${prod} pensando apenas em "${obj}"`,
-            conteudo: `[00:00 - 00:06 | Gancho Sênior]\n"Você já parou para pensar que tentar negociar ou recusar ${prod} baseando-se apenas em '${obj}' costuma custar muito mais caro no fim das contas?"\n\n[00:06 - 00:35 | Desenvolvimento Analítico]\n"No mercado atual, é fácil focar apenas na barreira superficial. O problema é que quando você ignora a segurança e a valorização, acaba por enfrentar ${dor}. A escolha inteligente foca-se no potencial de valorização e na solidez, evitando frustrações desnecessárias."\n\n[00:35 - 00:50 | Conversão Comercial]\n"Invista no que realmente traz retorno seguro e património sólido. Clica no link da bio e agenda o teu atendimento."`,
-            acao: `Grave ${cen} com tom de autoridade sênior.`,
-            stories: [
-                "STORY 1: Enquete: 'Você avalia mais o potencial ou a barreira em ${prod}?' [Potencial / Barreira]",
-                "STORY 2: Vídeo de bastidor mostrando a região ou o empreendimento.",
-                "STORY 3: Caixinha de perguntas: 'Qual a sua maior dúvida sobre o nosso projeto?'",
-                "STORY 4: Chamada direta para o WhatsApp com link na tela."
-            ]
-        },
-        {
-            dia: "Dia 03 • Post Fixo / Carrossel",
-            tag: "🎨 Post Fixo / Carrossel",
-            cls: "tag-amber",
-            tipo: "Post Fixo / Carrossel",
-            titulo: `3 motivos pelos quais investir em ${prod} transforma o seu futuro`,
-            conteudo: `[ESTRUTURA DO CARROSSEL DE 4 LÂMINAS]\n\n• Lâmina 1 (Capa): "O verdadeiro impacto de garantir ${prod} com segurança."\n• Lâmina 2: "Motivo 1: A valorização garantida e o crescimento estruturado na região de ${cid}."\n• Lâmina 3: "Motivo 2: Zero stresse com burocracias e suporte completo do início ao fim."\n• Lâmina 4 (CTA): "Faça um investimento inteligente. Toque no link da Bio para saber mais."\n\n[LEGENDA PARA O FEED]\n"Muitas pessoas perdem excelentes oportunidades por hesitação. Aqui em ${cid}, o nosso compromisso com ${prod} é transformar o seu capital em solidez. Clica no link do perfil!"`,
-            acao: "Publicar carrossel educativo no Feed.",
-            stories: [
-                "STORY 1: Print da lâmina 1 do carrossel com sticker de 'Novo Post'.",
-                "STORY 2: Reflexão rápida sobre planejamento e investimento seguro.",
-                "STORY 3: Enquete interativa sobre planos para o ano.",
-                "STORY 4: Direcionamento direto para o post fixo."
-            ]
-        },
-        {
-            dia: "Dia 05 • Reels (Vídeo)",
-            tag: "🎥 Roteiro Reels",
-            cls: "tag-rose",
-            tipo: "Reels (Vídeo)",
-            titulo: `Até quando você vai deixar ${dor} travar os seus planos?`,
-            conteudo: `[00:00 - 00:06 | Gancho Sênior]\n"Deixa-me fazer-te uma pergunta sincera: até quando vais continuar a aceitar ver ${dor} sem procurar uma solução definitiva em ${cid}?"\n\n[00:06 - 00:35 | Desenvolvimento Analítico]\n"A hesitação faz-nos perder o timing das melhores oportunidades. Só que continuar a ignorar o potencial de ${prod} só atrasa a sua conquista. Contar com especialistas serve exatamente para eliminar esse peso da sua decisão."\n\n[00:35 - 00:50 | Conversão Comercial]\n"Você merece segurança e solidez. Envia uma mensagem direta ou clica no link da bio para garantir a sua oportunidade."`,
-            acao: `Grave ${cen} com tom de autoridade sênior.`,
-            stories: [
-                "STORY 1: Enquete: 'O quanto ${dor} afeta os seus planos?' [Muito / Pouco]",
-                "STORY 2: Bastidor leve e dinâmico da região ou escritório.",
-                "STORY 3: Caixinha de feedback de clientes satisfeitos.",
-                "STORY 4: Chamada para conversão no WhatsApp."
-            ]
-        },
-        {
-            dia: "Dia 08 • Post Fixo / Carrossel",
-            tag: "🎨 Post Fixo / Carrossel",
-            cls: "tag-amber",
-            tipo: "Post Fixo / Carrossel",
-            titulo: `Bastidores: A infraestrutura por trás de ${prod}`,
-            conteudo: `[ESTRUTURA DO CARROSSEL DE 3 LÂMINAS]\n\n• Lâmina 1 (Capa): "O que torna ${prod} um marco de desenvolvimento em ${cid}?"\n• Lâmina 2: "Planeamento urbano, infraestrutura completa e padrão de excelência."\n• Lâmina 3 (CTA): "Garanta o seu espaço com condições exclusivas. Toque no link da Bio!"\n\n[LEGENDA PARA O FEED]\n"Desenvolvimento e solidez caminham lado a lado. Conheça de perto o nosso projeto em ${cid} e surpreenda-se com ${prod}. Clica no link da Bio!"`,
-            acao: "Publicar carrossel de infraestrutura.",
-            stories: [
-                "STORY 1: Sticker de contagem regressiva para liberação de lotes/fases.",
-                "STORY 2: Fotos panorâmicas do local.",
-                "STORY 3: Chamada para o carrossel fixado no feed."
-            ]
-        },
-        {
-            dia: "Dia 10 • Reels (Vídeo)",
-            tag: "🎥 Roteiro Reels",
-            cls: "tag-rose",
-            tipo: "Reels (Vídeo)",
-            titulo: `O segredo da valorização em ${cid} com ${prod}`,
-            conteudo: `[00:00 - 00:06 | Gancho Sênior]\n"Se você quer saber o que realmente torna ${prod} a melhor escolha em ${cid}, o segredo não é sorte, é localização e planeamento."\n\n[00:06 - 00:35 | Desenvolvimento Analítico]\n"Enquanto investimentos comuns perdem força, áreas planejadas multiplicam o valor do seu património para que você nunca sofra com ${dor}. Segurança constrói-se com visão de futuro."\n\n[00:35 - 00:50 | Conversão Comercial]\n"Garanta o seu lote com quem entende de valorização. Clica no link do perfil e fala connosco."`,
-            acao: `Grave ${cen} com tom de autoridade sênior.`,
-            stories: [
-                "STORY 1: Enquete sobre investimentos seguros na região.",
-                "STORY 2: Foto com o mapa ou maquete do projeto.",
-                "STORY 3: Caixinha de interações livres.",
-                "STORY 4: Link direto para o WhatsApp."
-            ]
-        },
-        {
-            dia: "Dia 12 • Post Fixo / Carrossel",
-            tag: "🎨 Post Fixo / Carrossel",
-            cls: "tag-amber",
-            tipo: "Post Fixo / Carrossel",
-            titulo: `Perguntas Frequentes sobre ${prod}: Respondemos a tudo!`,
-            conteudo: `[ESTRUTURA DO CARROSSEL DE 4 LÂMINAS]\n\n• Lâmina 1 (Capa): "Tudo o que você precisa saber para investir em ${prod} em ${cid}."\n• Lâmina 2: "Como funcionam as facilidades de pagamento? (Planos adaptados ao seu bolso)."\n• Lâmina 3: "A documentação é 100% regularizada? (Segurança jurídica total)."\n• Lâmina 4 (CTA): "Ficou com alguma dúvida? Manda mensagem no Direct!"\n\n[LEGENDA PARA O FEED]\n"Reunimos as dúvidas mais comuns dos nossos investidores e futuros moradores num só lugar. Confira o carrossel e fale connosco!"`,
-            acao: "Publicar carrossel de FAQ.",
-            stories: [
-                "STORY 1: Print da lâmina de perguntas frequentes.",
-                "STORY 2: Abertura de caixinha expressa de dúvidas."
-            ]
-        },
-        {
-            dia: "Dia 15 • Reels (Vídeo)",
-            tag: "🎥 Roteiro Reels",
-            cls: "tag-rose",
-            tipo: "Reels (Vídeo)",
-            titulo: `Por que hesitar em ${prod} pode fazer você perder a melhor oportunidade`,
-            conteudo: `[00:00 - 00:06 | Gancho Sênior]\n"Parece seguro esperar para ver o que acontece, mas deixar de aproveitar ${prod} no momento certo faz você perder os lotes mais bem localizados."\n\n[00:06 - 00:35 | Desenvolvimento Analítico]\n"As melhores oportunidades de valorização têm alta procura. Quando você hesita por causa de detalhes menores, outra pessoa assegura o futuro da família. Decisão rápida é sinónimo de património garantido."\n\n[00:35 - 00:50 | Conversão Comercial]\n"Não perca a chance de garantir o seu lugar. Clica no link da bio e assegure o seu lote."`,
-            acao: `Grave ${cen} com tom de autoridade sênior.`,
-            stories: [
-                "STORY 1: Enquete: 'Você costuma decidir rápido ou pondera muito?' [Decido rápido / Pondero]",
-                "STORY 2: Reflexão rápida em vídeo.",
-                "STORY 3: Caixinha de opiniões.",
-                "STORY 4: Chamada para conversão."
-            ]
-        },
-        {
-            dia: "Dia 17 • Post Fixo / Carrossel",
-            tag: "🎨 Post Fixo / Carrossel",
-            cls: "tag-amber",
-            tipo: "Post Fixo / Carrossel",
-            titulo: `Depoimentos: O orgulho de quem já garantiu o seu espaço em ${cid}`,
-            conteudo: `[ESTRUTURA DO CARROSSEL DE 3 LÂMINAS]\n\n• Lâmina 1 (Capa): "Histórias reais de quem confiou no nosso projeto."\n• Lâmina 2: "Prints e relatos de satisfação com ${prod}."\n• Lâmina 3 (CTA): "Seja o próximo a construir o seu futuro. Toque no link da Bio!"\n\n[LEGENDA PARA O FEED]\n"Ver os nossos clientes realizados é a nossa maior motivação. Conheça quem já deu o passo rumo à conquista do terreno próprio!"`,
-            acao: "Publicar carrossel de depoimentos.",
-            stories: [
-                "STORY 1: Print de agradecimento de cliente.",
-                "STORY 2: Chamada para o post de prova social."
-            ]
-        },
-        {
-            dia: "Dia 19 • Reels (Vídeo)",
-            tag: "🎥 Roteiro Reels",
-            cls: "tag-rose",
-            tipo: "Reels (Vídeo)",
-            titulo: `O compromisso que temos com o seu futuro em ${cid}`,
-            conteudo: `[00:00 - 00:06 | Gancho Sênior]\n"Mais do que comercializar ${prod}, o nosso compromisso em ${cid} é entregar um ambiente seguro para você construir a sua história."\n\n[00:06 - 00:35 | Desenvolvimento Analítico]\n"Trabalhamos com seriedade e transparência jurídica para que você realize o seu sonho sem nenhuma dor de cabeça ou risco de ${dor}."\n\n[00:35 - 00:50 | Conversão Comercial]\n"Invista com quem respeita o seu sonho. Clica no link do perfil."`,
-            acao: `Grave ${cen} com tom de autoridade sênior.`,
-            stories: [
-                "STORY 1: Mensagem com foco na segurança e solidez.",
-                "STORY 2: Bastidores da equipe de atendimento."
-            ]
-        },
-        {
-            dia: "Dia 22 • Post Fixo / Carrossel",
-            tag: "🎨 Post Fixo / Carrossel",
-            cls: "tag-amber",
-            tipo: "Post Fixo / Carrossel",
-            titulo: `Facilidade e segurança para conquistar ${prod}`,
-            conteudo: `[ESTRUTURA DO CARROSSEL DE 3 LÂMINAS]\n\n• Lâmina 1 (Capa): "O terreno próprio está mais próximo do que imagina."\n• Lâmina 2: "Condições facilitadas e atendimento personalizado para ${cid}."\n• Lâmina 3 (CTA): "Fale com os nossos consultores pelo link da Bio."\n\n[LEGENDA PARA O FEED]\n"Temos opções pensadas para o seu momento financeiro. Dê o primeiro rumo ao seu património. Confira os detalhes!"`,
-            acao: "Publicar carrossel de facilidades.",
-            stories: [
-                "STORY 1: Chamada rápida para as condições de pagamento.",
-                "STORY 2: Link direto para o atendimento."
-            ]
-        },
-        {
-            dia: "Dia 25 • Reels (Vídeo)",
-            tag: "🎥 Roteiro Reels",
-            cls: "tag-rose",
-            tipo: "Reels (Vídeo)",
-            titulo: `O perigo de deixar o dinheiro parado e perder ${prod}`,
-            conteudo: `[00:00 - 00:06 | Gancho Sênior]\n"Manter o dinheiro parado na poupança enquanto ${cid} valoriza a passos largos é o mesmo que perder dinheiro todos os dias."\n\n[00:06 - 00:35 | Desenvolvimento Analítico]\n"Investir em terra firme e planeada é a blindagem perfeita contra inflação e perdas financeiras. Com ${prod}, o seu capital trabalha por si e multiplica-se."\n\n[00:35 - 00:50 | Conversão Comercial]\n"Faça o seu dinheiro render de verdade. Clica no link da bio e saiba como."`,
-            acao: `Grave ${cen} com tom de autoridade sênior.`,
-            stories: [
-                "STORY 1: Enquete sobre investimentos seguros.",
-                "STORY 2: Dica rápida de finanças e património."
-            ]
-        },
-        {
-            dia: "Dia 28 • Post Fixo / Carrossel",
-            tag: "🎨 Post Fixo / Carrossel",
-            cls: "tag-amber",
-            tipo: "Post Fixo / Carrossel",
-            titulo: `Últimas unidades da fase: Garanta o seu lote`,
-            conteudo: `[ESTRUTURA DO CARROSSEL DE 3 LÂMINAS]\n\n• Lâmina 1 (Capa): "Aproveite a reta final de vendas desta fase em ${cid}."\n• Lâmina 2: "Localização privilegiada e infraestrutura pronta para construir."\n• Lâmina 3 (CTA): "Toque no link da Bio e reserve o seu lote hoje!"\n\n[LEGENDA PARA O FEED]\n"A procura está intensa e as últimas unidades estão a ser disputadas. Não perca a oportunidade de garantir o melhor espaço em ${cid}. Clica no link da Bio!"`,
-            acao: "Publicar carrossel de escassez.",
-            stories: [
-                "STORY 1: Print de aviso de últimas unidades.",
-                "STORY 2: Chamada final para conversão no WhatsApp."
-            ]
+    for (let i = 0; i < 30; i++) {
+        const item = planosBase[i];
+        const numDia = (i + 1) < 10 ? "0" + (i + 1) : "" + (i + 1);
+        const isReels = item.formato === "Reels";
+
+        let estruturaTexto = "";
+        if (isReels) {
+            estruturaTexto =
+                "🎬 ROTEIRO DE REELS (35 a 45 segundos) — PILAR: " + item.pilar.toUpperCase() + "\n\n" +
+                "⚡ GANCHO (0 a 3s - Quebra de Padrão):\n" +
+                "\"Se você quer resolver de vez " + dorMin + ", mas ainda trava por causa de " + difMin + ", presta muita atenção nesses 30 segundos.\"\n\n" +
+                "🗣️ DESENVOLVIMENTO (Conversa Natural / Yap Content):\n" +
+                "\"Como " + p.profissao + " (" + p.atuacao + " em " + p.localTexto + "), eu vejo muita gente tentando improvisar e acabando no prejuízo.\n" +
+                "A grande diferença do nosso trabalho com " + p.maisVendido + " é que nós focamos em " + descMin + ".\n" +
+                "Isso significa que você não precisa mais sofrer com " + dorMin + " nem correr riscos desnecessários.\"\n\n" +
+                "📲 CHAMADA PARA AÇÃO (Final do Vídeo):\n" +
+                "\"Quer entender como funciona para o seu caso? Comenta 'EU QUERO' aqui embaixo ou me chama direto no link da Bio!\"";
+        } else {
+            estruturaTexto =
+                "🖼️ POSTAGEM ESTÁTICA / CARROSSEL — PILAR: " + item.pilar.toUpperCase() + "\n\n" +
+                "📌 TEXTO PRINCIPAL NA IMAGEM (Headline):\n" +
+                "\"" + item.headlineArte + "\"\n\n" +
+                "📑 ESTRUTURA SE FIZER CARROSSEL (3 a 4 Telas):\n" +
+                "• Tela 1 (Capa): " + item.headlineArte + "\n" +
+                "• Tela 2 (A Dor): Continuar convivendo com " + dorMin + " custa muito mais caro para o seu bolso e sua tranquilidade.\n" +
+                "• Tela 3 (O Diferencial): Com " + p.maisVendido + ", você conta com " + descMin + ".\n" +
+                "• Tela 4 (Chamada): Atendimento " + p.atuacao.toLowerCase() + " (" + p.localTexto + "). Toque no link da Bio e fale comigo no WhatsApp!";
         }
-    ];
 
-    document.getElementById('out-pos').innerHTML = `
-        <b>Estratégia de Posicionamento para ${prof}:</b><br><br>
-        • <b>Tese Comercial:</b> O seu diferencial em ${cid} com <b>${prod}</b> é eliminar a frustração de <i>"${dor}"</i>, superando a barreira de <i>"${obj}"</i> através de uma comunicação equilibrada entre vídeos dinâmicos de Reels e posts estáticos de alta conversão.
-    `;
+        const legendaPronta =
+            item.tema + "! 👇\n\n" +
+            "Muita gente adia a decisão de buscar " + p.maisVendido + " porque acaba esbarrando em " + difMin + ".\n\n" +
+            "Mas a verdade é uma só: nada custa mais caro do que continuar sofrendo com " + dorMin + ".\n\n" +
+            "O nosso foco como " + p.profissao + " é entregar exatamente o que você precisa: " + descMin + ".\n\n" +
+            "✅ Atendimento " + p.atuacao + " (" + p.localTexto + ")\n" +
+            "📲 Toque no link da minha Bio agora mesmo ou comente \"QUERO\" aqui embaixo para receber todas as informações no seu Direct!\n\n" +
+            "#" + p.profissao.replace(/\s+/g, "") + " #" + p.maisVendido.replace(/\s+/g, "") + " #" + (p.cidade ? p.cidade.replace(/[\s-]+/g, "") : "AtendimentoProfissional");
 
-    document.getElementById('out-bios').innerHTML = bios.map((b, idx) => `
-        <div class="card-sub">
-            <div style="font-size:11px; color:#818cf8; font-weight:700; margin-bottom:4px;">BIO SÊNIOR ${idx+1}</div>
-            <pre style="white-space:pre-wrap; font-size:12px; color:#f1f5f9;">${b}</pre>
-        </div>
-    `).join('');
+        const storiesDia =
+            "📲 SEQUÊNCIA DE 4 STORIES DO DIA " + numDia + ":\n\n" +
+            "• STORY 1 (Manhã - Enquete de Abertura):\n" +
+            "Foto ou vídeo curto do seu dia começando. Texto na tela: \"Seja sincero comigo:\" -> Enquete: \"Hoje o que mais te incomoda é " + dorMin.slice(0, 38) + "...?\" [Sim, preciso resolver / Quero prevenir]\n\n" +
+            "• STORY 2 (Almoço - Bastidor & Diferencial):\n" +
+            "Mostre um bastidor real de " + p.maisVendido + " e destaque: \"" + p.descricao + "\".\n\n" +
+            "• STORY 3 (Tarde - Caixinha de Perguntas):\n" +
+            "Abra uma caixinha: \"Tire sua dúvida comigo sobre " + p.maisVendido + " (respondo hoje!)\"\n\n" +
+            "• STORY 4 (Noite - Chamada para os Votantes):\n" +
+            "\"Para quem votou na enquete de hoje cedo e quer resolver isso com segurança, toque no link abaixo para falar comigo no WhatsApp!\"";
 
-    document.getElementById('out-cal').innerHTML = days.map((d, i) => `
-        <div class="card-sub" style="cursor:pointer;" onclick="openDayInStudio(${i})">
-            <span class="tag ${d.cls}">${d.dia}</span>
-            <h3>${d.titulo}</h3>
-            <p style="font-size:12px; color:var(--muted);">Ver conteúdo completo →</p>
-        </div>
-    `).join('');
+        calendario30Dias.push({
+            diaNum: numDia,
+            pilar: item.pilar,
+            formato: item.formato,
+            angulo: item.angulo,
+            tema: item.tema,
+            headlineArte: item.headlineArte,
+            estrutura: estruturaTexto,
+            legenda: legendaPronta,
+            stories: storiesDia
+        });
+    }
 
-    overlay.style.display = 'none';
-    openTab('calendario', document.querySelectorAll('.tab-btn')[2]);
+    preencherSelectNano();
+    renderizarListaCalendario('todos');
+    selecionarDia(0, false);
 }
 
-function openDayInStudio(i) {
-    curDay = i;
-    const d = days[i];
-    document.getElementById('st-tag').textContent = d.dia;
-    document.getElementById('st-title').textContent = d.titulo;
+function renderizarListaCalendario(filtro) {
+    const container = document.getElementById('lista-calendario');
+    let html = "";
 
-    const teleBtn = document.getElementById('btn-tele-trigger');
-    if (d.tipo.includes("Post Fixo")) {
-        teleBtn.style.display = "none";
+    for (let i = 0; i < calendario30Dias.length; i++) {
+        const d = calendario30Dias[i];
+        if (filtro !== 'todos' && d.formato !== filtro && d.pilar !== filtro) {
+            continue;
+        }
+
+        const tagFormatoClass = d.formato === "Reels" ? "tag-reels" : "tag-estatico";
+        const tagFormatoLabel = d.formato === "Reels" ? "🎬 Reels (Vídeo)" : "🖼️ Post Estático";
+
+        let tagPilarClass = "tag-branding";
+        if (d.pilar === "Conexão") tagPilarClass = "tag-conexao";
+        if (d.pilar === "Vendas") tagPilarClass = "tag-vendas";
+
+        html +=
+            "<div class='day-card' onclick='selecionarDia(" + i + ", true)'>" +
+                "<div>" +
+                    "<span class='tag " + tagFormatoClass + "'>Dia " + d.diaNum + " • " + tagFormatoLabel + "</span>" +
+                    "<span class='tag " + tagPilarClass + "'>Pilar: " + d.pilar + "</span>" +
+                "</div>" +
+                "<h3>" + d.tema + "</h3>" +
+                "<p style='font-size:12px; color:var(--muted); margin-top:4px;'>Ângulo: " + d.angulo + " • Toque para abrir Roteiro, Legenda, Stories e Prompt Nano Banana →</p>" +
+            "</div>";
+    }
+
+    container.innerHTML = html;
+}
+
+function filtrarDias(filtro, btnElement) {
+    const botoes = document.querySelectorAll('.filter-btn');
+    for (let i = 0; i < botoes.length; i++) {
+        botoes[i].classList.remove('active');
+    }
+    if (btnElement) btnElement.classList.add('active');
+    renderizarListaCalendario(filtro);
+}
+
+function preencherSelectNano() {
+    const select = document.getElementById('select-dia-nano');
+    let opcoes = "";
+    for (let i = 0; i < calendario30Dias.length; i++) {
+        const d = calendario30Dias[i];
+        opcoes += "<option value='" + i + "'>Dia " + d.diaNum + " (" + d.formato + " - " + d.pilar + "): " + d.tema.slice(0, 42) + "...</option>";
+    }
+    select.innerHTML = opcoes;
+}
+
+function selecionarDia(index, irParaAbaConteudo) {
+    diaAtivoIndex = index;
+    const d = calendario30Dias[index];
+    if (!d) return;
+
+    const tagFormatoClass = d.formato === "Reels" ? "tag-reels" : "tag-estatico";
+    const tagPilarClass = d.pilar === "Conexão" ? "tag-conexao" : (d.pilar === "Vendas" ? "tag-vendas" : "tag-branding");
+
+    document.getElementById('detalhe-badges').innerHTML =
+        "<span class='tag " + tagFormatoClass + "'>Dia " + d.diaNum + " • " + d.formato + "</span>" +
+        "<span class='tag " + tagPilarClass + "'>Pilar: " + d.pilar + "</span>";
+
+    document.getElementById('detalhe-titulo').textContent = d.tema;
+    document.getElementById('texto-roteiro').textContent = d.estrutura;
+    document.getElementById('texto-legenda').textContent = d.legenda;
+    document.getElementById('texto-stories').textContent = d.stories;
+
+    const atalhoNano = document.getElementById('atalho-nano');
+    if (d.formato === "Estático") {
+        atalhoNano.style.display = "block";
     } else {
-        teleBtn.style.display = "block";
+        atalhoNano.style.display = "block"; // Disponível também como capa de Reels se desejar
     }
 
-    renderEstudio();
-    openTab('tab-estudio', document.querySelectorAll('.tab-btn')[3]);
+    const selectNano = document.getElementById('select-dia-nano');
+    if (selectNano) selectNano.value = String(index);
+    atualizarPromptNanoBanana();
+
+    if (irParaAbaConteudo) {
+        abrirAba('conteudo');
+    }
 }
 
-function setMode(m) {
-    curMode = m;
-    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('m-' + m).classList.add('active');
-    renderEstudio();
+function selecionarDiaPeloNano(valorIndex) {
+    const idx = parseInt(valorIndex, 10);
+    selecionarDia(idx, false);
 }
 
-function renderEstudio() {
-    if (days.length === 0) return;
-    const d = days[curDay];
-    const box = document.getElementById('st-body');
-    if (curMode === 'script') {
-        box.innerHTML = `
-            <div class="card-sub" style="border-color:rgba(16,185,129,0.4); margin-bottom:10px;">
-                <b style="color:#34d399; font-size:11px;">FORMATO: ${d.tipo.toUpperCase()}</b>
-                <p style="font-size:13px; margin-top:4px;">${d.tipo.includes("Vídeo") ? "Direção: " + d.acao : "Sugestão de Publicação Estática para o Feed"}</p>
-            </div>
-            <div class="card-sub" style="white-space:pre-wrap; font-size:14px; line-height:1.7;">${d.conteudo}</div>
-        `;
+function atualizarPromptNanoBanana() {
+    const d = calendario30Dias[diaAtivoIndex];
+    if (!d) return;
+    const p = dadosPerfil;
+    const estilo = document.getElementById('select-estilo-nano').value;
+
+    document.getElementById('nano-headline').textContent = d.headlineArte;
+
+    let direcaoVisual = "";
+    if (estilo === "fotografico") {
+        direcaoVisual = "Fotografia comercial ultra-realista em formato retrato vertical (4:5 para feed do Instagram), ambientação 100% brasileira autêntica representando o universo de " + p.profissao + " e " + p.maisVendido + ". Iluminação natural cinematográfica quente, profundidade de campo suave (f/2.8), estética premium e confiável.";
+    } else if (estilo === "corporativo") {
+        direcaoVisual = "Design gráfico corporativo minimalista e sofisticado em formato vertical (4:5), fundo em gradiente escuro elegante (azul-marinho profundo e grafite), elementos visuais sutis remetendo a " + p.profissao + " (" + p.maisVendido + "), iluminação de estúdio limpa, visual de altíssima autoridade.";
     } else {
-        box.innerHTML = d.stories.map(s => `<div class="card-sub" style="font-size:13px;">${s}</div>`).join('');
+        direcaoVisual = "Composição visual impactante de alto contraste para redes sociais (formato 4:5), contexto brasileiro real, transmitindo alívio e solução definitiva para quem buscava resolver " + minusculaInicial(p.dor) + " através de " + p.maisVendido + ".";
     }
+
+    const promptFinal =
+        "Crie uma imagem publicitária profissional para Instagram (proporção 4:5).\n\n" +
+        "CONTEXTO VISUAL:\n" + direcaoVisual + "\n\n" +
+        "TEXTO EMBUTIDO NA IMAGEM (Renderizar com tipografia moderna, sem serifa, em negrito, perfeitamente legível em português do Brasil, posicionado em área de destaque com contraste limpo):\n" +
+        "TÍTULO PRINCIPAL: \"" + d.headlineArte + "\"\n" +
+        "SUBTÍTULO MENOR ABAIXO: \"" + p.maisVendido + " • " + p.localTexto + "\"\n\n" +
+        "REGRAS VISUAIS:\n" +
+        "Contexto 100% brasileiro, sem erros de ortografia no texto da imagem, acabamento de agência de publicidade premium.";
+
+    document.getElementById('texto-prompt-nano').textContent = promptFinal;
 }
 
-function getTextoPuro() {
-    if (days.length === 0) return "";
-    const d = days[curDay];
-    return `[${d.tipo.toUpperCase()}]\n${d.titulo}\n\n${d.conteudo}`;
-}
-
-function copiarEstudio() {
-    navigator.clipboard.writeText(getTextoPuro());
-    const b = document.getElementById('btn-copy');
-    b.textContent = "✅ Copiado!";
-    setTimeout(() => b.textContent = "📋 Copiar Conteúdo", 2000);
-}
-
-function abrirPrompter() {
-    if (days.length === 0) return;
-    const d = days[curDay];
-    if (d.tipo.includes("Post Fixo")) {
-        alert("Este conteúdo é um Post Fixo/Carrossel, utilize o modo de leitura normal.");
-        return;
-    }
-    document.getElementById('prompter-text').textContent = d.conteudo;
-    document.getElementById('prompter-modal').style.display = 'flex';
-    document.getElementById('prompter-box').scrollTop = 0;
-}
-
-function fecharPrompter() {
-    if (scrollTimer) { clearInterval(scrollTimer); scrollTimer = null; }
-    document.getElementById('prompter-modal').style.display = 'none';
-}
-
-function toggleScroll() {
-    const btn = document.getElementById('btn-play');
-    if (scrollTimer) {
-        clearInterval(scrollTimer);
-        scrollTimer = null;
-        btn.textContent = "▶️ Rolar Texto";
-    } else {
-        btn.textContent = "⏸️ Pausar";
-        scrollTimer = setInterval(() => {
-            const v = parseInt(document.getElementById('p-speed').value, 10);
-            document.getElementById('prompter-box')->scrollTop += v;
-        }, 35);
-    }
+function copiarElemento(idElemento, btn) {
+    const el = document.getElementById(idElemento);
+    if (!el) return;
+    navigator.clipboard.writeText(el.textContent);
+    const textoOriginal = btn.textContent;
+    btn.textContent = "✅ Copiado com Sucesso!";
+    setTimeout(function() {
+        btn.textContent = textoOriginal;
+    }, 2000);
 }
 </script>
 </body>
