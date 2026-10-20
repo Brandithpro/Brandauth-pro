@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>BrandAuth PRO | SaaS Sintático v36.0</title>
+<title>BrandAuth PRO | Conversa Dinâmica v37.0</title>
 <style>
     :root {
         --bg: #070913;
@@ -11,6 +11,7 @@
         --card-alt: #0b0f19;
         --border: #1f293d;
         --primary: #6366f1;
+        --primary-hover: #4f46e5;
         --amber: #f59e0b;
         --emerald: #10b981;
         --rose: #f43f5e;
@@ -42,13 +43,12 @@
     h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: #fff; }
     p.sub { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
 
-    .form-group { margin-bottom: 14px; }
-    label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; color: #cbd5e1; margin-bottom: 6px; letter-spacing: 0.3px; }
-    input, select, textarea { width: 100%; background: var(--card-alt); border: 1px solid var(--border); color: #fff; padding: 12px; border-radius: 10px; font-size: 14px; outline: none; }
-    input:focus, select:focus, textarea:focus { border-color: var(--primary); }
-
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    @media (max-width: 500px) { .grid-2 { grid-template-columns: 1fr; } }
+    /* Estilo Chat Dinâmico */
+    .chat-box { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; max-height: 380px; overflow-y: auto; padding-right: 4px; }
+    .chat-msg { max-width: 85%; padding: 12px 14px; border-radius: 14px; font-size: 13.5px; line-height: 1.5; }
+    .chat-ia { background: #1e293b; color: #f8fafc; align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid #334155; }
+    .chat-user { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
+    .chat-input-area { display: flex; gap: 8px; margin-top: 12px; align-items: center; }
 
     .btn-primary { width: 100%; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; border: none; padding: 15px; border-radius: 12px; font-size: 15px; font-weight: 800; cursor: pointer; margin-top: 8px; box-shadow: 0 4px 15px rgba(99,102,241,0.35); }
     .btn-copy { background: #1e293b; color: #e2e8f0; border: 1px solid #334155; padding: 10px 14px; border-radius: 10px; font-size: 12px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 10px; }
@@ -79,19 +79,19 @@
 
 <div id="loading-overlay">
     <div class="spinner"></div>
-    <h3 id="loading-title" style="font-size: 17px; color: #fff; margin-bottom: 6px;">A processar a inteligência sintática...</h3>
-    <p id="loading-sub" style="font-size: 12px; color: var(--muted);">A estruturar o plano de 30 dias com raciocínio sênior.</p>
+    <h3 id="loading-title" style="font-size: 17px; color: #fff; margin-bottom: 6px;">A processar a estratégia conversacional...</h3>
+    <p id="loading-sub" style="font-size: 12px; color: var(--muted);">A estruturar o plano de 30 dias sob medida.</p>
 </div>
 
 <div class="header">
     <div class="logo-title">
         <span>⚡</span> BrandAuth <span>AI PRO</span>
     </div>
-    <span class="badge">SaaS v36.0 (Sintático)</span>
+    <span class="badge">SaaS v37.0 (Chat Dinâmico)</span>
 </div>
 
 <div class="tabs">
-    <button class="tab-btn active" id="tabbtn-diagnostico" onclick="abrirAba('diagnostico')">1. Perguntas</button>
+    <button class="tab-btn active" id="tabbtn-diagnostico" onclick="abrirAba('diagnostico')">1. Conversa IA</button>
     <button class="tab-btn" id="tabbtn-calendario" onclick="abrirAba('calendario')">2. Calendário (30d)</button>
     <button class="tab-btn" id="tabbtn-conteudo" onclick="abrirAba('conteudo')">3. Direção & Legenda</button>
     <button class="tab-btn nano-tab" id="tabbtn-nano" onclick="abrirAba('nano')">🎨 4. Prompt Nano Banana</button>
@@ -100,57 +100,26 @@
 
 <div class="container">
 
-    <!-- ABA 1: PERGUNTAS -->
+    <!-- ================= ABA 1: CHAT DINÂMICO ================= -->
     <div id="aba-diagnostico" class="tab-pane active">
         <div class="card">
-            <h2>Diagnóstico Estratégico do Negócio</h2>
-            <p class="sub">Responda com naturalidade. O sistema vai analisar a lógica do seu nicho e estruturar diretrizes reais de raciocínio.</p>
+            <h2>💬 Diagnóstico Conversacional</h2>
+            <p class="sub">Responda às perguntas da IA abaixo como se estivesse numa conversa de chat para construirmos o seu plano.</p>
 
-            <div class="form-group">
-                <label>1. Qual sua profissão, produto ou serviço nas redes sociais?</label>
-                <input id="inp-profissao" type="text" placeholder="Ex: Advogado, Fisioterapeuta, Loteadora...">
-            </div>
-
-            <div class="grid-2">
-                <div class="form-group">
-                    <label>2. Você atua Presencialmente, On-line ou Híbrido?</label>
-                    <select id="inp-atuacao">
-                        <option value="Presencial">Presencial (Negócio Local)</option>
-                        <option value="Híbrido">Híbrido (Presencial e On-line)</option>
-                        <option value="On-line">100% On-line (Digital)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Sua Cidade ou Região (Opcional)</label>
-                    <input id="inp-cidade" type="text" placeholder="Ex: Montes Claros - MG">
+            <div class="chat-box" id="caixa-chat">
+                <div class="chat-msg chat-ia">
+                    Olá! Sou o seu Diretor de Conteúdo. Para começarmos, qual é a sua <b>profissão, produto ou serviço</b> nas redes sociais?
                 </div>
             </div>
 
-            <div class="form-group">
-                <label>3. Qual produto ou serviço mais vendido?</label>
-                <input id="inp-vendido" type="text" placeholder="Ex: Consultoria, Venda de Lotes, Consulta...">
+            <div class="chat-input-area" id="area-input-chat">
+                <input id="input-resposta-usuario" type="text" placeholder="Escreva a sua resposta aqui..." onkeypress="escutarEnter(event)">
+                <button type="button" class="btn-primary" style="width: auto; margin-top: 0; padding: 12px 20px;" onclick="envolverRespostaChat()">Enviar ➔</button>
             </div>
-
-            <div class="form-group">
-                <label>4. Descreva um pouco sobre ele:</label>
-                <textarea id="inp-descricao" rows="2" placeholder="Ex: Acompanhamento completo com foco em resultados rápidos e sem burocracia..."></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>5. Qual dor ele tira do seu cliente?</label>
-                <textarea id="inp-dor" rows="2" placeholder="Ex: Acaba com o medo de perder dinheiro e traz segurança total..."></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>6. Qual sua dificuldade em apresentar ou vender hoje?</label>
-                <input id="inp-dificuldade" type="text" placeholder="Ex: Clientes acham caro ou adiam a decisão">
-            </div>
-
-            <button type="button" class="btn-primary" onclick="gerarCalendarioSintatico()">🧠 Gerar Calendário de Direção Estratégica (30 Dias)</button>
         </div>
     </div>
 
-    <!-- ABA 2: CALENDÁRIO DE 30 DIAS -->
+    <!-- ================= ABA 2: CALENDÁRIO DE 30 DIAS ================= -->
     <div id="aba-calendario" class="tab-pane">
         <div class="card">
             <h2>Calendário Estratégico (30 Dias)</h2>
@@ -168,7 +137,7 @@
             </div>
 
             <div id="lista-calendario">
-                <p style="font-size:13px; color:var(--muted);">Preencha as perguntas na Aba 1 e clique em gerar.</p>
+                <p style="font-size:13px; color:var(--muted);">Conclua a conversa na Aba 1 para gerar o seu calendário.</p>
             </div>
         </div>
     </div>
@@ -242,6 +211,8 @@
 </div>
 
 <script>
+let passoChat = 1;
+let respostasUsuario = {};
 let calendario30Dias = [];
 let dadosNegocio = {};
 let diaAtualIdx = 0;
@@ -272,26 +243,85 @@ function esconderLoading() {
     document.getElementById('loading-overlay').style.display = 'none';
 }
 
-function gerarCalendarioSintatico() {
-    const profissao = limparPontoFinal(document.getElementById('inp-profissao').value) || "Profissional";
-    const atuacao = document.getElementById('inp-atuacao').value;
-    const cidade = limparPontoFinal(document.getElementById('inp-cidade').value);
-    const maisVendido = limparPontoFinal(document.getElementById('inp-vendido').value) || "Serviço";
-    const descricao = limparPontoFinal(document.getElementById('inp-descricao').value) || "Atendimento especializado";
-    const dor = limparPontoFinal(document.getElementById('inp-dor').value) || "Perder dinheiro ou tempo";
-    const dificuldade = limparPontoFinal(document.getElementById('inp-dificuldade').value) || "Expor o negócio nas redes sociais";
+function escutarEnter(e) {
+    if (e.key === 'Enter') {
+        envolverRespostaChat();
+    }
+}
 
-    const localTexto = cidade ? cidade : (atuacao === "On-line" ? "todo o Brasil" : "nossa região");
-    dadosNegocio = { profissao, atuacao, cidade, localTexto, maisVendido, descricao, dor, dificuldade };
+function adicionarMensagemChat(texto, tipo) {
+    const box = document.getElementById('caixa-chat');
+    const div = document.createElement('div');
+    div.className = 'chat-msg ' + (tipo === 'ia' ? 'chat-ia' : 'chat-user');
+    div.innerHTML = texto;
+    box.appendChild(div);
+    box.scrollTop = box.scrollHeight;
+}
 
-    mostrarLoading("A processar inteligência sintática...", "Estruturando os 30 dias de raciocínio estratégico sênior.");
+function envolverRespostaChat() {
+    const input = document.getElementById('input-resposta-usuario');
+    const val = input.value.trim();
+    if (!val) return;
+
+    adicionarMensagemChat(val, 'user');
+    input.value = "";
+
+    if (passoChat === 1) {
+        respostasUsuario.profissao = val;
+        passoChat = 2;
+        setTimeout(() => {
+            adicionarMensagemChat("Ótimo! Atua de forma <b>Presencial (Negócio Local)</b>, <b>Híbrida</b> ou <b>100% On-line (Digital)</b>?", 'ia');
+        }, 600);
+    } else if (passoChat === 2) {
+        respostasUsuario.atuacao = val;
+        passoChat = 3;
+        setTimeout(() => {
+            adicionarMensagemChat("Perfeito. Qual é o seu <b>produto ou serviço mais vendido</b>?", 'ia');
+        }, 600);
+    } else if (passoChat === 3) {
+        respostasUsuario.vendido = val;
+        passoChat = 4;
+        setTimeout(() => {
+            adicionarMensagemChat("Qual é a <b>maior dor ou frustração</b> que o seu cliente tem antes de te contratar?", 'ia');
+        }, 600);
+    } else if (passoChat === 4) {
+        respostasUsuario.dor = val;
+        passoChat = 5;
+        setTimeout(() => {
+            adicionarMensagemChat("Para fecharmos, qual é a sua <b>maior dificuldade</b> hoje em apresentar ou vender o seu trabalho?", 'ia');
+        }, 600);
+    } else if (passoChat === 5) {
+        respostasUsuario.dificuldade = val;
+        passoChat = 6;
+        document.getElementById('area-input-chat').style.display = 'none';
+        setTimeout(() => {
+            adicionarMensagemChat("Excelente! Já recolhi os pontos fundamentais. Vou estruturar agora o seu <b>Calendário Estratégico de 30 Dias</b>...", 'ia');
+        }, 600);
+
+        setTimeout(() => {
+            gerarCalendarioAutonomoConversacional();
+        }, 1400);
+    }
+}
+
+function gerarCalendarioAutonomoConversacional() {
+    const r = respostasUsuario;
+    const profissao = limparPontoFinal(r.profissao) || "Profissional";
+    const atuacao = r.atuacao || "Presencial";
+    const maisVendido = limparPontoFinal(r.vendido) || "Serviço";
+    const dor = limparPontoFinal(r.dor) || "Perder tempo ou dinheiro";
+    const dificuldade = limparPontoFinal(r.dificuldade) || "Atrair clientes";
+    const localTexto = atuacao.toLowerCase().includes("on-line") ? "todo o Brasil" : "nossa região";
+
+    dadosNegocio = { profissao, atuacao, localTexto, maisVendido, dor, dificuldade };
+
+    mostrarLoading("A criar estratégia sênior...", "Montando o calendário de 30 dias com diretrizes inteligentes.");
 
     setTimeout(function() {
         document.getElementById('resumo-estrategia').innerHTML =
-            "<b>🎯 Estratégia Ativa (" + profissao + " • " + atuacao + " em " + localTexto + "):</b><br>" +
-            "O seu foco é vender <b>" + maisVendido + "</b> superando a barreira de <i>" + dificuldade + "</i>, provando como elimina <i>" + dor + "</i> através de " + descricao + ".";
+            "<b>🎯 Estratégia de Posicionamento (" + profissao + " • " + atuacao + " em " + localTexto + "):</b><br>" +
+            "O seu foco é vender <b>" + maisVendido + "</b> superando a dificuldade de <i>" + dificuldade + "</i> e resolvendo a dor de <i>" + dor + "</i>.";
 
-        // Gerador de raciocínio sintático avançado por blocos contextuais
         const matrizTemas = [
             { d: "01", f: "Reels", p: "Branding", t: "O erro silencioso na hora de escolher " + maisVendido, h: "O ERRO QUE CUSTA CARO AO ESCOLHER ISSO" },
             { d: "02", f: "Estático", p: "Conexão", t: "Por que você continua a conviver com " + dor, h: "ATÉ QUANDO VAI CONVIVER COM ESSE PROBLEMA?" },
@@ -330,7 +360,7 @@ function gerarCalendarioSintatico() {
             const formatoLabel = isReels ? "🎬 Reels (Vídeo)" : "🖼️ Post Estático / Carrossel";
 
             const direcaoSintatica =
-                "- O Assunto será: Explicar o conceito de " + item.t.toLowerCase() + ", demonstrando que " + descricao + " elimina diretamente " + dor + ".\n" +
+                "- O Assunto será: Explicar o conceito de " + item.t.toLowerCase() + ", demonstrando que " + maisVendido + " resolve " + dor + ".\n" +
                 "- No gancho inicial você fala: Abra o vídeo ou carrossel trazendo uma verdade dura ou um incômodo real que o seu público enfrenta relacionado a " + dificuldade + ".\n" +
                 "- Você desenvolve falando sobre: O custo invisível de continuar a ignorar o problema, argumentando que o diferencial de " + maisVendido + " traz segurança e previsibilidade.\n" +
                 "- Final / CTA: Oriente o cliente a comentar 'QUERO' ou a tocar no link da Bio para iniciar o atendimento " + atuacao.toLowerCase() + ".";
@@ -339,7 +369,7 @@ function gerarCalendarioSintatico() {
                 item.t + "!\n\n" +
                 "Muitas pessoas acabam por adiar a decisão de buscar " + maisVendido + " porque esbarram na dificuldade de " + dificuldade + ".\n\n" +
                 "Mas a verdade é uma só: nada custa mais caro do que continuar a conviver com " + dor + ".\n\n" +
-                "O nosso compromisso como " + profissao + " é entregar exatamente o que você precisa através de " + descricao + ".\n\n" +
+                "O nosso compromisso como " + profissao + " é entregar exatamente o que você precisa através de um atendimento especializado.\n\n" +
                 "📍 Atendimento " + atuacao + " (" + localTexto + ")\n" +
                 "📲 Toque no link da minha Bio agora mesmo ou envie mensagem no Direct para conversarmos!\n\n" +
                 "#" + profissao.replace(/\s+/g, "") + " #" + maisVendido.replace(/\s+/g, "");
@@ -348,7 +378,7 @@ function gerarCalendarioSintatico() {
                 "• STORY 1 (Manhã - Enquete):\n" +
                 "Texto: 'Uma pergunta sincera para começar o dia:' -> Enquete: 'Já sentiu que " + dor.slice(0, 35) + "...?' [Sim, demais / Quero resolver]\n\n" +
                 "• STORY 2 (Almoço - Bastidor):\n" +
-                "Mostre um detalhe prático de " + maisVendido + " reforçando: " + descricao + ".\n\n" +
+                "Mostre um detalhe prático de " + maisVendido + ".\n\n" +
                 "• STORY 3 (Tarde - Caixinha):\n" +
                 "Caixa de perguntas: 'Qual a sua maior dúvida sobre " + maisVendido + "?'\n\n" +
                 "• STORY 4 (Noite - Chamada):\n" +
