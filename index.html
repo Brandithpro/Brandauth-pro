@@ -87,7 +87,7 @@
     <div class="logo-title">
         <span>⚡</span> BrandAuth <span>AI PRO</span>
     </div>
-    <span class="badge">SaaS Master v31.1</span>
+    <span class="badge">SaaS Master v31.2</span>
 </div>
 
 <div class="tabs">
@@ -285,8 +285,8 @@ function esconderLoading() {
 }
 
 async function chamarGeminiJSON(promptTexto) {
-    // Atualizado para o endpoint estável universal gemini-2.5-flash
-    const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + MASTER_GEMINI_KEY;
+    // Atualizado para o modelo padrão universal atualizado gemini-3.8-flash (ou gemini-2.5-flash)
+    const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=" + MASTER_GEMINI_KEY;
     const resp = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
