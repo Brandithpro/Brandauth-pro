@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>BrandAuth PRO | Direção Estratégica v33.0</title>
+<title>BrandAuth PRO | Direção Estratégica v33.1</title>
 <style>
     :root {
         --bg: #070913;
@@ -87,7 +87,7 @@
     <div class="logo-title">
         <span>⚡</span> BrandAuth <span>AI PRO</span>
     </div>
-    <span class="badge">SaaS v33.0 (Direção IA)</span>
+    <span class="badge">SaaS v33.1 (Direção IA)</span>
 </div>
 
 <div class="tabs">
@@ -108,7 +108,7 @@
 
             <div class="form-group">
                 <label>1. Qual sua profissão, produto ou serviço nas redes sociais?</label>
-                <input id="inp-profissao" type="text" placeholder="Ex: Advogado, Fisioterapeuta, Loteadora...">
+                <input id="inp-profissao" type="text" placeholder="Ex: Farmácia, Advogado, Fisioterapeuta...">
             </div>
 
             <div class="grid-2">
@@ -128,22 +128,22 @@
 
             <div class="form-group">
                 <label>3. Qual produto ou serviço mais vendido?</label>
-                <input id="inp-vendido" type="text" placeholder="Ex: Consultoria, Venda de Lotes, Consulta...">
+                <input id="inp-vendido" type="text" placeholder="Ex: Medicamentos e manipulação, Consultoria...">
             </div>
 
             <div class="form-group">
                 <label>4. Descreva um pouco sobre ele:</label>
-                <textarea id="inp-descricao" rows="2" placeholder="Ex: Acompanhamento completo com foco em resultados rápidos e sem burocracia..."></textarea>
+                <textarea id="inp-descricao" rows="2" placeholder="Ex: Atendimento rápido, entrega em domicílio e preço justo..."></textarea>
             </div>
 
             <div class="form-group">
                 <label>5. Qual dor ele tira do seu cliente?</label>
-                <textarea id="inp-dor" rows="2" placeholder="Ex: Acaba com o medo de perder dinheiro e traz segurança total..."></textarea>
+                <textarea id="inp-dor" rows="2" placeholder="Ex: Evita filas, falta de remédio urgente e comodidade..."></textarea>
             </div>
 
             <div class="form-group">
                 <label>6. Qual sua dificuldade em apresentar ou vender hoje?</label>
-                <input id="inp-dificuldade" type="text" placeholder="Ex: Clientes acham caro ou adiam a decisão">
+                <input id="inp-dificuldade" type="text" placeholder="Ex: Expor o negócio na internet e atrair público constante">
             </div>
 
             <button type="button" class="btn-primary" onclick="gerarCalendarioDirecaoIA()">🧠 Gerar Calendário de Direção Estratégica (30 Dias)</button>
@@ -168,7 +168,7 @@
             </div>
 
             <div id="lista-calendario">
-                <p style="font-size:13px; color:var(--muted);">Preencha as perguntas na Aba 1 e clique no botão de gerar.</p>
+                <p style="font-size:13px; color:var(--muted);">Preencha as perguntas na Aba 1 e clique em gerar.</p>
             </div>
         </div>
     </div>
@@ -247,6 +247,8 @@ let cacheConteudoDias = {};
 let dadosNegocio = {};
 let diaAtualIdx = 0;
 
+const MASTER_GEMINI_KEY = "AIzaSyCDTbKeQZpVcozE6y3Su4NxUQoUEZa6HZY";
+
 function abrirAba(nomeAba) {
     const abas = ['diagnostico', 'calendario', 'conteudo', 'nano', 'suporte'];
     for (let i = 0; i < abas.length; i++) {
@@ -274,8 +276,8 @@ function esconderLoading() {
 }
 
 async function chamarGeminiJSON(promptTexto) {
-    const apiKey = "AIzaSyCDTbKeQZpVcozE6y3Su4NxUQoUEZa6HZY";
-    const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + apiKey;
+    // Atualizado para o modelo gemini-1.5-flash oficial padrão da v1beta
+    const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + MASTER_GEMINI_KEY;
     const resp = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -329,7 +331,7 @@ NEGÓCIO:
 - Dor resolvida: ${dor}
 - Dificuldade em vender: ${dificuldade}
 
-Retorne APENAS um JSON puro com esta estrutura exata:
+Retorne APENAS um JSON puro com esta estrutura:
 {
   "diagnosticoEstrategico": "Resumo inteligente de 3 linhas definindo a tese de posicionamento.",
   "dias": [
@@ -403,7 +405,7 @@ async function abrirConteudoDoDia(index) {
         return;
     }
 
-    mostrarLoading("A IA está estruturando o Dia " + itemDia.dia, "Redigindo a direção de raciocínio, legenda e stories sob medida.");
+    mostrarLoading("A IA está a estruturar o Dia " + itemDia.dia, "Redigindo a direção de raciocínio, legenda e stories sob medida.");
 
     const n = dadosNegocio;
     const promptDia = `
@@ -414,10 +416,10 @@ Como Diretor de Conteúdo Sênior, crie a DIREÇÃO ESTRATÉGICA para o DIA ${it
 - Formato: ${itemDia.formato} | Pilar: ${itemDia.pilar} | Tema: ${itemDia.titulo} | Headline: ${itemDia.headlineArte}
 
 INSTRUÇÃO CRÍTICA (NÃO dê um texto engessado para copiar e colar):
-No campo "direcaoEstrategica", ensine o profissional COMO ele deve pensar e falar. Use o formato:
-- O Assunto será: [Explique o conceito]
-- No gancho inicial você fala: [Instrução de como abrir o vídeo/post]
-- Você desenvolve falando sobre: [Raciocínio lógico e argumentos que ele deve usar]
+No campo "direcaoEstrategica", ensine o profissional COMO ele deve pensar e falar. Use obrigatoriamente o seguinte formato estruturado:
+- O Assunto será: [Explique o conceito comercial]
+- No gancho inicial você fala: [Instrução exata de como abrir]
+- Você desenvolve falando sobre: [Raciocínio lógico e argumentos que ele deve usar na própria voz]
 - Final / CTA: [Qual deve ser a chamada para ação]
 
 Retorne APENAS um JSON puro com esta estrutura:
