@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>BrandAuth PRO | Conversa Dinâmica v37.0</title>
+<title>BrandAuth PRO | Conversa Dinâmica v37.1</title>
 <style>
     :root {
         --bg: #070913;
@@ -79,15 +79,15 @@
 
 <div id="loading-overlay">
     <div class="spinner"></div>
-    <h3 id="loading-title" style="font-size: 17px; color: #fff; margin-bottom: 6px;">A processar a estratégia conversacional...</h3>
-    <p id="loading-sub" style="font-size: 12px; color: var(--muted);">A estruturar o plano de 30 dias sob medida.</p>
+    <h3 id="loading-title" style="font-size: 17px; color: #fff; margin-bottom: 6px;">A processar o plano estratégico...</h3>
+    <p id="loading-sub" style="font-size: 12px; color: var(--muted);">A estruturar o calendário de 30 dias.</p>
 </div>
 
 <div class="header">
     <div class="logo-title">
         <span>⚡</span> BrandAuth <span>AI PRO</span>
     </div>
-    <span class="badge">SaaS v37.0 (Chat Dinâmico)</span>
+    <span class="badge">SaaS v37.1 (Chat Dinâmico)</span>
 </div>
 
 <div class="tabs">
@@ -104,7 +104,7 @@
     <div id="aba-diagnostico" class="tab-pane active">
         <div class="card">
             <h2>💬 Diagnóstico Conversacional</h2>
-            <p class="sub">Responda às perguntas da IA abaixo como se estivesse numa conversa de chat para construirmos o seu plano.</p>
+            <p class="sub">Responda às perguntas abaixo como se estivesse a conversar com o seu Diretor de Conteúdo.</p>
 
             <div class="chat-box" id="caixa-chat">
                 <div class="chat-msg chat-ia">
@@ -203,7 +203,7 @@
             <div class="card-sub">
                 <h3>🎥 Método Destrave & Grave</h3>
                 <p style="font-size:12.5px; color:var(--muted); margin-bottom:10px;">Aprenda a gravar vídeos naturais em 15 minutos.</p>
-                <button class="btn-primary" style="margin-top:4px; padding:12px;" onclick="window.open('https://wa.me/5538999999999?text=Ol%C3%A1%2C%20quero%20conhecer%20o%20M%C3%A9todo!', '_blank')">Quero Conhecer →</button>
+                <button class="btn-primary" style="margin-top:4px; padding:12px;" onclick="window.open('https://wa.me/5538999999999?text=Ol%C3%A1,%20quero%20conhecer%20o%20M%C3%A9todo!', '_blank')">Quero Conhecer →</button>
             </div>
         </div>
     </div>
@@ -271,36 +271,36 @@ function envolverRespostaChat() {
         passoChat = 2;
         setTimeout(() => {
             adicionarMensagemChat("Ótimo! Atua de forma <b>Presencial (Negócio Local)</b>, <b>Híbrida</b> ou <b>100% On-line (Digital)</b>?", 'ia');
-        }, 600);
+        }, 500);
     } else if (passoChat === 2) {
         respostasUsuario.atuacao = val;
         passoChat = 3;
         setTimeout(() => {
             adicionarMensagemChat("Perfeito. Qual é o seu <b>produto ou serviço mais vendido</b>?", 'ia');
-        }, 600);
+        }, 500);
     } else if (passoChat === 3) {
         respostasUsuario.vendido = val;
         passoChat = 4;
         setTimeout(() => {
-            adicionarMensagemChat("Qual é a <b>maior dor ou frustração</b> que o seu cliente tem antes de te contratar?", 'ia');
-        }, 600);
+            adicionarMensagemChat("Qual é a <b>maior dor ou frustração</b> que o seu cliente tem antes de o contratar?", 'ia');
+        }, 500);
     } else if (passoChat === 4) {
         respostasUsuario.dor = val;
         passoChat = 5;
         setTimeout(() => {
             adicionarMensagemChat("Para fecharmos, qual é a sua <b>maior dificuldade</b> hoje em apresentar ou vender o seu trabalho?", 'ia');
-        }, 600);
+        }, 500);
     } else if (passoChat === 5) {
         respostasUsuario.dificuldade = val;
         passoChat = 6;
         document.getElementById('area-input-chat').style.display = 'none';
         setTimeout(() => {
             adicionarMensagemChat("Excelente! Já recolhi os pontos fundamentais. Vou estruturar agora o seu <b>Calendário Estratégico de 30 Dias</b>...", 'ia');
-        }, 600);
+        }, 500);
 
         setTimeout(() => {
             gerarCalendarioAutonomoConversacional();
-        }, 1400);
+        }, 1200);
     }
 }
 
@@ -324,7 +324,7 @@ function gerarCalendarioAutonomoConversacional() {
 
         const matrizTemas = [
             { d: "01", f: "Reels", p: "Branding", t: "O erro silencioso na hora de escolher " + maisVendido, h: "O ERRO QUE CUSTA CARO AO ESCOLHER ISSO" },
-            { d: "02", f: "Estático", p: "Conexão", t: "Por que você continua a conviver com " + dor, h: "ATÉ QUANDO VAI CONVIVER COM ESSE PROBLEMA?" },
+            { d: "02", f: "Estático", p: "Conexão", t: "Por que continua a conviver com " + dor, h: "ATÉ QUANDO VAI CONVIVER COM ESSE PROBLEMA?" },
             { d: "03", f: "Reels", p: "Vendas", t: "A verdade nua e cruda sobre investir em " + maisVendido, h: "VALE A PENA INVESTIR AGORA?" },
             { d: "04", f: "Estático", p: "Branding", t: "Como é trabalhar com " + profissao + " em " + localTexto, h: "BASTIDORES E COMPROMISSO REAL" },
             { d: "05", f: "Reels", p: "Conexão", t: "O maior mito que te contam sobre " + maisVendido, h: "MITO VS. VERDADE SOBRE O SERVIÇO" },
@@ -347,7 +347,7 @@ function gerarCalendarioAutonomoConversacional() {
             { d: "22", f: "Estático", p: "Branding", t: "Bastidores e dedicação diária com " + profissao, h: "DEDICAÇÃO TOTAL AO SEU NEGÓCIO" },
             { d: "23", f: "Reels", p: "Conexão", t: "Como identificar que chegou o momento de mudar", h: "SINAIS DE QUE VOCÊ PRECISA MUDAR" },
             { d: "24", f: "Estático", p: "Vendas", t: "Facilidades exclusivas para começar com " + profissao, h: "FACILIDADES PARA VOCÊ COMEÇAR" },
-            { d: "25", f: "Reels", p: "Branding", t: "A importância de escolher com quem você se identifica", h: "CONEXÃO E CONFIANÇA MÚTUA" },
+            { d: "25", f: "Reels", p: "Branding", t: "A importância de escolher com quem se identifica", h: "CONEXÃO E CONFIANÇA MÚTUA" },
             { d: "26", f: "Estático", p: "Conexão", t: "Espaço aberto: respondendo sobre " + maisVendido, h: "ESPAÇO ABERTO PARA PERGUNTAS" },
             { d: "27", f: "Reels", p: "Vendas", t: "Últimas vagas disponíveis na nossa agenda", h: "AGENDA LIMITADA: GARANTA SUA VAGA" },
             { d: "28", f: "Estático", p: "Branding", t: "Visão de futuro: crescendo e evoluindo juntos", h: "CONSTRUINDO UM FUTURO SÓLIDO" },
@@ -450,7 +450,7 @@ function abrirConteudoDoDia(index) {
 
     document.getElementById('detalhe-badges').innerHTML =
         "<span class='tag " + tagCls + "'>Dia " + d.dia + " • " + d.tipo + "</span>" +
-        "<span class='tag " + pilarCls + "'>" + d.pilar + "</span>";
+        "<span class='tag " + pilarCls + "'>Pilar: " + d.pilar + "</span>";
 
     document.getElementById('detalhe-titulo').textContent = d.titulo;
     document.getElementById('detalhe-objetivo').textContent = d.objetivo;
