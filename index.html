@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>BrandAuth PRO | SaaS Master v50.0</title>
+<title>BrandAuth PRO | SaaS Master v51.0</title>
 <style>
     :root {
         --bg: #070913;
@@ -80,15 +80,15 @@
 
 <div id="loading-overlay">
     <div class="spinner"></div>
-    <h3 id="loading-title" style="font-size: 17px; color: #fff; margin-bottom: 6px;">A processar a estratégia do negócio...</h3>
-    <p id="loading-sub" style="font-size: 12px; color: var(--muted);">A estruturar o plano de 30 dias com inteligência sênior.</p>
+    <h3 style="font-size: 17px; color: #fff; margin-bottom: 6px;">A gerar o seu plano sênior...</h3>
+    <p style="font-size: 12px; color: var(--muted);">A estruturar o calendário de 30 dias sob medida.</p>
 </div>
 
 <div class="header">
     <div class="logo-title">
         <span>⚡</span> BrandAuth <span>AI PRO</span>
     </div>
-    <span class="badge">SaaS v50.0 (Master)</span>
+    <span class="badge">SaaS v51.0 (Master)</span>
 </div>
 
 <div class="tabs">
@@ -105,11 +105,11 @@
     <div id="aba-diagnostico" class="tab-pane active" style="display: block;">
         <div class="card">
             <h2>Diagnóstico Estratégico do Negócio</h2>
-            <p class="sub">Preencha os campos abaixo. O sistema estruturará instantaneamente um calendário sênior de 30 dias adaptado à sua realidade.</p>
+            <p class="sub">Preencha os campos abaixo. O sistema gerará instantaneamente um calendário sênior de 30 dias.</p>
 
             <div class="form-group">
                 <label>1. Profissão, Especialidade ou Nicho</label>
-                <input id="inp-prof" type="text" placeholder="Ex: Barbeiro, Infoprodutor, Nutricionista, Corretor...">
+                <input id="inp-prof" type="text" placeholder="Ex: Corretor de imóveis, Advogado, Nutricionista...">
             </div>
 
             <div class="grid-2">
@@ -129,17 +129,17 @@
 
             <div class="form-group">
                 <label>3. Produto ou Serviço Principal (Carro-Chefe)</label>
-                <input id="inp-prod" type="text" placeholder="Ex: Corte Degradê, Ebook, Consulta...">
+                <input id="inp-prod" type="text" placeholder="Ex: Lotes e apartamentos, Consultoria...">
             </div>
 
             <div class="form-group">
                 <label>4. Qual dor ou prejuízo real ele resolve no cliente?</label>
-                <textarea id="inp-dor" rows="2" placeholder="Ex: Acaba com o medo de errar o visual, evita desperdício de dinheiro..."></textarea>
+                <textarea id="inp-dor" rows="2" placeholder="Ex: Realização do sonho da casa própria ou investimento seguro..."></textarea>
             </div>
 
             <div class="form-group">
                 <label>5. Dificuldade em apresentar ou vender hoje:</label>
-                <input id="inp-dif" type="text" placeholder="Ex: Clientes acham caro ou adiam a decisão">
+                <input id="inp-dif" type="text" placeholder="Ex: Captação de clientes">
             </div>
 
             <button type="button" class="btn-primary" onclick="gerarPlanoMasterSaaS()">🧠 Gerar Calendário Inteligente (30 Dias)</button>
@@ -257,7 +257,7 @@ function mudarAbaTab(nome) {
     window.scrollTo(0, 0);
 }
 
-function executarGeracaoMasterSaaS() {
+function gerarPlanoMasterSaaS() {
     const prof = document.getElementById('inp-prof').value.trim() || "Profissional";
     const atuacao = document.getElementById('inp-atuacao').value;
     const cid = document.getElementById('inp-cid').value.trim();
@@ -275,11 +275,10 @@ function executarGeracaoMasterSaaS() {
             "<b>🎯 Estratégia de Posicionamento Ativa:</b><br>" +
             "O profissional <b>" + prof + "</b> (" + atuacao + " em " + local + ") destaca <b>" + prod + "</b> superando a barreira de <i>" + dif + "</i> e eliminando a dor de <i>" + dor + "</i>.";
 
-        // Matriz sênior infalível com tópicos de raciocínio lógico em português natural
-        const pautasMestres = [
-            { f: "Reels", p: "Branding", t: "O erro invisível que custa caro na escolha de " + prod, h: "O ERRO QUE CUSTA CARO AO ESCOLHER ISSO" },
+        const baseTemas = [
+            { f: "Reels", p: "Branding", t: "O erro invisível ao escolher " + prod, h: "O ERRO QUE CUSTA CARO AO ESCOLHER ISSO" },
             { f: "Estático", p: "Conexão", t: "Até quando vai continuar a conviver com " + dor, h: "ATÉ QUANDO VAI CONVIVER COM ESSE PROBLEMA?" },
-            { f: "Reels", p: "Vendas", t: "A verdade nua e cruda sobre contratar " + prod, h: "VALE A PENA CONTRATAR AGORA?" },
+            { f: "Reels", p: "Vendas", t: "Por que vale a pena investir em " + prod, h: "VALE A PENA CONTRATAR AGORA?" },
             { f: "Estático", p: "Branding", t: "Como é trabalhar com " + prof + " em " + local, h: "COMPROMISSO E PROFISSIONALISMO" },
             { f: "Reels", p: "Conexão", t: "O maior mito que te contam sobre " + prod, h: "MITO VS. VERDADE SOBRE O SERVIÇO" },
             { f: "Estático", p: "Vendas", t: "3 razões para resolver sua necessidade esta semana", h: "3 RAZÕES PARA DECIDIR JÁ" },
@@ -295,7 +294,7 @@ function executarGeracaoMasterSaaS() {
             { f: "Estático", p: "Branding", t: "Nosso compromisso absoluto com o seu resultado", h: "COMPROMISSO COM O SEU SUCESSO" },
             { f: "Reels", p: "Conexão", t: "Histórias reais de quem superou " + dor, h: "HISTÓRIAS REAIS DE TRANSFORMAÇÃO" },
             { f: "Estático", p: "Vendas", t: "Condições e facilidades para fechar " + prod, h: "GARANTA SUA CONDIÇÃO ESPECIAL" },
-            { f: "Reels", p: "Branding", t: "O perigo real de adiar a busca por solução", h: "NÃO DEIXE PARA DEPOIS" },
+            { f: "Reels", p: "Branding", t: "O perigo real de adiar a busca por ajuda", h: "NÃO DEIXE PARA DEPOIS" },
             { f: "Estático", p: "Conexão", t: "O que nossos clientes mais valorizam no atendimento", h: "VALORES QUE FAZEM A DIFERENÇA" },
             { f: "Reels", p: "Vendas", t: "Por que nossa abordagem é diferente de tudo", h: "CONHEÇA NOSSO MÉTODO EXCLUSIVO" },
             { f: "Estático", p: "Branding", t: "Bastidores e dedicação diária com " + prof, h: "DEDICAÇÃO TOTAL AO SEU NEGÓCIO" },
@@ -309,16 +308,16 @@ function executarGeracaoMasterSaaS() {
             { f: "Estático", p: "Vendas", t: "Fechamento de mês com foco total em " + prod, h: "ÚLTIMA CHAMADA DO MÊS" }
         ];
 
-        cronogramaGlobal = pautasMestres.map((item, index) => {
+        cronogramaGlobal = baseTemas.map((item, index) => {
             const numDia = (index + 1) < 10 ? "0" + (index + 1) : "" + (index + 1);
             const isReels = item.f === "Reels";
             const formatoLabel = isReels ? "🎬 Reels (Vídeo)" : "🖼️ Post Estático / Carrossel";
 
             const direcaoSintatica =
-                "- O Assunto será: Explicar por que " + item.t.toLowerCase() + ", mostrando que " + prod + " é a chave para eliminar " + dor + ".\n" +
-                "- No gancho inicial você fala: Abra o conteúdo trazendo uma verdade direta sobre a dificuldade que o público tem com " + dif + ".\n" +
-                "- Você desenvolve falando sobre: O custo invisível de continuar a adiar a decisão, explicando os diferenciais de " + prod + " na sua própria voz e com naturalidade.\n" +
-                "- Final / CTA: Oriente a audiência a comentar 'QUERO' ou a tocar no link da Bio para iniciar o atendimento.";
+                "- O Assunto será: Explicar o conceito de " + item.t.toLowerCase() + ", demonstrando que " + prod + " resolve " + dor + ".\n" +
+                "- No gancho inicial você fala: Abra o conteúdo trazendo uma verdade dura ou um incômodo real que o público enfrenta relacionado a " + dif + ".\n" +
+                "- Você desenvolve falando sobre: O custo invisível de continuar a ignorar o problema, argumentando que o diferencial de " + prod + " traz segurança e previsibilidade.\n" +
+                "- Final / CTA: Oriente a audiência a comentar 'QUERO' ou a tocar no link da Bio para iniciar o atendimento " + atuacao.toLowerCase() + ".";
 
             const legendaPronta =
                 item.t + "!\n\n" +
