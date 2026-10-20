@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-PT">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>BrandAuth PRO | Calendário de 30 Dias & IA</title>
+<title>BrandAuth PRO | Direção Estratégica v33.0</title>
 <style>
     :root {
         --bg: #070913;
@@ -18,7 +18,7 @@
         --muted: #94a3b8;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { background: var(--bg); color: var(--text); padding-bottom: 90px; line-height: 1.55; }
+    body { background: var(--bg); color: var(--text); padding-bottom: 90px; line-height: 1.6; }
     
     .header { background: rgba(17, 24, 39, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 12px 16px; position: sticky; top: 0; z-index: 30; display: flex; justify-content: space-between; align-items: center; }
     .logo-title { font-size: 17px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 6px; }
@@ -79,21 +79,21 @@
 
 <div id="loading-overlay">
     <div class="spinner"></div>
-    <h3 id="loading-title" style="font-size: 17px; color: #fff; margin-bottom: 6px;">A IA do Gemini está pensando...</h3>
-    <p id="loading-sub" style="font-size: 12px; color: var(--muted);">Analisando o negócio, dores do público e estruturando o raciocínio estratégico.</p>
+    <h3 id="loading-title" style="font-size: 17px; color: #fff; margin-bottom: 6px;">A IA está a estruturar a direção estratégica...</h3>
+    <p id="loading-sub" style="font-size: 12px; color: var(--muted);">A pensar nos ganchos, linhas de raciocínio e legendas personalizadas.</p>
 </div>
 
 <div class="header">
     <div class="logo-title">
         <span>⚡</span> BrandAuth <span>AI PRO</span>
     </div>
-    <span class="badge">SaaS Master v31.2</span>
+    <span class="badge">SaaS v33.0 (Direção IA)</span>
 </div>
 
 <div class="tabs">
     <button class="tab-btn active" id="tabbtn-diagnostico" onclick="abrirAba('diagnostico')">1. Perguntas</button>
     <button class="tab-btn" id="tabbtn-calendario" onclick="abrirAba('calendario')">2. Calendário (30d)</button>
-    <button class="tab-btn" id="tabbtn-conteudo" onclick="abrirAba('conteudo')">3. Post, Legenda & Stories</button>
+    <button class="tab-btn" id="tabbtn-conteudo" onclick="abrirAba('conteudo')">3. Direção & Legenda</button>
     <button class="tab-btn nano-tab" id="tabbtn-nano" onclick="abrirAba('nano')">🎨 4. Prompt Nano Banana</button>
     <button class="tab-btn upsell-tab" id="tabbtn-suporte" onclick="abrirAba('suporte')">👑 5. Próximo Nível</button>
 </div>
@@ -103,8 +103,8 @@
     <!-- ABA 1: PERGUNTAS -->
     <div id="aba-diagnostico" class="tab-pane active">
         <div class="card">
-            <h2>Diagnóstico Inteligente do Negócio</h2>
-            <p class="sub">Responda de forma simples. A IA vai interpretar o contexto real e criar toda a estratégia pensando como um especialista no seu mercado.</p>
+            <h2>Diagnóstico Estratégico do Negócio</h2>
+            <p class="sub">Responda de forma simples. O sistema atuará como seu Diretor de Conteúdo, criando orientações inteligentes de raciocínio para 30 dias.</p>
 
             <div class="form-group">
                 <label>1. Qual sua profissão, produto ou serviço nas redes sociais?</label>
@@ -127,17 +127,17 @@
             </div>
 
             <div class="form-group">
-                <label>3. Qual é o seu produto ou serviço mais vendido?</label>
+                <label>3. Qual produto ou serviço mais vendido?</label>
                 <input id="inp-vendido" type="text" placeholder="Ex: Consultoria, Venda de Lotes, Consulta...">
             </div>
 
             <div class="form-group">
-                <label>4. Descreva um pouco sobre ele (como funciona ou diferencial):</label>
+                <label>4. Descreva um pouco sobre ele:</label>
                 <textarea id="inp-descricao" rows="2" placeholder="Ex: Acompanhamento completo com foco em resultados rápidos e sem burocracia..."></textarea>
             </div>
 
             <div class="form-group">
-                <label>5. Qual dor ele tira do seu cliente? (O que transforma na vida dele?)</label>
+                <label>5. Qual dor ele tira do seu cliente?</label>
                 <textarea id="inp-dor" rows="2" placeholder="Ex: Acaba com o medo de perder dinheiro e traz segurança total..."></textarea>
             </div>
 
@@ -146,7 +146,7 @@
                 <input id="inp-dificuldade" type="text" placeholder="Ex: Clientes acham caro ou adiam a decisão">
             </div>
 
-            <button type="button" class="btn-primary" onclick="gerarCalendarioComIA()">🧠 Gerar Calendário de Postagens com IA (30 Dias)</button>
+            <button type="button" class="btn-primary" onclick="gerarCalendarioDirecaoIA()">🧠 Gerar Calendário de Direção Estratégica (30 Dias)</button>
         </div>
     </div>
 
@@ -154,7 +154,7 @@
     <div id="aba-calendario" class="tab-pane">
         <div class="card">
             <h2>Calendário Estratégico (30 Dias)</h2>
-            <p class="sub">Criado com raciocínio estratégico pela IA. Toque em qualquer dia para ver o conteúdo completo:</p>
+            <p class="sub">Toque em qualquer dia para ver a direção de raciocínio da IA, legendas e sugestões de stories:</p>
 
             <div id="resumo-estrategia" class="card-sub" style="margin-bottom: 14px; border-color: rgba(99,102,241,0.45); font-size: 13px;"></div>
 
@@ -168,28 +168,28 @@
             </div>
 
             <div id="lista-calendario">
-                <p style="font-size:13px; color:var(--muted);">Preencha as perguntas na Aba 1 e clique em "Gerar Calendário de Postagens".</p>
+                <p style="font-size:13px; color:var(--muted);">Preencha as perguntas na Aba 1 e clique no botão de gerar.</p>
             </div>
         </div>
     </div>
 
-    <!-- ABA 3: CONTEÚDO, LEGENDA & STORIES -->
+    <!-- ABA 3: DIREÇÃO & LEGENDA -->
     <div id="aba-conteudo" class="tab-pane">
         <div class="card">
             <div id="detalhe-badges"></div>
             <h2 id="detalhe-titulo">Selecione um dia no Calendário</h2>
-            <p class="sub" id="detalhe-objetivo">Toque em qualquer card da Aba 2 para a IA redigir o conteúdo completo.</p>
+            <p class="sub" id="detalhe-objetivo">Toque em qualquer card da Aba 2 para ver a diretriz completa.</p>
 
             <div class="card-sub">
-                <h3 style="color:#818cf8; font-size:13px; text-transform:uppercase;">1. Roteiro Completo / Estrutura do Post</h3>
-                <div id="texto-roteiro" class="pre-box" style="margin-top:8px;"></div>
-                <button class="btn-copy" onclick="copiarTexto('texto-roteiro', this)">📋 Copiar Roteiro / Estrutura</button>
+                <h3 style="color:#818cf8; font-size:13px; text-transform:uppercase;">1. Direção Estratégica (Como falar)</h3>
+                <div id="texto-direcao" class="pre-box" style="margin-top:8px;"></div>
+                <button class="btn-copy" onclick="copiarTexto('texto-direcao', this)">📋 Copiar Direção Estratégica</button>
             </div>
 
             <div class="card-sub" style="border-color: rgba(245,158,11,0.45); background: rgba(245,158,11,0.06);">
                 <h3 style="color:#fbbf24; font-size:13px;">🎨 Imagem + Texto no Nano Banana</h3>
-                <p style="font-size:12px; color:#cbd5e1;">A IA já preparou o prompt visual com texto embutido exclusivo para este post.</p>
-                <button class="btn-amber" onclick="abrirAba('nano')">Abrir Prompt Nano Banana deste Dia →</button>
+                <p style="font-size:12px; color:#cbd5e1;">Prompt visual com texto embutido exclusivo para este post.</p>
+                <button class="btn-amber" onclick="abrirAba('nano')">Ver Prompt Nano Banana →</button>
             </div>
 
             <div class="card-sub">
@@ -199,9 +199,9 @@
             </div>
 
             <div class="card-sub">
-                <h3 style="color:#fbbf24; font-size:13px; text-transform:uppercase;">3. Sequência de Stories & Enquetes do Dia</h3>
+                <h3 style="color:#fbbf24; font-size:13px; text-transform:uppercase;">3. Sugestão de Stories & Enquetes</h3>
                 <div id="texto-stories" class="pre-box" style="margin-top:8px;"></div>
-                <button class="btn-copy" onclick="copiarTexto('texto-stories', this)">📋 Copiar Sequência de Stories</button>
+                <button class="btn-copy" onclick="copiarTexto('texto-stories', this)">📋 Copiar Sugestão de Stories</button>
             </div>
         </div>
     </div>
@@ -211,32 +211,30 @@
         <div class="card" style="border-color: rgba(245,158,11,0.35);">
             <span class="tag tag-conexao">Gerador de Imagem + Texto na Arte</span>
             <h2>🎨 Prompt para o Nano Banana</h2>
-            <p class="sub">Prompt estruturado pela IA com cena brasileira autêntica e texto embutido na imagem para acompanhar a postagem selecionada.</p>
+            <p class="sub">Prompt estruturado com contexto profissional e texto embutido na imagem.</p>
 
             <div class="card-sub" style="border-color: rgba(245,158,11,0.4);">
-                <div style="font-size:11px; color:#fbbf24; font-weight:800; margin-bottom:6px;">TEXTO QUE SERÁ ESCRITO DENTRO DA IMAGEM:</div>
+                <div style="font-size:11px; color:#fbbf24; font-weight:800; margin-bottom:6px;">TEXTO ESCRITO DENTRO DA IMAGEM:</div>
                 <div id="nano-headline" style="font-size:15px; font-weight:800; color:#fff;">Selecione um dia na Aba 2</div>
             </div>
 
             <div class="card-sub">
-                <div style="font-size:11px; color:#818cf8; font-weight:800; margin-bottom:6px;">PROMPT COMPLETO PARA COLAR NO NANO BANANA:</div>
-                <div id="texto-prompt-nano" class="pre-box" style="font-size:13px;">Toque em um dia do Calendário (Aba 2) para gerar o prompt visual específico daquela postagem.</div>
+                <div style="font-size:11px; color:#818cf8; font-weight:800; margin-bottom:6px;">PROMPT COMPLETO PARA O NANO BANANA:</div>
+                <div id="texto-prompt-nano" class="pre-box" style="font-size:13px;">Toque em um dia do Calendário (Aba 2) para gerar o prompt visual.</div>
                 <button class="btn-amber" onclick="copiarTexto('texto-prompt-nano', this)">📋 Copiar Prompt Nano Banana</button>
             </div>
         </div>
     </div>
 
-    <!-- ABA 5: PRÓXIMO NÍVEL -->
+    <!-- ABA 5: SUPORTE -->
     <div id="aba-suporte" class="tab-pane">
         <div class="card" style="border-color: rgba(16,185,129,0.35);">
             <span class="tag tag-vendas">Acelerador de Resultados</span>
-            <h2>🚀 Destrave suas Gravações & Vendas</h2>
-            <p class="sub">Quer ajuda prática para colocar seu calendário em ação e destravar na frente da câmera?</p>
-
+            <h2>🚀 Destrave suas Vendas</h2>
             <div class="card-sub">
                 <h3>🎥 Método Destrave & Grave</h3>
-                <p style="font-size:12.5px; color:var(--muted); margin-bottom:10px;">Aprenda a ligar a câmera e gravar seus vídeos da semana em 15 minutos com total confiança, sem timidez e sem parecer um robô.</p>
-                <button class="btn-primary" style="margin-top:4px; padding:12px;" onclick="window.open('https://wa.me/5538999999999?text=Ol%C3%A1%2C%20quero%20conhecer%20o%20M%C3%A9todo%20Destrave%20e%20Grave!', '_blank')">Quero Destravar Minhas Gravações →</button>
+                <p style="font-size:12.5px; color:var(--muted); margin-bottom:10px;">Aprenda a gravar vídeos naturais em 15 minutos.</p>
+                <button class="btn-primary" style="margin-top:4px; padding:12px;" onclick="window.open('https://wa.me/5538999999999?text=Ol%C3%A1%2C%20quero%20conhecer%20o%20M%C3%A9todo!', '_blank')">Quero Conhecer →</button>
             </div>
         </div>
     </div>
@@ -248,9 +246,6 @@ let calendario30Dias = [];
 let cacheConteudoDias = {};
 let dadosNegocio = {};
 let diaAtualIdx = 0;
-
-// CHAVE MESTRA EMBUTIDA
-const MASTER_GEMINI_KEY = "AIzaSyCDTbKeQZpVcozE6y3Su4NxUQoUEZa6HZY";
 
 function abrirAba(nomeAba) {
     const abas = ['diagnostico', 'calendario', 'conteudo', 'nano', 'suporte'];
@@ -268,12 +263,6 @@ function limparPontoFinal(texto) {
     return texto.trim().replace(/\.+$/, "");
 }
 
-function minusculaInicial(texto) {
-    if (!texto) return "";
-    const limpo = limparPontoFinal(texto);
-    return limpo.charAt(0).toLowerCase() + limpo.slice(1);
-}
-
 function mostrarLoading(titulo, sub) {
     document.getElementById('loading-title').textContent = titulo;
     document.getElementById('loading-sub').textContent = sub;
@@ -285,8 +274,8 @@ function esconderLoading() {
 }
 
 async function chamarGeminiJSON(promptTexto) {
-    // Atualizado para o modelo padrão universal atualizado gemini-3.8-flash (ou gemini-2.5-flash)
-    const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=" + MASTER_GEMINI_KEY;
+    const apiKey = "AIzaSyCDTbKeQZpVcozE6y3Su4NxUQoUEZa6HZY";
+    const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + apiKey;
     const resp = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -300,21 +289,17 @@ async function chamarGeminiJSON(promptTexto) {
     });
 
     const data = await resp.json();
-    if (data.error) {
-        throw new Error(data.error.message || "Erro na API do Gemini");
-    }
+    if (data.error) throw new Error(data.error.message || "Erro na API do Gemini");
 
     let raw = data.candidates[0].content.parts[0].text;
     raw = raw.replace(/```json/gi, "").replace(/```/g, "").trim();
     const ini = raw.indexOf('{');
     const fim = raw.lastIndexOf('}');
-    if (ini !== -1 && fim !== -1) {
-        raw = raw.substring(ini, fim + 1);
-    }
+    if (ini !== -1 && fim !== -1) raw = raw.substring(ini, fim + 1);
     return JSON.parse(raw);
 }
 
-async function gerarCalendarioComIA() {
+async function gerarCalendarioDirecaoIA() {
     const profissao = limparPontoFinal(document.getElementById('inp-profissao').value) || "Profissional";
     const atuacao = document.getElementById('inp-atuacao').value;
     const cidade = limparPontoFinal(document.getElementById('inp-cidade').value);
@@ -329,70 +314,49 @@ async function gerarCalendarioComIA() {
     calendario30Dias = [];
     cacheConteudoDias = {};
 
-    mostrarLoading(
-        "A IA está pensando na estratégia de autoridade...",
-        "Analisando o mercado e criando os 30 dias de Reels e Postagens Estáticas."
-    );
+    mostrarLoading("A IA está a pensar na estratégia...", "Estruturando os 30 dias de direção de conteúdo inteligente.");
 
     const promptCalendario = `
-Você é um Estrategista Sênior de Branding, Posicionamento Digital e Copywriting no Brasil.
-Analise profundamente as respostas abaixo dadas por um profissional sobre o negócio dele.
-NUNCA repita ou cole as frases cruas de forma robótica. Interprete o sentido real e crie uma estratégia impecável.
+Você é um Diretor de Conteúdo e Estrategista Sênior de Marketing Digital.
+Analise profundamente o negócio abaixo e crie um Calendário de Postagens de 30 Dias (Dia 01 ao Dia 30).
+- Alterne os formatos entre "Reels" e "Estático".
+- Alterne os pilares entre "Branding", "Conexão" e "Vendas".
+- Crie títulos magnéticos.
 
-RESPOSTAS DO PROFISSIONAL:
-1. Profissão/Nicho: ${profissao}
-2. Atuação: ${atuacao} (Região/Cidade: ${cidade})
-3. Produto/Serviço Mais Vendido: ${maisVendido}
-4. Diferencial: ${descricao}
-5. Dor que resolve no cliente: ${dor}
-6. Dificuldade em vender: ${dificuldade}
+NEGÓCIO:
+- Profissão: ${profissao} | Atuação: ${atuacao} (${localTexto})
+- Carro-chefe: ${maisVendido} (${descricao})
+- Dor resolvida: ${dor}
+- Dificuldade em vender: ${dificuldade}
 
-SUA TAREFA:
-Elabore um diagnóstico de posicionamento e um Calendário de Postagens de 30 Dias (Dia 01 ao Dia 30).
-- Alterne os formatos exatamente entre "Reels" e "Estático".
-- Alterne os pilares estrategicamente entre "Branding", "Conexão" e "Vendas".
-- Crie títulos/temas altamente magnéticos.
-
-Retorne APENAS um objeto JSON válido com esta exata estrutura:
+Retorne APENAS um JSON puro com esta estrutura exata:
 {
-  "diagnosticoEstrategico": "Resumo inteligente de 3 a 4 linhas definindo o posicionamento de autoridade e o tom de voz ideal.",
-  "sugestoesBio": [
-    "Opção 1 de Bio para Instagram",
-    "Opção 2 de Bio para Instagram"
-  ],
+  "diagnosticoEstrategico": "Resumo inteligente de 3 linhas definindo a tese de posicionamento.",
   "dias": [
     {
       "dia": "01",
       "formato": "Reels",
       "pilar": "Branding",
-      "titulo": "Título específico e atraente da postagem",
-      "objetivo": "Explicação curta de 1 linha sobre o raciocínio estratégico",
-      "headlineArte": "FRASE CURTA E FORTE EM MAIÚSCULAS (máx 7 palavras) para a imagem"
+      "titulo": "Título da postagem",
+      "objetivo": "Objetivo de 1 linha",
+      "headlineArte": "FRASE CURTA PARA A IMAGEM"
     }
   ]
 }
-Gere exatamente os 30 itens dentro do array "dias" (do "01" ao "30").`;
+Gere exatamente os 30 itens (do "01" ao "30").`;
 
     try {
         const res = await chamarGeminiJSON(promptCalendario);
         calendario30Dias = res.dias || [];
 
-        let htmlBios = "";
-        if (res.sugestoesBio && res.sugestoesBio.length) {
-            htmlBios = "<div style='margin-top:10px; padding-top:10px; border-top:1px solid #1f293d;'><b>✨ Sugestões de Bio para o Perfil:</b><br>" +
-                res.sugestoesBio.map(b => "<div style='background:#070913; padding:8px 10px; border-radius:8px; margin-top:6px; white-space:pre-wrap; font-size:12px;'>" + b + "</div>").join("") +
-                "</div>";
-        }
-
-        document.getElementById('resumo-estrategia').innerHTML =
-            "<b>🎯 Estratégia Ativa (" + profissao + " • " + atuacao + "):</b><br>" + (res.diagnosticoEstrategico || "") + htmlBios;
+        document.getElementById('resumo-estrategia').innerHTML = "<b>🎯 Estratégia Ativa (" + profissao + "):</b><br>" + (res.diagnosticoEstrategico || "");
 
         renderizarListaCalendario('todos');
         esconderLoading();
         abrirAba('calendario');
     } catch (e) {
         esconderLoading();
-        alert("Erro ao gerar calendário com IA: " + e.message);
+        alert("Erro ao gerar calendário: " + e.message);
     }
 }
 
@@ -402,34 +366,23 @@ function renderizarListaCalendario(filtro) {
 
     for (let i = 0; i < calendario30Dias.length; i++) {
         const d = calendario30Dias[i];
-        if (filtro !== 'todos' && d.formato !== filtro && d.pilar !== filtro) {
-            continue;
-        }
+        if (filtro !== 'todos' && d.formato !== filtro && d.pilar !== filtro) continue;
 
         const isReels = (d.formato || "").toLowerCase().includes("reels");
         const tagFormatoClass = isReels ? "tag-reels" : "tag-estatico";
-        const tagFormatoTexto = isReels ? "🎬 Reels (Vídeo)" : "🖼️ Post Estático";
-
-        let tagPilarClass = "tag-branding";
-        if (d.pilar === "Conexão") tagPilarClass = "tag-conexao";
-        if (d.pilar === "Vendas") tagPilarClass = "tag-vendas";
-
-        const jaGerado = cacheConteudoDias[i] ? " <span style='color:#34d399; font-size:11px; font-weight:700;'>✓ Pronto</span>" : "";
+        const tagFormatoTexto = isReels ? "🎬 Reels" : "🖼️ Post Estático";
+        const tagPilarClass = d.pilar === "Conexão" ? "tag-conexao" : (d.pilar === "Vendas" ? "tag-vendas" : "tag-branding");
+        const gerado = cacheConteudoDias[i] ? " <span style='color:#34d399; font-size:11px;'>✓ Pronto</span>" : "";
 
         html +=
             "<div class='day-card' onclick='abrirConteudoDoDia(" + i + ")'>" +
-                "<div>" +
-                    "<span class='tag " + tagFormatoClass + "'>Dia " + d.dia + " • " + tagFormatoTexto + "</span>" +
-                    "<span class='tag " + tagPilarClass + "'>" + d.pilar + "</span>" +
-                    jaGerado +
-                "</div>" +
+                "<div><span class='tag " + tagFormatoClass + "'>Dia " + d.dia + " • " + tagFormatoTexto + "</span><span class='tag " + tagPilarClass + "'>" + d.pilar + "</span>" + gerado + "</div>" +
                 "<h3>" + d.titulo + "</h3>" +
                 "<p style='font-size:12px; color:var(--muted); margin-top:4px;'>" + (d.objetivo || "") + "</p>" +
-                "<div style='font-size:11.5px; color:#818cf8; font-weight:700; margin-top:8px;'>Gerar Conteúdo Completo com IA →</div>" +
+                "<div style='font-size:11.5px; color:#818cf8; font-weight:700; margin-top:8px;'>Gerar Direção Estratégica com IA →</div>" +
             "</div>";
     }
-
-    box.innerHTML = html || "<p style='font-size:13px; color:var(--muted);'>Nenhum dia encontrado para este filtro.</p>";
+    box.innerHTML = html || "<p style='font-size:13px; color:var(--muted);'>Nenhum dia encontrado.</p>";
 }
 
 function filtrarCalendario(filtro, btn) {
@@ -450,44 +403,30 @@ async function abrirConteudoDoDia(index) {
         return;
     }
 
-    mostrarLoading(
-        "Redigindo Dia " + itemDia.dia + ": " + itemDia.titulo,
-        "A IA está estruturando o roteiro de vídeo ou carrossel, a legenda profissional, os stories e o prompt visual."
-    );
+    mostrarLoading("A IA está estruturando o Dia " + itemDia.dia, "Redigindo a direção de raciocínio, legenda e stories sob medida.");
 
     const n = dadosNegocio;
     const promptDia = `
-Você é um Copywriter Sênior, Roteirista de Reels e Diretor de Arte especialista no mercado brasileiro.
-Crie o conteúdo completo, profundo, persuasivo e 100% natural para o DIA ${itemDia.dia} do calendário deste profissional:
+Como Diretor de Conteúdo Sênior, crie a DIREÇÃO ESTRATÉGICA para o DIA ${itemDia.dia}:
+- Nicho: ${n.profissao} (${n.atuacao} em ${n.localTexto})
+- Produto: ${n.maisVendido} (${n.descricao})
+- Dor resolvida: ${n.dor} | Dificuldade: ${n.dificuldade}
+- Formato: ${itemDia.formato} | Pilar: ${itemDia.pilar} | Tema: ${itemDia.titulo} | Headline: ${itemDia.headlineArte}
 
-CONTEXTO DO NEGÓCIO:
-- Profissão/Nicho: ${n.profissao}
-- Atuação: ${n.atuacao} (${n.cidade})
-- Produto/Serviço: ${n.maisVendido} (${n.descricao})
-- Dor resolvida: ${n.dor}
-- Dificuldade de vendas: ${n.dificuldade}
+INSTRUÇÃO CRÍTICA (NÃO dê um texto engessado para copiar e colar):
+No campo "direcaoEstrategica", ensine o profissional COMO ele deve pensar e falar. Use o formato:
+- O Assunto será: [Explique o conceito]
+- No gancho inicial você fala: [Instrução de como abrir o vídeo/post]
+- Você desenvolve falando sobre: [Raciocínio lógico e argumentos que ele deve usar]
+- Final / CTA: [Qual deve ser a chamada para ação]
 
-PAUTA DO DIA ${itemDia.dia}:
-- Formato: ${itemDia.formato}
-- Pilar Estratégico: ${itemDia.pilar}
-- Tema/Título: ${itemDia.titulo}
-- Objetivo: ${itemDia.objetivo}
-- Frase de Capa (Headline): ${itemDia.headlineArte}
-
-REGRAS OBRIGATÓRIAS:
-1. Se o formato for "Reels": Escreva um roteiro falado natural (35 a 50 segundos), dividido em [GANCHO 0-3s], [DESENVOLVIMENTO CONVERSACIONAL] e [CHAMADA PARA AÇÃO].
-2. Se o formato for "Estático": Escreva o texto completo de um Carrossel de 4 a 5 lâminas (ou post estático de alto impacto).
-3. Escreva uma LEGENDA pronta para copiar e colar no Instagram.
-4. Escreva uma SEQUÊNCIA DE 4 STORIES para esse dia (incluindo sugestões de enquetes e caixinha de perguntas).
-5. Escreva um PROMPT OTIMIZADO PARA O NANO BANANA (gerador de imagens): descreva uma cena publicitária brasileira profissional e instrua a renderização do texto "${itemDia.headlineArte}" escrito dentro da imagem.
-
-Retorne APENAS um objeto JSON válido com esta exata estrutura:
+Retorne APENAS um JSON puro com esta estrutura:
 {
-  "roteiroOuEstrutura": "Texto completo do Roteiro de Reels ou das Lâminas do Post",
-  "legendaPronta": "Texto completo da legenda pronta para o feed",
-  "sequenciaStories": "Texto completo dos 4 Stories do dia",
+  "direcaoEstrategica": "Texto estruturado orientando o raciocínio do profissional",
+  "legendaPronta": "Legenda persuasiva pronta para o feed com hashtags",
+  "sequenciaStories": "Sugestão de 4 Stories com enquetes do dia",
   "headlineImagem": "${itemDia.headlineArte}",
-  "promptNanoBanana": "Prompt completo e detalhado para colar no Nano Banana"
+  "promptNanoBanana": "Prompt para o Nano Banana"
 }`;
 
     try {
@@ -499,7 +438,7 @@ Retorne APENAS um objeto JSON válido com esta exata estrutura:
         abrirAba('conteudo');
     } catch (e) {
         esconderLoading();
-        alert("Erro ao redigir conteúdo do dia: " + e.message);
+        alert("Erro: " + e.message);
     }
 }
 
@@ -515,7 +454,7 @@ function exibirConteudoNaTela(itemDia, conteudo) {
     document.getElementById('detalhe-titulo').textContent = itemDia.titulo;
     document.getElementById('detalhe-objetivo').textContent = itemDia.objetivo || "";
 
-    document.getElementById('texto-roteiro').textContent = conteudo.roteiroOuEstrutura || "";
+    document.getElementById('texto-direcao').textContent = conteudo.direcaoEstrategica || "";
     document.getElementById('texto-legenda').textContent = conteudo.legendaPronta || "";
     document.getElementById('texto-stories').textContent = conteudo.sequenciaStories || "";
 
@@ -528,10 +467,8 @@ function copiarTexto(idElemento, btn) {
     if (!el) return;
     navigator.clipboard.writeText(el.textContent);
     const original = btn.textContent;
-    btn.textContent = "✅ Copiado com Sucesso!";
-    setTimeout(function() {
-        btn.textContent = original;
-    }, 2000);
+    btn.textContent = "✅ Copiado!";
+    setTimeout(() => btn.textContent = original, 2000);
 }
 </script>
 </body>
